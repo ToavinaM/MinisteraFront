@@ -1,0 +1,52 @@
+.navContainer {
+    /* overflow-x: hidden;
+    overflow-y: scroll; */
+    height: 800px;
+    /* overflow-anchor: initial; */
+}
+
+.buttonNav {
+    width: 95%;
+    margin: auto;
+    /* margin-left: ; */
+    height: 59px;
+    border-radius: 8px;
+    background-color: #7367F0;
+    box-shadow: 1px 1px 5px 1px #c7b7b7;
+
+}
+
+.ico {
+    margin-left: -4%;
+    margin-right: 10%;
+}
+
+
+.drop-box {
+    padding: 20px;
+
+}
+/* .iconImg{
+    width: 40px;
+    height: 40px;
+    margin-bottom: 5px;
+    margin-right: 10px;
+} */
+.logoNav {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 5px;
+    margin-right: 10px;
+}
+
+p {
+    font-weight: 100;
+}
+
+li,
+p {
+    color: grey;
+    list-style-type: circle;
+}
+
+/* .overF {} */
