@@ -1,17 +1,19 @@
 import './style.css';
 import React, { useEffect, useState } from 'react';
-// import { useSelector } from 'react-redux';
-// import {useDrop} from 'react-dnd'; 
 import { Col, Row } from 'react-bootstrap';
 import CardTask from './cardTask/CardTask';
 import ModalAddTache from './ModalAddTache';
-import Header from '../header/Header';
 import TacheService from './Service';
-import { HashLoader } from 'react-spinners'
+import { FadeLoader } from 'react-spinners'
 import ServiceTask from './Service';
 //route params
 import { useParams } from 'react-router-dom'
-// import AddTache from './ModalAddTache';
+const styleOver = {
+    // transform: 'scale(0.99)',
+    backgroundColor: '#a5c7f9',
+    // boxShadow: '5px 8px 20px 3px #5f5d5d',
+    transitionDuration: '1.4s'
+}
 export default function Taches(props) {
     //paramas
     const { idProjet } = useParams();
@@ -25,26 +27,77 @@ export default function Taches(props) {
     const [nombreTodo, setnombreTodo] = useState(0);
     const [nombreProgress, setnombreProrgess] = useState(0);
     const [nombreDoing, setnombreDoing] = useState(0);
-
     //function==================================================
+    //passage de fonction via props
+
     const handleSave = (tache) => {
         tache.ProjetId = idProjet;
         TacheService.save(tache).then((rep) => {
-            tache.StatutId = 1;
-            settodo([...todo, tache]);
+            settodo([...todo, rep.data]);
         }).catch(err => {
             console.log('tsy nisave Taches; cause:', err)
         })
     }
 
-    const draginOver = (e) => {
+    const handleUpdate = (tache) => {
+        tache.ProjetId = idProjet;
 
+        TacheService.update(tache).then((rep) => {
+            alert('update successful');
+        }).catch(err => {
+            console.log('somme error in server side:', err)
+        })
+
+    }
+
+
+    const handleDelete = (tache) => {
+        console.log('delete', tache.StatutId);
+        TacheService.delete({ id: tache.id })
+            .then(rep => {
+                switch (tache.StatutId) {
+                    case 1:
+                        settodo(todo.filter(t => t.id !== tache.id));
+                        break;
+                    case 2:
+                        setinProgress(inProgress.filter(t => t.id !== tache.id));
+                        break;
+                    case 3:
+                        setdoing(doing.filter(t => t.id !== tache.id));
+                        break;
+                    default:
+                        break;
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+
+    const [overTodo, setoverTodo] = useState(false);
+    const [overProgress, setoverProgress] = useState(false);
+    const [overDoing, setoverDoing] = useState(false);
+
+    const draginOver = (e) => {
         console.log('over')
         e.stopPropagation();
         e.preventDefault();
 
+        console.log(e.target.className);
+        switch (e.target.className) {
+            case 'Todo col':
+                setoverTodo(true);
+                break;
+            case 'InProgress col':
+                setoverProgress(true);
+                break;
+            case 'Doing col':
+                setoverDoing(true);
+                break;
+            default:
+                break;
+        }
     }
-
     const dragDropped = (e, cyble) => {
         let data = e.dataTransfer.getData('tache');
         const tache = JSON.parse(data);
@@ -117,20 +170,26 @@ export default function Taches(props) {
                 ServiceTask.update(data);
             }
         }
+        setoverTodo(false);
+        setoverProgress(false);
+        setoverDoing(false);
     }
+
+    // console.log(todo);
     useEffect(() => {
         TacheService.getTacheByIdProjet(idProjet)
             .then((rep) => {
                 // console.log('====================================');
-                // if (typeof rep.data.todo.length !== 'undefined') setnombreTodo(rep.data.todo.length);
-                // if (typeof rep.data.inProgress.length !== 'undefined') setnombreProrgess(rep.data.inProgress.length);
-                // if (typeof rep.data.doing.length !== 'undefined') setnombreDoing(rep.data.doing.length);
-                // setTimeout(() => {
-                settodo(rep.data.todo);
-                setdoing(rep.data.doing);
-                setinProgress(rep.data.inProgress);
-                setnahazodata(true)
-                // },2000);
+                if (typeof rep.data.todo.length !== 'undefined') setnombreTodo(rep.data.todo.length);
+                if (typeof rep.data.inProgress.length !== 'undefined') setnombreProrgess(rep.data.inProgress.length);
+                if (typeof rep.data.doing.length !== 'undefined') setnombreDoing(rep.data.doing.length);
+                setTimeout(() => {
+                    settodo(rep.data.todo);
+                    setdoing(rep.data.doing);
+                    setinProgress(rep.data.inProgress);
+                    setnahazodata(true)
+                }, 500);
+
             })
             .catch(err => {
                 console.log(err);
@@ -139,73 +198,72 @@ export default function Taches(props) {
 
     return (
         <>
-            <Row>
-                <Header style={{ position: 'sticki' }}></Header>
-            </Row>
-            <Row className='m-2 mt-5 '>
+            < Row className='m-2 mt-5 ' >
 
-                <Col className='Todo' droppable onDragOver={e => draginOver(e)} onDrop={e => dragDropped(e, 'todo')}>
-                    <Row className='bg-info'>
+                <Col style={overTodo ? styleOver : {}} className='Todo' droppable='true' onDragOver={e => draginOver(e)} onDrop={e => dragDropped(e, 'todo')}>
+                    <Row>
                         <Col className='m-auto'>
-                            <h3>Todoss({nombreTodo})</h3>
+                            <h3>Todos({nombreTodo})</h3>
                         </Col>
                         <Col md={3}>
                             <ModalAddTache handleSave={handleSave} />
                         </Col>
                     </Row>
-                    {/* <div >  */}
                     {
                         todo ? (
                             todo.map(tache => {
-                                return <CardTask tache={tache} />
+                                return <CardTask key={tache.id} tache={tache} handleUpdate={handleUpdate} handleDelete={handleDelete} />
                             })
                         ) : (
-                            <center>
-                                <HashLoader className='p-5' color="#36d7b7" />
+                            <center className='mt-5'>
+                                <FadeLoader className='p-5' color="#36d7b7" />
                             </center>
                         )
                     }
-                    {/* </div> */}
                 </Col>
 
-                <Col className='InProgress' droppable onDragOver={e => draginOver(e)} onDrop={e => dragDropped(e, 'progress')} >
+
+                <Col style={overProgress ? styleOver : {}} className='InProgress' droppable onDragOver={e => draginOver(e)} onDrop={e => dragDropped(e, 'progress')} >
                     {/* <Col className='InProgress' ref={drop}> */}
                     <center>
-                        <h3>Ins progress({nombreProgress})</h3>
+                        <h3>In progress({nombreProgress})</h3>
                     </center>
 
                     <div>
                         {
                             inProgress ? (
                                 inProgress.map(tache => {
-                                    return <CardTask tache={tache} />
+                                    return <CardTask key={tache.id} tache={tache} handleUpdate={handleUpdate} handleDelete={handleDelete} />
                                 })
                             ) : (
-                                <center>
-                                    <HashLoader className='p-5' color="#36d7b7" />
+                                <center className='mt-5'>
+                                    <FadeLoader className='p-5' color="#36d7b7" />
                                 </center>
                             )
                         }
                     </div>
                 </Col>
 
-                <Col className='Doing' droppable onDragOver={e => draginOver(e)} onDrop={e => dragDropped(e, 'doing')}>
+
+                <Col style={overDoing ? styleOver : {}} className='Doing' droppable onDragOver={e => draginOver(e)} onDrop={e => dragDropped(e, 'doing')}>
                     <center>
                         <h3>Doing({nombreDoing})</h3>
                     </center>
                     {
                         doing ? (
                             doing.map(tache => {
-                                return <CardTask tache={tache} />
+                                return <CardTask key={tache.id} tache={tache} handleUpdate={handleUpdate} handleDelete={handleDelete} />
                             })
                         ) : (
-                            <center>
-                                <HashLoader className='p-5' color="#36d7b7" />
+                            <center className='mt-5'>
+                                <FadeLoader className='p-5' color="#36d7b7" />
                             </center>
                         )
                     }
                 </Col>
-            </Row>
+
+
+            </Row >
         </>
     );
 }

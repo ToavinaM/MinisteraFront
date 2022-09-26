@@ -13,17 +13,17 @@ const options = [
   {
     id: 1,
     name: "Bas",
-    color: "blue"
+    // color: "blue"
   },
   {
     id: 2,
     name: "Moyen",
-    color: "#0ff10f"
+    // color: "#0ff10f"
   },
   {
     id: 3,
     name: "Urgent",
-    color: "red"
+    // color: "red"
   },
 ];
 
@@ -43,7 +43,7 @@ export default function ModalAddTache({ handleSave }) {
   const [fin, setFin] = useState(new Date());
   const [estAlerteur, setalerteur] = useState(false);
   //data generer
-
+  //function
   const handleSaveLocal = () => {
     const modelTask = {
       debut,
@@ -57,10 +57,13 @@ export default function ModalAddTache({ handleSave }) {
     setShow(false);
   }
 
-  useEffect(() => {
-    setshowDateAlerter(false);
-  }, [show])
-
+  // const validationPriority = (rep) => {
+  //   setpriority(rep.target.value);
+  // }
+  console.log(PrioriteId);
+  // useEffect(() => {
+  //   // setshowDateAlerter(false);
+  // }, [show])
   return (
     <>
 
@@ -89,10 +92,10 @@ export default function ModalAddTache({ handleSave }) {
               <Row>
                 <Form.Label>Priorité</Form.Label>
                 <Col>
-                  <Form.Select values={{ options }} style={{ padding: "10px" }}>
+                  <Form.Select values={{ options }} onChange={(rep) => { setpriority(rep.target.value); }} style={{ padding: "10px" }}>
                     {options.map(option => {
                       return (
-                        <option style={{ color: option.color }} key={option.id} value={option.name}>
+                        <option style={{ color: option.color }} key={option.id} value={option.id}>
                           {option.name}
                         </option>
                       )

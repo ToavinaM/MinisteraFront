@@ -1,22 +1,22 @@
-.card{
+.card {
     width: 80%;
     height: auto;
     background-color: white;
-    box-shadow: 4px 6px 17px 0px rgb(112 112 112);
+    box-shadow: 4px 6px 17px 0px rgb(146, 144, 144);
     /* border-radius: 5px; */
     margin: auto;
     margin-top: 23px;
     padding: 15px;
 }
 
-.card:hover{
+.card:hover {
     transform: scale(0.99, 0.99);
     box-shadow: 5px 8px 20px 3px #5f5d5d;
     transition-duration: 0.3s;
     cursor: pointer;
-} 
+}
 
-.logos{
+.logos {
     width: 20px;
     height: 20px;
     margin: 5px;

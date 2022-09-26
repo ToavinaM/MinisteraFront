@@ -17,7 +17,11 @@ export const TacheService = {
     },
 
     update: (data) => {
-        return axios.put(backUrl + `/api/tache/updateStatut`, data)
+        return axios.put(backUrl + `/api/tache/update`, data)
+    },
+    delete: (data) => {
+        console.log('==', data);
+        return axios.post(backUrl + `/api/tache/delete`, data)
     }
 
 }

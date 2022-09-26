@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Row, Col, ProgressBar, Badge, Button, Spinner } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 
 import './Projet.css';
 import Nav from '../Nav/Nav';
@@ -10,9 +10,7 @@ import CardProjet from './CardProjet';
 //service
 import ServiceProjet from './Projet.service';
 //redux
-import { HashLoader } from 'react-spinners';
-
-
+import { RiseLoader } from 'react-spinners';
 
 export default function Projet() {
     const [projet, setProjet] = useState(null);
@@ -22,7 +20,7 @@ export default function Projet() {
             .then(rep => {
                 setTimeout(() => {
                     setProjet(rep.data);
-                }, 500);
+                }, 600);
             })
             .catch(err => {
                 console.log(err);
@@ -70,7 +68,7 @@ export default function Projet() {
                                         : (
                                             <div className='boxSpinner'>
                                                 <center>
-                                                    <HashLoader className='p-5' color="#36d7b7" />
+                                                    <RiseLoader className='p-5' color="#36d7b7" />
                                                 </center>
                                                 <h3>veuillez patienter 😃 </h3>
                                             </div>
