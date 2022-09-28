@@ -12,16 +12,17 @@ import Signin from './components/Auth/Signin';
 import Signup from './components/Auth/Signup';
 import Dashboard from './components/Dashboard/Dashboard';
 import Projet from './components/Projet/Projet';
-import AddProjet from './components/Projet/AddProjet';
-import Test from './components/Test';
 import Taches from './components/Tache/Taches';
 import Parametre from './components/Parametre/Parametre';
+import MyMap from './components/MyMap/MyMap';
+
 function App() {
   return (
     <div className="App">
       <Router>
         <Routes>
           <Route path="/" element={<Signin />} />
+          <Route path="/map" element={<MyMap />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/projets" element={<Projet />} />
           <Route path="/tachesById/:idProjet" element={<Taches />} />
