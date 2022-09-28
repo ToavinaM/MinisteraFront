@@ -6,12 +6,11 @@ import { Button, Col, ProgressBar, Row } from 'react-bootstrap';
 import { flipInX } from 'react-animations'
 import Radium, { StyleRoot } from 'radium';
 
-import Badges from '../../Badges';
 //modalupdate
 import UpdateCard from './UpdateCard';
 import SupprimerCard from './SupprimerCard';
 import CommentCard from './CommentCard';
-import Signaler from './Signaler';
+// import Signaler from './Signaler';
 import Alarm from './Alarm';
 var moment = require('moment');
 const formatDate = "DD/MM/YYYY HH:mm";
@@ -40,17 +39,15 @@ export default function CardTask({ tache, handleUpdate, handleDelete }) {
     return (
         <StyleRoot>
             <div draggable onDragStart={(e) => dragStarted(e, tache)} style={styles.flipInX}  >
-
                 <div style={{ borderLeft: `${getColor(tache.PrioriteId)} solid 8px` }} className='card'>
-
                     <Row >
                         <Col >
                             {/* <p>Priorités:{tache.PrioriteId}</p> */}
                         </Col>
                         <Col sm={2} style={{ display: 'contents' }}>
-                            <UpdateCard handleUpdate={handleUpdate} />
+                            <UpdateCard handleUpdate={handleUpdate} tache={tache} />
                             <SupprimerCard handleDelete={handleDelete} tache={tache} />
-                            <CommentCard></CommentCard>
+                            <CommentCard tache={tache} />
                             {tache.estAlerteur ? (<Alarm></Alarm>) : (<p></p>)}
                         </Col>
                     </Row>

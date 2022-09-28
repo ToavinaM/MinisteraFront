@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from 'react';
-// import { BsPlusCircle } from "react-icons/bs";
 import { Button, Col, Modal, Row, Form, Dropdown, FloatingLabel } from 'react-bootstrap';
 //date
 import DatePicker from 'react-date-picker'
 import Swal from 'sweetalert2';
-//reducer
-// import { addTache } from './TacheSlice';
-// import { useSelector, useDispatch } from 'react-redux';
-// import moment from 'moment';
 
 const options = [
   {
@@ -57,13 +52,7 @@ export default function ModalAddTache({ handleSave }) {
     setShow(false);
   }
 
-  // const validationPriority = (rep) => {
-  //   setpriority(rep.target.value);
-  // }
-  console.log(PrioriteId);
-  // useEffect(() => {
-  //   // setshowDateAlerter(false);
-  // }, [show])
+
   return (
     <>
 

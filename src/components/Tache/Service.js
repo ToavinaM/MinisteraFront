@@ -22,7 +22,16 @@ export const TacheService = {
     delete: (data) => {
         console.log('==', data);
         return axios.post(backUrl + `/api/tache/delete`, data)
-    }
+    },
+    ///================Commentaire
+    saveCommentaire: (data) => {
+        console.log('HAHAHA', data)
+        return axios.post(backUrl + `/api/commentaire/save`, data)
+    },
 
+    getCommentaireBytache: (TacheId) => {
+        console.log('hhhhhhhhhhhhhhhhhhhhhhhhhuhuhu', { TacheId });
+        return axios.get(backUrl + `/api/commentaireByTache/${TacheId}`)
+    }
 }
 export default TacheService;

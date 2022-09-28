@@ -1,19 +1,14 @@
 import React from 'react'
-
-import {
-    Row,
-    Col,
-    Button
-}
-
-    from 'react-bootstrap';
+import { Row, Col, Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import './nav.css'
-
 export default function Nav() {
+
+    const navigation = useNavigate();
     return (
         <div className='navContainer' >
-            <Row>
-                <Col> <h1><img className="iconImg" src='./logo.png' ></img> Ministère</h1> </Col>
+            <Row className='mt-4 mb-3'>
+                <Col> <h4><img className="ministeraSary" src='./ministere.png' ></img> Ministera ny Rano</h4> </Col>
             </Row>
             <Row>
                 <center>
@@ -27,10 +22,10 @@ export default function Nav() {
             <Row>
                 <Col className='overF' sm={12}>
                     <div className="drop-box" >
-                        <p href='/Dashboard' ><img className='logoNav' src='./projet.png' />Listes des Projets</p>
-                        <p><img className='logoNav' src='./map.png' />Cartographier les projets</p>
-                        <p><img className='logoNav' src='./roles.png' />Gestions des utilisateurs</p>
-                        <p><img className='logoNav' src='./params.png' />Parametre de l'application</p>
+                        <p className='lienNav' onClick={() => navigation('/projets')}  ><img onClick={() => navigation('/projets')} className='logoNav' src='./projet.png' />Listes des Projets</p>
+                        <p className='lienNav' onClick={() => navigation('/Dashboard')}><img onClick={() => navigation('/Dashboard')} className='logoNav' src='./Map.png' />Cartographier les projets</p>
+                        <p className='lienNav' onClick={() => navigation('/Dashboard')}><img onClick={() => navigation('/Dashboard')} className='logoNav' src='./roles.png' />Gestions des utilisateurs</p>
+                        <p className='lienNav' onClick={() => navigation('/parametre')}><img onClick={() => navigation('/parametre')} className='logoNav' src='./params.png' />Parametre de l'application</p>
                         {/* <ul>
                             <li>Liste</li>
                             <li>Bulletin</li>
@@ -42,6 +37,6 @@ export default function Nav() {
                     </div>
                 </Col>
             </Row>
-        </div>
+        </div >
     )
 }

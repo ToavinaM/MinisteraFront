@@ -1,39 +1,57 @@
-import React, { useState } from 'react'
-import { Col, Modal, Row, Button, Form, OverlayTrigger, Tooltip } from 'react-bootstrap'
-// import { Button } from 'react-bootstrap/lib/inputgroup'
-// import { Form } from 'react-bootstrap/lib/navbar'
-import DatePicker from 'react-date-picker'
+import moment from 'moment';
+import React, { useEffect, useState } from 'react'
 
-const options = [
-  {
-    id: 1,
-    name: "Bas",
-    color: "blue"
-  },
-  {
-    id: 2,
-    name: "Moyen",
-    color: "#0ff10f"
-  },
-  {
-    id: 3,
-    name: "Urgent",
-    color: "red"
-  },
-];
+import { Modal, Row, Button, Form, OverlayTrigger, Tooltip, Col } from 'react-bootstrap'
+import TacheService from '../Service';
+import './commentaire.css'
 
-export default function CommentCard() {
+// animation
+import { fadeInDown } from 'react-animations'
+import Radium, { StyleRoot } from 'radium';
+const styles = {
+  fadeInDown: {
+    animation: 'x 1s',
+    animationName: Radium.keyframes(fadeInDown, '')
+  }
+}
+
+export default function CommentCard({ tache }) {
   //modal
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   //formulaire
-  const [priority, setpriority] = useState("Bas");
-  const [description, setdescription] = useState("");
-  const [output, setoutput] = useState("");
-  const [debut, setDebut] = useState(new Date());
-  const [fin, setFin] = useState(new Date());
+  const [intitule, setIntitule] = useState('');
+  const [commentaire, setcommentaire] = useState([]);
+  // function
+  const handleSave = () => {
+    TacheService.saveCommentaire({ intitule, TacheId: tache.id })
+      .then(rep => {
+        console.log('save', rep.data);
+        setcommentaire([...commentaire, rep.data]);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
+  useEffect(() => {
+    console.log('ilay nalaina', tache.id)
+    if (show) { /////important mncontrole an le izy tsy haka ny commentaire rehetra
+      TacheService.getCommentaireBytache(tache.id)
+        .then(rep => {
+          // alert('nak');
+          console.log(rep.data);
+          setcommentaire(rep.data);
+        })
+        .catch(err => {
+          alert('somme error in server side');
+        })
+    }
+
+  }, [show]);
+
   return (
     <div>
       <OverlayTrigger
@@ -48,9 +66,6 @@ export default function CommentCard() {
         <img onClick={handleShow} className='logos' src='../comment.png' />
       </OverlayTrigger>
 
-
-
-
       <Modal
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
@@ -62,40 +77,45 @@ export default function CommentCard() {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Row>
+            {/* //////////// liste des commentaires*/}
+            <Row>
+              <Col className="boxCommentaire">
+                <StyleRoot>
+                  {
+                    commentaire.length > 0 ? (
+                      commentaire.map(coms => {
+                        // console.log(coms);
+                        return (
+                          <div className='commentaire' style={styles.fadeInDown} >
+                            <Row key={coms.id + 'r'}>
+                              <Col key={coms.id + 'c'}>
+                                <div className="boxProfil">
 
-              </Row>
-              <br></br>
-              {/* <Row>
-                        <Form.Label>Priorité</Form.Label>
-                        <Col>
-                            <Form.Select  values={{options}} onChange={(rep)=>{setpriority(rep.target.value)}} style={{padding:"10px"}}>
-                               {options.map(option=>{
-                                return (
-                                  <option style={{color:option.color}} key={option.id} value={option.name}>
-                                    {option.name}
-                                  </option>
-                                )
-                               })}
-                            </Form.Select>
-                        </Col>
-                    </Row> */}
-            </Form.Group>
+                                  <img className="imgProfil" src='../user.png'></img>
+
+                                </div>
+                                <p className='p-4 pComs' key={coms.id} > {coms.intitule}</p>
+                              </Col>
+                              <Col sm={4} key={coms.id + 'c2'}>
+                                <p className='p-4 pComs' key={coms.createdAt} > {moment(coms.createdAt).format('DD-MM-YY HH:MM')}</p>
+                              </Col>
+                            </Row>
+                            {/* <hr></hr> */}
+                          </div>
+                        )
+                      })
+                    ) : (<p className=' PComs'>Aucun commentaire</p>)
+                  }
+                </StyleRoot>
+              </Col>
+            </Row>
+            {/* ////////////////// */}
             <Form.Group
               className="mb-3"
               controlId="exampleForm.ControlTextarea1"
             >
-              <Form.Label>Dsi</Form.Label>
-              <Form.Control onChange={(rep) => { setdescription(rep.target.value) }} as="textarea" rows={3} />
-            </Form.Group>
-
-            <Form.Group
-              className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              <Form.Label>Commentaire</Form.Label>
-              <Form.Control onChange={(rep) => { setoutput(rep.target.value) }} as="textarea" rows={3} />
+              <Form.Label>Ecrire un commentaire</Form.Label>
+              <Form.Control onChange={(rep) => { setIntitule(rep.target.value) }} as="textarea" rows={3} />
             </Form.Group>
 
           </Form>
@@ -104,11 +124,12 @@ export default function CommentCard() {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary">
+          <Button variant="primary" onClick={handleSave}>
             commenter
           </Button>
         </Modal.Footer>
       </Modal>
-    </div>
+    </div >
+
   )
 }

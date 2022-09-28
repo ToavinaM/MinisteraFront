@@ -28,42 +28,39 @@ const options = [
 ];
 
 
-export default function UpdateCard({ handleUpdate }) {
-
+export default function UpdateCard({ handleUpdate, tache }) {
   //modal
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   //formulaire
-  const [PrioriteId, setpriority] = useState(1);
-  const [showDateAlerter, setshowDateAlerter] = useState(false);
-  const [description, setdescription] = useState("");
-  const [output, setoutput] = useState("");
-  const [debut, setDebut] = useState(new Date());
-  const [fin, setFin] = useState(new Date());
-  const [estAlerteur, setalerteur] = useState(false);
+  const [PrioriteId, setpriority] = useState(tache.PrioriteId);
+  // const [showDateAlerter, setshowDateAlerter] = useState(false);
+  const [description, setdescription] = useState(tache.description);
+  const [output, setoutput] = useState(tache.output);
+  const [debut, setDebut] = useState(new Date(tache.debut));
+  const [fin, setFin] = useState(new Date(tache.fin));
+  const [estAlerteur, setalerteur] = useState(tache.estAlerteur);
+
   //data generer
   //function
+  // console.log('begin', tache)
   const handleUpdateLocal = () => {
     const modelTask = {
+      id: tache.id,
       debut,
       fin,
       PrioriteId,
       description,
       output,
       estAlerteur,
+      StatutId: tache.StatutId
     }
+    // console.log('cgcgcg', modelTask);
     handleUpdate(modelTask);
     setShow(false);
   }
 
-  // const validationPriority = (rep) => {
-  //   setpriority(rep.target.value);
-  // }
-  console.log(PrioriteId);
-  // useEffect(() => {
-  //   // setshowDateAlerter(false);
-  // }, [show])
   return (
     <>
       <OverlayTrigger
@@ -100,7 +97,7 @@ export default function UpdateCard({ handleUpdate }) {
               <Row>
                 <Form.Label>Priorité</Form.Label>
                 <Col>
-                  <Form.Select values={{ options }} onChange={(rep) => { setpriority(rep.target.value); }} style={{ padding: "10px" }}>
+                  <Form.Select values={{ options }} defaultValue={PrioriteId} onChange={(rep) => { setpriority(rep.target.value); }} style={{ padding: "10px" }}>
                     {options.map(option => {
                       return (
                         <option style={{ color: option.color }} key={option.id} value={option.id}>
@@ -119,6 +116,7 @@ export default function UpdateCard({ handleUpdate }) {
                     type="switch"
                     id="custom-switch"
                     label="Activer alerteur"
+                    checked={estAlerteur}
                     onChange={(e) => setalerteur(e.target.checked)}
                   />
                 </Col>
@@ -126,11 +124,11 @@ export default function UpdateCard({ handleUpdate }) {
             </Form.Group>
 
             <FloatingLabel controlId="floatingTextarea2" label="Déscription">
-              <Form.Control onChange={(rep) => { setdescription(rep.target.value) }} as="textarea" placeholder="Leave a comment here" style={{ height: '100px' }} />
+              <Form.Control onChange={(rep) => { setdescription(rep.target.value) }} as="textarea" defaultValue={description} style={{ height: '100px' }} />
             </FloatingLabel>
             <br></br>
             <FloatingLabel controlId="floatingTextarea2" label="Output">
-              <Form.Control onChange={(rep) => { setoutput(rep.target.value) }} as="textarea" placeholder="Leave a comment here" style={{ height: '100px' }} />
+              <Form.Control onChange={(rep) => { setoutput(rep.target.value) }} as="textarea" defaultValue={output} style={{ height: '100px' }} />
             </FloatingLabel>
 
           </Form>

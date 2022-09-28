@@ -1,23 +1,43 @@
 import './style.css';
 import React, { useEffect, useState } from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Form, Row } from 'react-bootstrap';
 import CardTask from './cardTask/CardTask';
 import ModalAddTache from './ModalAddTache';
 import TacheService from './Service';
 import { FadeLoader } from 'react-spinners'
 import ServiceTask from './Service';
 //route params
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 const styleOver = {
     // transform: 'scale(0.99)',
     backgroundColor: '#a5c7f9',
     // boxShadow: '5px 8px 20px 3px #5f5d5d',
     transitionDuration: '1.4s'
 }
+
+const options = [
+    {
+        id: 1,
+        name: "Bas",
+        // color: "blue"
+    },
+    {
+        id: 2,
+        name: "Moyen",
+        // color: "#0ff10f"
+    },
+    {
+        id: 3,
+        name: "Urgent",
+        // color: "red"
+    },
+];
 export default function Taches(props) {
+    //filter
+    const [PrioriteId, setpriority] = useState(1);
     //paramas
     const { idProjet } = useParams();
-    console.log(idProjet);
+    // console.log(idProjet);
     //task formater
     const [todo, settodo] = useState(null);
     const [inProgress, setinProgress] = useState(null);
@@ -41,15 +61,34 @@ export default function Taches(props) {
 
     const handleUpdate = (tache) => {
         tache.ProjetId = idProjet;
-
         TacheService.update(tache).then((rep) => {
-            alert('update successful');
+            console.log('ILAY IZY', tache.StatutId);
+            switch (tache.StatutId) {
+                case 1:
+                    console.log('HUUH', tache)
+                    // todo.slice()
+                    console.log(todo.filter(t => t.id !== tache.id));
+                    // settodo([...todo, { tache }])
+                    break;
+                case 2:
+                    console.log('HUUH', rep)
+
+                    setinProgress(inProgress.filter(t => t.id !== tache.id));
+                    setinProgress(rep);
+                    break;
+                case 3:
+                    console.log('HUUH', rep)
+
+                    setdoing(doing.filter(t => t.id !== tache.id));
+                    setdoing(rep);
+                    break;
+                default:
+                    break;
+            }
         }).catch(err => {
             console.log('somme error in server side:', err)
         })
-
     }
-
 
     const handleDelete = (tache) => {
         console.log('delete', tache.StatutId);
@@ -98,6 +137,7 @@ export default function Taches(props) {
                 break;
         }
     }
+
     const dragDropped = (e, cyble) => {
         let data = e.dataTransfer.getData('tache');
         const tache = JSON.parse(data);
@@ -175,11 +215,9 @@ export default function Taches(props) {
         setoverDoing(false);
     }
 
-    // console.log(todo);
     useEffect(() => {
         TacheService.getTacheByIdProjet(idProjet)
             .then((rep) => {
-                // console.log('====================================');
                 if (typeof rep.data.todo.length !== 'undefined') setnombreTodo(rep.data.todo.length);
                 if (typeof rep.data.inProgress.length !== 'undefined') setnombreProrgess(rep.data.inProgress.length);
                 if (typeof rep.data.doing.length !== 'undefined') setnombreDoing(rep.data.doing.length);
@@ -189,17 +227,77 @@ export default function Taches(props) {
                     setinProgress(rep.data.inProgress);
                     setnahazodata(true)
                 }, 500);
-
             })
             .catch(err => {
                 console.log(err);
             })
     }, [nahazodata])
-
+    const navigation = useNavigate()
     return (
         <>
-            < Row className='m-2 mt-5 ' >
+            {/* //////////FILTRE//////////// */}
+            <Row>
+                <div className='filtre'>
+                    <Col sm={12} id={'header'}>
+                        {/* //icon gauche */}
+                        <Col sm={3} id={'filtregauche'}>
+                            <div className="icons">
+                                <img onClick={() => navigation('/projets')} className="ministeraSary" src='../ministere.png'></img>
+                            </div>
+                            <div className="m-4 mt-5">
+                                <p>Ministera Ny Rano</p>
+                                <p> </p>
+                            </div>
+                            <div className="icons">
+                                <img className="iconImg" src='./envelope.png'></img>
+                            </div>
+                        </Col>
 
+                        {/* //icon droite */}
+                        <Col sm={9} id={'filtredroite'}>
+                            <div className='m-3'>
+                                <Form.Select values={{ options }} onChange={(rep) => { setpriority(rep.target.value); }} style={{ width: "145px", padding: "10px" }}>
+                                    {options.map(option => {
+                                        return (
+                                            <option style={{ color: option.color }} key={option.id} value={option.id}>
+                                                {option.name}
+                                            </option>
+                                        )
+                                    })}
+                                </Form.Select>
+                            </div>
+                            <div className='m-3'>
+                                <Form.Select className='drop' values={{ options }} onChange={(rep) => { setpriority(rep.target.value); }} style={{ width: "145px", padding: "10px" }}>
+                                    {options.map(option => {
+                                        return (
+                                            <option style={{ color: option.color }} key={option.id} value={option.id}>
+                                                {option.name}
+                                            </option>
+                                        )
+                                    })}
+                                </Form.Select>
+                            </div>
+                            <div className='m-3'>
+                                <Form.Select className='drop' values={{ options }} onChange={(rep) => { setpriority(rep.target.value); }} style={{ width: "145px", padding: "10px" }}>
+                                    {options.map(option => {
+                                        return (
+                                            <option style={{ color: option.color }} key={option.id} value={option.id}>
+                                                {option.name}
+                                            </option>
+                                        )
+                                    })}
+                                </Form.Select>
+                            </div>
+                            <div className="m-2">
+                                <input className='findBarTask'></input>
+                            </div>
+                            {/* <Button>Rechercher</Button> */}
+                        </Col>
+                    </Col>
+                </div >
+            </Row >
+            {/* ////////////////////// */}
+            < Row className='m-2  ' >
                 <Col style={overTodo ? styleOver : {}} className='Todo' droppable='true' onDragOver={e => draginOver(e)} onDrop={e => dragDropped(e, 'todo')}>
                     <Row>
                         <Col className='m-auto'>
