@@ -32,6 +32,14 @@ export const TacheService = {
     getCommentaireBytache: (TacheId) => {
         console.log('hhhhhhhhhhhhhhhhhhhhhhhhhuhuhu', { TacheId });
         return axios.get(backUrl + `/api/commentaireByTache/${TacheId}`)
+    },
+    /////////////////sousTache
+    getSousTacheByTache: (TacheId) => {
+        return axios.get(backUrl + `/api/sousTacheByTache/${TacheId}`)
+    },
+    saveSousTache: (data) => {
+        return axios.get(backUrl + `/api/sousTache/save`, data);
     }
+
 }
 export default TacheService;

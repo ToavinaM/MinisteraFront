@@ -8,6 +8,7 @@ import { FadeLoader } from 'react-spinners'
 import ServiceTask from './Service';
 //route params
 import { useNavigate, useParams } from 'react-router-dom'
+import ModalTacheEnRetard from './ModalTacheEnRetard';
 const styleOver = {
     // transform: 'scale(0.99)',
     backgroundColor: '#a5c7f9',
@@ -42,6 +43,8 @@ export default function Taches(props) {
     const [todo, settodo] = useState(null);
     const [inProgress, setinProgress] = useState(null);
     const [doing, setdoing] = useState(null);
+    const [retard, setretard] = useState([]);
+
     const [nahazodata, setnahazodata] = useState(false);
     /////////nombre stat\
     const [nombreTodo, setnombreTodo] = useState(0);
@@ -223,6 +226,7 @@ export default function Taches(props) {
                 if (typeof rep.data.doing.length !== 'undefined') setnombreDoing(rep.data.doing.length);
                 setTimeout(() => {
                     settodo(rep.data.todo);
+                    setretard(rep.data.retard);
                     setdoing(rep.data.doing);
                     setinProgress(rep.data.inProgress);
                     setnahazodata(true)
@@ -236,6 +240,8 @@ export default function Taches(props) {
     return (
         <>
             {/* //////////FILTRE//////////// */}
+            {/* <ModalTacheEnRetard retard={retard} handleUpdate={handleUpdate} handleDelete={handleDelete} /> */}
+
             <Row>
                 <div className='filtre'>
                     <Col sm={12} id={'header'}>
@@ -322,10 +328,10 @@ export default function Taches(props) {
 
 
                 <Col style={overProgress ? styleOver : {}} className='InProgress' droppable onDragOver={e => draginOver(e)} onDrop={e => dragDropped(e, 'progress')} >
-                    {/* <Col className='InProgress' ref={drop}> */}
                     <center>
                         <h3>In progress({nombreProgress})</h3>
                     </center>
+                    {/* <Col className='InProgress' ref={drop}> */}
 
                     <div>
                         {

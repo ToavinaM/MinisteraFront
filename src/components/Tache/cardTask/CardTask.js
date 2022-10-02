@@ -12,6 +12,7 @@ import SupprimerCard from './SupprimerCard';
 import CommentCard from './CommentCard';
 // import Signaler from './Signaler';
 import Alarm from './Alarm';
+import SousTache from './SousTache';
 var moment = require('moment');
 const formatDate = "DD/MM/YYYY HH:mm";
 moment().format();
@@ -27,13 +28,24 @@ const getColor = (id) => {
     if (id === 2) return 'green';
     if (id === 3) return 'red';
 }
-export default function CardTask({ tache, handleUpdate, handleDelete }) {
+
+
+
+{/* <ProgressBar now={(((new Date() - tache.debut) * 100) / (tache.fin - tache.debbut)) / 100} label={(((new Date() - tache.debut) * 100) / (tache.fin - tache.debbut)) / 100} variant='info' /> */ }
+export default function CardTask({ tache, handleUpdate, handleDelete, retard }) { //ilay retard no migerer ny suppr sy ipdate
+
+    // console.log('HHHHHHHHHHHHHHHHhhh', new Date());
+    // console.log('HHHHHHHHHHHHHHHHhhh', moment(tache.debut)._d);
+    console.log('HHHHHHHHHHHHHHHHhhh',
+        ((new Date() - moment(tache.debut)._d) * 100) / (moment(tache.fin)._d - moment(tache.debut)._d) / 100
+    );
 
     //FUNCTION
     const dragStarted = (e, tache) => {
         console.log('drag are started', tache);
         e.dataTransfer.setData("tache", JSON.stringify(tache));
     }
+    // console.log('ato am card', tache);
 
 
     return (
@@ -45,9 +57,10 @@ export default function CardTask({ tache, handleUpdate, handleDelete }) {
                             {/* <p>Priorités:{tache.PrioriteId}</p> */}
                         </Col>
                         <Col sm={2} style={{ display: 'contents' }}>
-                            <UpdateCard handleUpdate={handleUpdate} tache={tache} />
-                            <SupprimerCard handleDelete={handleDelete} tache={tache} />
+                            <UpdateCard retard={retard} handleUpdate={handleUpdate} tache={tache} />
+                            {retard ? (<p></p>) : (<SupprimerCard handleDelete={handleDelete} tache={tache} />)}
                             <CommentCard tache={tache} />
+                            <SousTache tache={tache} />
                             {tache.estAlerteur ? (<Alarm></Alarm>) : (<p></p>)}
                         </Col>
                     </Row>
@@ -68,7 +81,7 @@ export default function CardTask({ tache, handleUpdate, handleDelete }) {
                             <p>{tache.output}</p>
                         </Col>
                         <Col>
-                            <ProgressBar now={45} label={45} variant='info' />
+                            <ProgressBar now={(((new Date() - tache.debut) * 100) / (tache.fin - tache.debbut)) / 100} label={(((new Date() - tache.debut) * 100) / (tache.fin - tache.debbut)) / 100} variant='info' />
                         </Col>
                     </Row>
                 </div>

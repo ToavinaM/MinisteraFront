@@ -7,3 +7,19 @@
     background: transparent;
     border: none;
 }
+
+/* 
+.container {
+    padding: 30px;
+    padding-top: 10px;
+    background-color: #e1dfdf;
+} */
+
+.boxMain {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 1px 1px 11px grey;
+    margin-top: 45px;
+    width: 100%;
+    /* min-height: 800px; */
+}

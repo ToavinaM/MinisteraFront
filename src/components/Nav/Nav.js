@@ -23,7 +23,7 @@ export default function Nav() {
                 <Col className='overF' sm={12}>
                     <div className="drop-box" >
                         <p className='lienNav' onClick={() => navigation('/projets')}  ><img onClick={() => navigation('/projets')} className='logoNav' src='./projet.png' />Listes des Projets</p>
-                        <p className='lienNav' onClick={() => navigation('/Dashboard')}><img onClick={() => navigation('/Dashboard')} className='logoNav' src='./Map.png' />Cartographier les projets</p>
+                        <p className='lienNav' onClick={() => navigation('/map')}><img onClick={() => navigation('/map')} className='logoNav' src='./Map.png' />Cartographier les projets</p>
                         <p className='lienNav' onClick={() => navigation('/Dashboard')}><img onClick={() => navigation('/Dashboard')} className='logoNav' src='./roles.png' />Gestions des utilisateurs</p>
                         <p className='lienNav' onClick={() => navigation('/parametre')}><img onClick={() => navigation('/parametre')} className='logoNav' src='./params.png' />Parametre de l'application</p>
                         {/* <ul>

@@ -26,7 +26,10 @@ export default function Signin() {
     const [username, setusername] = useState('');
     const [password, setpassword] = useState('');
     const [error, setError] = useState(null);
+
     const navigate = useNavigate();
+
+
     function submitSignin() {
         let data = { username, password };
         if (username == '' || password == '') {

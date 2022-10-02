@@ -14,6 +14,7 @@ import { RiseLoader } from 'react-spinners';
 
 export default function Projet() {
     const [projet, setProjet] = useState(null);
+
     useEffect(() => {
         document.title = 'Projet DSI';
         ServiceProjet.getAll()
@@ -26,7 +27,6 @@ export default function Projet() {
                 console.log(err);
             })
     }, []);
-
 
     //FUNCTION
     const handleSave = (newprojet) => {

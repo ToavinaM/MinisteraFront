@@ -28,7 +28,8 @@ const options = [
 ];
 
 
-export default function UpdateCard({ handleUpdate, tache }) {
+export default function UpdateCard({ handleUpdate, tache, retard }) {
+  // console.log('RRRRRRRRRRRr', retard);
   //modal
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);

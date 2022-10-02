@@ -8,16 +8,18 @@
     border: 0.1px solid rgb(214, 205, 205);
     margin: 2px;
     /* background-color: #eeeeee; */
-    min-height: 800px;
+    height: 800px;
     /* width: 80%; */
     padding: 20px;
+    overflow: auto;
 }
 
 .InProgress {
     border: 0.1px solid rgb(214, 205, 205);
     margin: 2px;
     padding: 20px;
-    min-height: 800px;
+    height: 800px;
+    overflow: auto;
     /* border-right: 1px solid black; */
 }
 
@@ -26,7 +28,8 @@
     /* border: 1px solid black; */
     border: 0.1px solid rgb(214, 205, 205);
     margin: 2px;
-    min-height: 800px;
+    height: 800px;
+    overflow: auto;
     /* width: 80%; */
 }
 
