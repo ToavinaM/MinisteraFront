@@ -37,9 +37,13 @@ export const TacheService = {
     getSousTacheByTache: (TacheId) => {
         return axios.get(backUrl + `/api/sousTacheByTache/${TacheId}`)
     },
-    saveSousTache: (data) => {
-        return axios.get(backUrl + `/api/sousTache/save`, data);
-    }
 
+    saveSousTache: (data) => {
+        return axios.post(backUrl + `/api/sousTache/save`, data);
+    },
+    setCheck: (data) => {
+        console.log('haha', data);
+        return axios.put(backUrl + `/api/sousTache/update`, data);
+    }
 }
 export default TacheService;

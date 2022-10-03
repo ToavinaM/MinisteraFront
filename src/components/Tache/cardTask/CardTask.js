@@ -36,9 +36,9 @@ export default function CardTask({ tache, handleUpdate, handleDelete, retard }) 
 
     // console.log('HHHHHHHHHHHHHHHHhhh', new Date());
     // console.log('HHHHHHHHHHHHHHHHhhh', moment(tache.debut)._d);
-    console.log('HHHHHHHHHHHHHHHHhhh',
-        ((new Date() - moment(tache.debut)._d) * 100) / (moment(tache.fin)._d - moment(tache.debut)._d) / 100
-    );
+    // console.log('HHHHHHHHHHHHHHHHhhh',
+    //     ((new Date() - moment(tache.debut)._d) * 100) / (moment(tache.fin)._d - moment(tache.debut)._d) / 100
+    // );
 
     //FUNCTION
     const dragStarted = (e, tache) => {
@@ -54,14 +54,14 @@ export default function CardTask({ tache, handleUpdate, handleDelete, retard }) 
                 <div style={{ borderLeft: `${getColor(tache.PrioriteId)} solid 8px` }} className='card'>
                     <Row >
                         <Col >
-                            {/* <p>Priorités:{tache.PrioriteId}</p> */}
+                            {tache.estAlerteur ? (<Alarm></Alarm>) : (<p></p>)}
                         </Col>
                         <Col sm={2} style={{ display: 'contents' }}>
                             <UpdateCard retard={retard} handleUpdate={handleUpdate} tache={tache} />
                             {retard ? (<p></p>) : (<SupprimerCard handleDelete={handleDelete} tache={tache} />)}
                             <CommentCard tache={tache} />
-                            <SousTache tache={tache} />
-                            {tache.estAlerteur ? (<Alarm></Alarm>) : (<p></p>)}
+
+
                         </Col>
                     </Row>
 
@@ -81,7 +81,13 @@ export default function CardTask({ tache, handleUpdate, handleDelete, retard }) 
                             <p>{tache.output}</p>
                         </Col>
                         <Col>
-                            <ProgressBar now={(((new Date() - tache.debut) * 100) / (tache.fin - tache.debbut)) / 100} label={(((new Date() - tache.debut) * 100) / (tache.fin - tache.debbut)) / 100} variant='info' />
+
+                            <div>
+                                <SousTache tache={tache} />
+                                <p>4/4</p>
+                            </div>
+
+                            <ProgressBar now='45' label='45' variant='info' />
                         </Col>
                     </Row>
                 </div>
