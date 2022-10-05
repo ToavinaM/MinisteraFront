@@ -10,6 +10,8 @@ import { fadeInDown } from 'react-animations'
 import Radium, { StyleRoot } from 'radium';
 import CardTask from './cardTask/CardTask';
 import Swal from 'sweetalert2';
+import useSound from 'use-sound';
+import event from '../sound/event.mp3'
 const styles = {
     fadeInDown: {
         animation: 'x 1s',
@@ -18,6 +20,8 @@ const styles = {
 }
 
 export default function ModalTacheEnRetard({ retard, handleUpdate }) {
+    //sound
+    const [play] = useSound(event);
     //modal
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -27,8 +31,6 @@ export default function ModalTacheEnRetard({ retard, handleUpdate }) {
     // const handleDeleteL = (tacheRetard) => {
 
     // }
-
-
     const handleActiver = () => { ///update massive 
         Swal.fire({
             title: 'Les previsions seront ajuster ajourdhui!',
@@ -47,6 +49,7 @@ export default function ModalTacheEnRetard({ retard, handleUpdate }) {
                     // handleUpdate(retard)
                     alert('mbola tsy mandray tab le any am back');
                     setShow(false);
+
                 })
             }
         })
@@ -58,7 +61,7 @@ export default function ModalTacheEnRetard({ retard, handleUpdate }) {
             settacheRetard(retard);
             setTimeout(() => {
                 setShow(true);
-            }, 2000);
+            }, 1000);
         }
     }, [retard])
 

@@ -24,3 +24,16 @@
     /* display: flex;
     align-items: center; */
 }
+
+.find {
+    width: 50%;
+    height: 31px;
+    margin-top: -1px;
+    padding-left: 10px;
+}
+
+.find:focus {
+    /* color: blue; */
+    /* border-color: aqua; */
+    content: icon;
+}

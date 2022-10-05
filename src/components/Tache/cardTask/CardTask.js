@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './cardTask.css';
 import { Button, Col, ProgressBar, Row } from 'react-bootstrap';
 
@@ -13,6 +13,7 @@ import CommentCard from './CommentCard';
 // import Signaler from './Signaler';
 import Alarm from './Alarm';
 import SousTache from './SousTache';
+import TacheService from '../Service';
 var moment = require('moment');
 const formatDate = "DD/MM/YYYY HH:mm";
 moment().format();
@@ -39,13 +40,30 @@ export default function CardTask({ tache, handleUpdate, handleDelete, retard }) 
     // console.log('HHHHHHHHHHHHHHHHhhh',
     //     ((new Date() - moment(tache.debut)._d) * 100) / (moment(tache.fin)._d - moment(tache.debut)._d) / 100
     // );
-
+    const [terminer, setterminer] = useState(0);
+    const [avancement, setavancement] = useState(0);
+    const [total, settotal] = useState(0);
     //FUNCTION
     const dragStarted = (e, tache) => {
         console.log('drag are started', tache);
         e.dataTransfer.setData("tache", JSON.stringify(tache));
     }
-    // console.log('ato am card', tache);
+
+    useEffect(() => {
+
+        let TacheId = tache.id;
+        TacheService.getAvancement(TacheId)
+            .then(rep => {
+                console.log('crad avacncemnt', rep);
+                settotal(rep.data.total);
+                setavancement(rep.data.avancement);
+                setterminer(rep.data.terminer);
+            })
+            .catch(err => {
+                console.log('ERRRR avancemnet erro', err);
+            })
+
+    }, []);
 
 
     return (
@@ -56,12 +74,13 @@ export default function CardTask({ tache, handleUpdate, handleDelete, retard }) 
                         <Col >
                             {tache.estAlerteur ? (<Alarm></Alarm>) : (<p></p>)}
                         </Col>
+                        <Col >
+                            <h5>Titre</h5>
+                        </Col>
                         <Col sm={2} style={{ display: 'contents' }}>
                             <UpdateCard retard={retard} handleUpdate={handleUpdate} tache={tache} />
                             {retard ? (<p></p>) : (<SupprimerCard handleDelete={handleDelete} tache={tache} />)}
                             <CommentCard tache={tache} />
-
-
                         </Col>
                     </Row>
 
@@ -69,7 +88,7 @@ export default function CardTask({ tache, handleUpdate, handleDelete, retard }) 
                         <Col>
                             <p>{moment(tache.debut).format(formatDate)}</p>
                         </Col>
-                        <Col>
+                        <Col sm={4}>
                             <p>{moment(tache.fin).format(formatDate)}</p>
                         </Col>
                     </Row>
@@ -82,12 +101,16 @@ export default function CardTask({ tache, handleUpdate, handleDelete, retard }) 
                         </Col>
                         <Col>
 
-                            <div>
-                                <SousTache tache={tache} />
-                                <p>4/4</p>
-                            </div>
+                            <Row>
+                                <Col className='mb-2' sm={2}>
+                                    <SousTache tache={tache} />
+                                </Col>
+                                <Col className='mt-1'>
+                                    {terminer}/{total}
+                                </Col>
+                            </Row>
 
-                            <ProgressBar now='45' label='45' variant='info' />
+                            <ProgressBar now={avancement} label={avancement} variant='info' />
                         </Col>
                     </Row>
                 </div>

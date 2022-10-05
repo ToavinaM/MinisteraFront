@@ -78,7 +78,7 @@ export default function UpdateCard({ handleUpdate, tache, retard }) {
       </OverlayTrigger>
 
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
+        <Modal.Header closeButton className='bg-warning'>
           <Modal.Title>Modification</Modal.Title>
         </Modal.Header>
         <Modal.Body>

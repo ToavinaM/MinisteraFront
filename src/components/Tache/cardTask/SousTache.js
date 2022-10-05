@@ -9,6 +9,8 @@ import './sousTache.css'
 import { fadeInRight } from 'react-animations'
 import Radium, { StyleRoot } from 'radium';
 import Swal from 'sweetalert2';
+import useSound from 'use-sound';
+import create from '../../sound/create.mp3';
 
 const styles = {
     fadeInRight: {
@@ -18,6 +20,8 @@ const styles = {
 }
 
 export default function SousTache({ tache }) {
+    //sound
+    const [play] = useSound(create);
     //modal
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -68,6 +72,9 @@ export default function SousTache({ tache }) {
             .then(rep => {
                 console.log('save', rep.data);
                 setSousTache([...SousTache, rep.data]);
+                setshowData([...showData, rep.data]);
+                play();
+                calculAvancement(SousTache);
             })
             .catch(err => alert('somme error in server side'));
     }
@@ -89,16 +96,30 @@ export default function SousTache({ tache }) {
                 //     'success'
                 // ).then(() => {
                 setSousTache(SousTache.filter(t => t.id !== data.id));
+                setterminer(terminer - 1);
                 // })
             }
         })
     }
+    // const all = SousTache;
+    const [showData, setshowData] = useState([]);
 
-
-
-    // useEffect(() => {
-    //     calculAvancement(SousTache);
-    // }, [SousTache]);
+    const getFiltre = event => {
+        if (event.target.value.toLowerCase() === "") {
+            setshowData(SousTache);
+        }
+        else {
+            let rep = []
+            setshowData(SousTache);
+            SousTache.map(pop => {
+                if ((pop.labele.toLowerCase().includes(event.target.value.toLowerCase()))) {
+                    // setSousTache(pop);
+                    rep.push(pop);
+                }
+            })
+            setshowData(rep);
+        }
+    }
 
     useEffect(() => {
         // console.log('ilay nalaina', tache.id)
@@ -107,6 +128,7 @@ export default function SousTache({ tache }) {
                 .then(rep => {
                     calculAvancement(rep.data);
                     setSousTache(rep.data);
+                    setshowData(rep.data);
                 })
                 .catch(err => {
                     alert(err);
@@ -138,62 +160,72 @@ export default function SousTache({ tache }) {
                 show={show}
                 onHide={handleClose}
             >
-                <Modal.Header closeButton>
-                    <Modal.Title>SousTache lié a cette tache</Modal.Title>
-
-
+                <Modal.Header closeButton className='bg-info'>
+                    <Modal.Title style={{ color: 'white' }}>Activité lié </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Row>
+                    <Row className='p-3'>
 
+                        <Col>
+                            <input onChange={(e) => getFiltre(e)} placeholder='Filtre' className='find'></input>
+                        </Col>
                         <Col sm={4}>
                             {
                                 moyenne ? (
-                                    <ProgressBar now={moyenne} label={moyenne} variant='info' />) : (
-                                    <ProgressBar variant='info' now='100' label='0%' animated={true} />
+                                    <ProgressBar style={{ height: '20px' }} now={moyenne} label={Math.round(moyenne) + '%'} animated={true} variant='info' />) : (
+                                    <ProgressBar style={{ height: '20px' }} variant='danger' now='100' label='0%' animated={true} />
                                 )
                             }
                         </Col>
-                        <Col sm={2}>
-                            <p>{terminer}/{SousTache.length}</p>
+                        <Col sm={3} style={terminer === SousTache.length ? { backgroundColor: '#2cee11ad', textAlign: 'center', height: '20px', width: '10%', borderRadius: '6px' } : { backgroundColor: 'rgb(108, 117, 125)', textAlign: 'center', height: '20px', width: '10%', borderRadius: '6px' }}>
+                            <p style={{ color: 'white', fontWeight: '100' }}>{terminer}/{SousTache.length}</p>
                         </Col>
                     </Row>
-
+                    <hr></hr>
                     <Form>
                         {/* //////////// liste des SousTaches*/}
                         <Row>
                             <Col className="boxSousTache">
                                 <StyleRoot>
                                     {
-                                        SousTache.map(soustache => {
-                                            // console.log(coms);
-                                            return (
-                                                <div key={soustache.id + 'div'} className='soustache' style={styles.fadeInRight} >
-                                                    <Row className='mt-2' key={soustache.id + 'r'}>
-                                                        <Col sm={1} key={soustache.id + 'c2'}>
-                                                            <Form.Check
-                                                                key={soustache.id + 'chk'}
-                                                                type='checkbox'
-                                                                id={`default-checkbox`}
-                                                                defaultChecked={soustache.isChecked}
-                                                                // label={`terminer`}
-                                                                // onChange={(value, soustache) => console.log(value.target.checked, soustache)}
-                                                                onChange={(e) => handleSetCheck(e, soustache)}
-                                                            />
-                                                        </Col>
-                                                        <Col key={soustache.id + 'cs'}>
-                                                            <p className='pComs' key={soustache.id + 'ewr'} > {soustache.labele}</p>
-                                                        </Col>
-                                                        <Col sm={3} key={soustache.id + 'cas2'}>
-                                                            <p className='' key={soustache.createdAt} > {moment(soustache.createdAt).format('DD-MM-YY HH:MM')}</p>
-                                                        </Col>
-                                                        <Col sm={1} key={soustache.id + 'cdvf2'}>
-                                                            <img key={soustache.id + 'cvf2'} onClick={() => handleDeleteL(soustache)} className='logos' src='../delete.png' />
-                                                        </Col>
-                                                    </Row>
-                                                </div>
+                                        showData.length > 0 ?
+                                            (
+                                                showData.map(soustache => {
+                                                    // console.log(coms);
+                                                    return (
+                                                        <div key={soustache.id + 'div'} className='soustache' style={styles.fadeInRight} >
+                                                            <Row className='mt-2' key={soustache.id + 'r'}>
+                                                                <Col sm={1} key={soustache.id + 'c2'}>
+                                                                    <Form.Check
+                                                                        key={soustache.id + 'chk'}
+                                                                        type='checkbox'
+                                                                        id={`default-checkbox`}
+                                                                        defaultChecked={soustache.isChecked}
+                                                                        // label={`terminer`}
+                                                                        // onChange={(value, soustache) => console.log(value.target.checked, soustache)}
+                                                                        onChange={(e) => handleSetCheck(e, soustache)}
+                                                                    />
+                                                                </Col>
+                                                                <Col key={soustache.id + 'cs'}>
+                                                                    <p className='pComs' key={soustache.id + 'ewr'} > {soustache.labele}</p>
+                                                                </Col>
+                                                                <Col sm={3} key={soustache.id + 'cas2'}>
+                                                                    <p className='' key={soustache.createdAt} > {moment(soustache.createdAt).format('DD-MM-YY HH:MM')}</p>
+                                                                </Col>
+                                                                <Col sm={1} key={soustache.id + 'cdvf2'}>
+                                                                    <img key={soustache.id + 'cvf2'} onClick={() => handleDeleteL(soustache)} className='logos' src='../delete.png' />
+                                                                </Col>
+                                                            </Row>
+                                                        </div>
+                                                    )
+                                                })
+                                            ) : (
+                                                <center>
+                                                    <img className='mt-5' src='../noData.png'></img>
+                                                    <h5>No Data...</h5>
+                                                </center>
                                             )
-                                        })
+
                                     }
                                 </StyleRoot>
                             </Col>
@@ -203,7 +235,7 @@ export default function SousTache({ tache }) {
                             className="mb-3"
                             controlId="exampleForm.ControlTextarea1"
                         >
-                            <Form.Label>Ajouter un sous Tache</Form.Label>
+                            <Form.Label>Nouveaux</Form.Label>
                             <Form.Control onChange={(rep) => { setIntitule(rep.target.value) }} as="textarea" rows={3} />
                         </Form.Group>
 

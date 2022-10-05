@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Row, Col, Button, Image, Alert, FloatingLabel, Form } from 'react-bootstrap';
 import './Signin.css';
 import FormCheckInput from 'react-bootstrap/esm/FormCheckInput';
@@ -14,6 +14,7 @@ const AnimFeTurbulence = animated('feTurbulence')
 const AnimFeDisplacementMap = animated('feDisplacementMap')
 
 export default function Signin() {
+
     //////spring
     const [open, toggle] = useState(false)
     const [{ freq, factor, scale, opacity }] = useSpring(() => ({
@@ -22,7 +23,6 @@ export default function Signin() {
         to: { factor: 150, opacity: 1, scale: 1, freq: '0.0, 0.0' },
         config: { duration: 3000 },
     }))
-    ///formulaire
     const [username, setusername] = useState('');
     const [password, setpassword] = useState('');
     const [error, setError] = useState(null);

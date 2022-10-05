@@ -3,9 +3,11 @@ import { OverlayTrigger, Tooltip } from 'react-bootstrap'
 
 import DatePicker from 'react-date-picker'
 import Swal from 'sweetalert2';
-
+import useSound from 'use-sound';
+import deleteSound from '../../sound/delete.mp3'
 export default function SupprimerCard({ tache, handleDelete }) {
 
+  const [play] = useSound(deleteSound);
   const handleDeleteL = () => {
     Swal.fire({
       title: 'Confirm?',
@@ -16,12 +18,13 @@ export default function SupprimerCard({ tache, handleDelete }) {
       confirmButtonText: 'Supprimer!'
     }).then((result) => {
       if (result.isConfirmed) {
+        play();
         Swal.fire(
           'Supprimer',
           'Tache supprimer',
           'success'
         ).then(() => {
-          handleDelete(tache)
+          handleDelete(tache);
         })
       }
     })

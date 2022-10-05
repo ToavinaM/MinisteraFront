@@ -29,7 +29,7 @@ export default function Alarm() {
                 }
             >
                 {/* <Button variant="secondary">Tooltip on {placement}</Button> */}
-                <img onClick={handleShow} className='logos' src='../alarm1.png' />
+                <img onClick={handleShow} className='logos' src='../alarm2.png' />
             </OverlayTrigger>
 
 

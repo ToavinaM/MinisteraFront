@@ -3,7 +3,8 @@ import { Button, Col, Modal, Row, Form, Dropdown, FloatingLabel } from 'react-bo
 //date
 import DatePicker from 'react-date-picker'
 import Swal from 'sweetalert2';
-
+import useSound from 'use-sound';
+import create from '../sound/create.mp3';
 const options = [
   {
     id: 1,
@@ -24,7 +25,8 @@ const options = [
 
 
 export default function ModalAddTache({ handleSave }) {
-
+  //sound
+  const [play] = useSound(create, { volume: 1 });
   //modal
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -49,19 +51,23 @@ export default function ModalAddTache({ handleSave }) {
       estAlerteur,
     }
     handleSave(modelTask);
+    play();
     setShow(false);
+
   }
 
 
   return (
     <>
 
-      <Button variant="success" onClick={handleShow}>
-        {' '}Ajouter
-      </Button>
+      <button className='pushable' onClick={handleShow}>
+        <span className='front'>
+          Ajouter
+        </span>
+      </button>
 
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
+        <Modal.Header className='bg-success' closeButton>
           <Modal.Title>Ajouter nouvelle Tache</Modal.Title>
         </Modal.Header>
         <Modal.Body>

@@ -44,6 +44,10 @@ export const TacheService = {
     setCheck: (data) => {
         console.log('haha', data);
         return axios.put(backUrl + `/api/sousTache/update`, data);
-    }
+    },
+    getAvancement: (data) => {
+        console.log('haha', data);
+        return axios.get(backUrl + `/api/sousTache/avancement/${data}`);
+    },
 }
 export default TacheService;

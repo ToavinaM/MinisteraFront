@@ -4,6 +4,9 @@ import React, { useEffect, useState } from 'react'
 import { Modal, Row, Button, Form, OverlayTrigger, Tooltip, Col } from 'react-bootstrap'
 import TacheService from '../Service';
 import './commentaire.css'
+//sound
+import useSound from 'use-sound';
+import commentSound from '../../sound/pop.mp3';
 
 // animation
 import { fadeInDown } from 'react-animations'
@@ -16,6 +19,8 @@ const styles = {
 }
 
 export default function CommentCard({ tache }) {
+  //sound
+  const [play] = useSound(commentSound);
   //modal
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -26,6 +31,7 @@ export default function CommentCard({ tache }) {
   const [commentaire, setcommentaire] = useState([]);
   // function
   const handleSave = () => {
+    play();
     TacheService.saveCommentaire({ intitule, TacheId: tache.id })
       .then(rep => {
         console.log('save', rep.data);
@@ -71,7 +77,7 @@ export default function CommentCard({ tache }) {
         aria-labelledby="contained-modal-title-vcenter"
         centered
         show={show}
-        onHides={handleClose}>
+        onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Commentaire lié a cette tache</Modal.Title>
         </Modal.Header>
@@ -91,7 +97,7 @@ export default function CommentCard({ tache }) {
                               <Col key={coms.id + 'c'}>
                                 <div className="boxProfil">
 
-                                  <img className="imgProfil" src='../user.png'></img>
+                                  <img className="imgProfil" src='../dsi.png'></img>
 
                                 </div>
                                 <p className='p-4 pComs' key={coms.id} > {coms.intitule}</p>
@@ -104,7 +110,10 @@ export default function CommentCard({ tache }) {
                           </div>
                         )
                       })
-                    ) : (<p className=' PComs'>Aucun commentaire</p>)
+                    ) : (<center>
+                      <img className='mt-5' src='../noComment.png'></img>
+                      {/* <h5>No Data...</h5> */}
+                    </center>)
                   }
                 </StyleRoot>
               </Col>

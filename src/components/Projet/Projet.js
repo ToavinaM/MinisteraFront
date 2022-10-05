@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Pagination } from 'react-bootstrap';
 
 import './Projet.css';
 import Nav from '../Nav/Nav';
@@ -11,6 +11,16 @@ import CardProjet from './CardProjet';
 import ServiceProjet from './Projet.service';
 //redux
 import { RiseLoader } from 'react-spinners';
+
+let active = 2;
+let items = [];
+for (let number = 1; number <= 5; number++) {
+    items.push(
+        <Pagination.Item key={number} active={number === active}>
+            {number}
+        </Pagination.Item>,
+    );
+}
 
 export default function Projet() {
     const [projet, setProjet] = useState(null);
@@ -74,6 +84,13 @@ export default function Projet() {
                                             </div>
                                         )
                                 }
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col sm={9}>
+                            </Col>
+                            <Col>
+                                <Pagination size="lg">{items}</Pagination>
                             </Col>
                         </Row>
                     </Col>

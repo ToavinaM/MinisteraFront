@@ -9,6 +9,8 @@ import ServiceTask from './Service';
 //route params
 import { useNavigate, useParams } from 'react-router-dom'
 import ModalTacheEnRetard from './ModalTacheEnRetard';
+import useSound from 'use-sound';
+import pop from '../sound/create.mp3'
 const styleOver = {
     // transform: 'scale(0.99)',
     backgroundColor: '#a5c7f9',
@@ -71,6 +73,7 @@ export default function Taches(props) {
                     console.log('HUUH', tache)
                     // todo.slice()
                     console.log(todo.filter(t => t.id !== tache.id));
+                    // if()
                     // settodo([...todo, { tache }])
                     break;
                 case 2:
@@ -119,12 +122,13 @@ export default function Taches(props) {
     const [overTodo, setoverTodo] = useState(false);
     const [overProgress, setoverProgress] = useState(false);
     const [overDoing, setoverDoing] = useState(false);
-
+    const [play] = useSound(pop);
     const draginOver = (e) => {
-        console.log('over')
+        // console.log('over')
+        // play();
         e.stopPropagation();
         e.preventDefault();
-
+        // alert('test')
         console.log(e.target.className);
         switch (e.target.className) {
             case 'Todo col':
@@ -142,6 +146,7 @@ export default function Taches(props) {
     }
 
     const dragDropped = (e, cyble) => {
+        play();
         let data = e.dataTransfer.getData('tache');
         const tache = JSON.parse(data);
         // console.log(cyble);
@@ -240,7 +245,7 @@ export default function Taches(props) {
     return (
         <>
             {/* //////////FILTRE//////////// */}
-            {/* <ModalTacheEnRetard retard={retard} handleUpdate={handleUpdate} handleDelete={handleDelete} /> */}
+            <ModalTacheEnRetard retard={retard} handleUpdate={handleUpdate} handleDelete={handleDelete} />
 
             <Row>
                 <div className='filtre'>
@@ -325,7 +330,6 @@ export default function Taches(props) {
                         )
                     }
                 </Col>
-
 
                 <Col style={overProgress ? styleOver : {}} className='InProgress' droppable onDragOver={e => draginOver(e)} onDrop={e => dragDropped(e, 'progress')} >
                     <center>
