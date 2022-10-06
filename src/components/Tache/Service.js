@@ -3,7 +3,7 @@ import axios from "axios";
 // localhost: 8080 / api / auth / signin
 const backUrl = 'http://localhost:8080';
 export const TacheService = {
-
+    ///////////////tache
     save: (data) => {
         return axios.post(backUrl + `/api/tache/add`, data);
 
@@ -42,12 +42,21 @@ export const TacheService = {
         return axios.post(backUrl + `/api/sousTache/save`, data);
     },
     setCheck: (data) => {
-        console.log('haha', data);
         return axios.put(backUrl + `/api/sousTache/update`, data);
     },
     getAvancement: (data) => {
-        console.log('haha', data);
         return axios.get(backUrl + `/api/sousTache/avancement/${data}`);
+    },
+    ////////////////////////probleme
+    saveProbleme: (data) => {
+        return axios.post(backUrl + `/api/problemeTache/save`, data);
+    },
+    getProbleme: (data) => {
+        return axios.get(backUrl + `/api/problemeTache/${data}`);
+    },
+
+    getOptionProbleme: () => {
+        return axios.get(backUrl + `/api/problemeOption`);
     },
 }
 export default TacheService;

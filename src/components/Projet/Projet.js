@@ -10,7 +10,7 @@ import CardProjet from './CardProjet';
 //service
 import ServiceProjet from './Projet.service';
 //redux
-import { RiseLoader } from 'react-spinners';
+import { BeatLoader } from 'react-spinners';
 
 let active = 2;
 let items = [];
@@ -78,7 +78,7 @@ export default function Projet() {
                                         : (
                                             <div className='boxSpinner'>
                                                 <center>
-                                                    <RiseLoader className='p-5' color="#36d7b7" />
+                                                    <BeatLoader className='p-5' color="#36d7b7" />
                                                 </center>
                                                 <h3>veuillez patienter 😃 </h3>
                                             </div>

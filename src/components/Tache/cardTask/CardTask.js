@@ -3,7 +3,7 @@ import './cardTask.css';
 import { Button, Col, ProgressBar, Row } from 'react-bootstrap';
 
 // animation
-import { flipInX } from 'react-animations'
+import { fadeIn } from 'react-animations'
 import Radium, { StyleRoot } from 'radium';
 
 //modalupdate
@@ -14,13 +14,14 @@ import CommentCard from './CommentCard';
 import Alarm from './Alarm';
 import SousTache from './SousTache';
 import TacheService from '../Service';
+import Probleme from './Probleme';
 var moment = require('moment');
 const formatDate = "DD/MM/YYYY HH:mm";
 moment().format();
 const styles = {
-    flipInX: {
+    fadeIn: {
         animation: 'x 1s',
-        animationName: Radium.keyframes(flipInX, '')
+        animationName: Radium.keyframes(fadeIn, '')
     }
 }
 
@@ -49,8 +50,8 @@ export default function CardTask({ tache, handleUpdate, handleDelete, retard }) 
         e.dataTransfer.setData("tache", JSON.stringify(tache));
     }
 
-    useEffect(() => {
 
+    useEffect(() => {
         let TacheId = tache.id;
         TacheService.getAvancement(TacheId)
             .then(rep => {
@@ -62,13 +63,12 @@ export default function CardTask({ tache, handleUpdate, handleDelete, retard }) 
             .catch(err => {
                 console.log('ERRRR avancemnet erro', err);
             })
-
     }, []);
 
 
     return (
         <StyleRoot>
-            <div draggable onDragStart={(e) => dragStarted(e, tache)} style={styles.flipInX}  >
+            <div draggable onDragStart={(e) => dragStarted(e, tache)} style={styles.fadeIn}  >
                 <div style={{ borderLeft: `${getColor(tache.PrioriteId)} solid 8px` }} className='card'>
                     <Row >
                         <Col >
@@ -81,6 +81,7 @@ export default function CardTask({ tache, handleUpdate, handleDelete, retard }) 
                             <UpdateCard retard={retard} handleUpdate={handleUpdate} tache={tache} />
                             {retard ? (<p></p>) : (<SupprimerCard handleDelete={handleDelete} tache={tache} />)}
                             <CommentCard tache={tache} />
+                            <Probleme tache={tache} />
                         </Col>
                     </Row>
 
@@ -110,11 +111,10 @@ export default function CardTask({ tache, handleUpdate, handleDelete, retard }) 
                                 </Col>
                             </Row>
 
-                            <ProgressBar now={avancement} label={avancement} variant='info' />
+                            <ProgressBar now={avancement} label={avancement + '%'} variant='info' />
                         </Col>
                     </Row>
                 </div>
-
             </div>
         </StyleRoot >
 

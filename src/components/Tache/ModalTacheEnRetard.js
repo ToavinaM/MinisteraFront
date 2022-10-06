@@ -73,8 +73,8 @@ export default function ModalTacheEnRetard({ retard, handleUpdate }) {
                 // centered
                 show={show}
                 onHides={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>({tacheRetard.length}) taches en retard selon leur prevision</Modal.Title>
+                <Modal.Header className='bg-danger' closeButton>
+                    <Modal.Title style={{ color: 'white' }}>({tacheRetard.length}) taches en retard selon leur prevision</Modal.Title>
                 </Modal.Header>
                 <Modal.Body >
                     <StyleRoot style={{ overflow: 'auto', height: '600px' }}>

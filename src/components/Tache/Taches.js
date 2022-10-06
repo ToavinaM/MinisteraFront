@@ -245,7 +245,7 @@ export default function Taches(props) {
     return (
         <>
             {/* //////////FILTRE//////////// */}
-            <ModalTacheEnRetard retard={retard} handleUpdate={handleUpdate} handleDelete={handleDelete} />
+            {/* <ModalTacheEnRetard retard={retard} handleUpdate={handleUpdate} handleDelete={handleDelete} /> */}
 
             <Row>
                 <div className='filtre'>

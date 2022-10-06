@@ -6,21 +6,9 @@ import Swal from 'sweetalert2';
 import useSound from 'use-sound';
 import create from '../sound/create.mp3';
 const options = [
-  {
-    id: 1,
-    name: "Bas",
-    // color: "blue"
-  },
-  {
-    id: 2,
-    name: "Moyen",
-    // color: "#0ff10f"
-  },
-  {
-    id: 3,
-    name: "Urgent",
-    // color: "red"
-  },
+  { id: 1, name: "Bas" },
+  { id: 2, name: "Moyen" },
+  { id: 3, name: "Urgent" },
 ];
 
 
