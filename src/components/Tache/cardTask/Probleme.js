@@ -1,8 +1,7 @@
+import moment from 'moment';
 import React, { useEffect, useState } from 'react'
-import { Col, Modal, Row, Button, Form, OverlayTrigger, Tooltip, FloatingLabel, Table } from 'react-bootstrap'
-// import { Button } from 'react-bootstrap/lib/inputgroup'
-// import { Form } from 'react-bootstrap/lib/navbar'
-import DatePicker from 'react-date-picker'
+import { Modal, Row, Button, Form, OverlayTrigger, Tooltip, FloatingLabel, Table } from 'react-bootstrap'
+
 import ProblemeTache from '../ProblemeTache';
 import TacheService from '../Service';
 
@@ -15,7 +14,7 @@ export default function Probleme({ tache }) {
 
     //formulaire
     const [description, setdescription] = useState("");
-    const [problemes, setprobleme] = useState([]);
+    const [problemes, setprobleme] = useState(null);
     const [optionsProbleme, setoptionsProbleme] = useState([]);
     /////liste
     const [listeProbleme, setlisteProbleme] = useState([]);
@@ -23,19 +22,20 @@ export default function Probleme({ tache }) {
     console.log('get id', problemes);
     ////FUNCTION
     const handleSave = () => {
-        let data = {
-            TacheId: tache.id,
-            ProblemeId: problemes.id,
-            description
+        let data = { TacheId: tache.id, ProblemeId: parseInt(problemes), description };
+        console.log('HUHU', problemes);
+        if (problemes === null || description === '') {
+            alert('remplir');
         }
-        console.log('SSSSSSSSSSSSSSSSSss', data);
-        TacheService.saveProbleme(data)
-            .then(rep => {
-                console.log(rep);
-            })
-            .catch(err => {
-                console.log(err);
-            })
+        else {
+            TacheService.saveProbleme(data)
+                .then(rep => {
+                    setShow(false);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
 
     }
 
@@ -60,7 +60,7 @@ export default function Probleme({ tache }) {
                 })
         }
     }, [show])
-    console.log('listeprop', listeProbleme);
+    // console.log('listeprop', listeProbleme);
 
     return (
         <div>
@@ -82,14 +82,18 @@ export default function Probleme({ tache }) {
                 </Modal.Header>
                 <Modal.Body>
                     <Row className='p-2'>
-                        <Form.Select values={{ optionsProbleme }} onChange={(rep) => { setprobleme(rep.target.value); }} style={{ padding: "10px" }}>
-                            {optionsProbleme.map(option => {
-                                return (
-                                    <option style={{ color: option.color }} key={option.id} value={option.id}>
-                                        {option.labele}
-                                    </option>
-                                )
-                            })}
+                        <Form.Select values={{ optionsProbleme }} onChange={(rep) => { setprobleme(rep.target.value) }} style={{ padding: "10px" }}>
+                            <option >
+                                Type Probleme
+                            </option>
+                            {
+                                optionsProbleme.map(option => {
+                                    return (
+                                        <option style={{ color: option.color }} key={option.id} value={option.id}>
+                                            {option.labele}
+                                        </option>
+                                    )
+                                })}
                         </Form.Select>
                     </Row>
                     <Row className='mt-5'>
@@ -99,31 +103,36 @@ export default function Probleme({ tache }) {
                     </Row>
                     <hr></hr>
                     <Row>
-                        <Table striped bordered hover variant="dark">
-                            <thead>
-                                <tr>
-                                    <th>Labele</th>
-                                    <th>Description</th>
-                                    <th>Created At</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {listeProbleme.map(prob => {
-                                    return (
+                        {listeProbleme.length > 0 ? (
+                            <Table striped bordered hover variant="dark">
+                                <thead>
+                                    <tr>
+                                        <th>Labele</th>
+                                        <th>Description</th>
+                                        <th>Creation</th>
+                                        <th>Regler</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        listeProbleme.map(prob => {
+                                            return (
+                                                <tr>
+                                                    <td>{prob.Probleme.labele}</td>
+                                                    <td>{prob.description}</td>
+                                                    <td>{moment(prob.createdAt).format('DD/MM/YYYY')}</td>
+                                                    <td>{(prob.isSolved).toString()}</td>
+                                                </tr>
+                                            )
+                                        })
+                                    }
 
-                                        <tr>
-                                            {/* <td>{prob.Probleme.labele}</td> */}
-                                            <td>{prob.description}</td>
-                                            <td>{prob.createdAt}</td>
-                                            <td>{(prob.isSolved).toString()}</td>
-                                        </tr>
-                                    )
-                                })
-                                }
+                                </tbody>
+                            </Table>
+                        ) : (
+                            <p>Pas de signalement  pour cette tache </p>
+                        )}
 
-                            </tbody>
-                        </Table>
                     </Row>
                 </Modal.Body>
                 <Modal.Footer>
@@ -133,7 +142,7 @@ export default function Probleme({ tache }) {
                     <Button variant="primary" onClick={handleSave}>
                         Signaler
                     </Button>
-                    <ProblemeTache></ProblemeTache>
+
                 </Modal.Footer>
             </Modal>
         </div>
