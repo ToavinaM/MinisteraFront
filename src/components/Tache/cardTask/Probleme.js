@@ -36,9 +36,7 @@ export default function Probleme({ tache }) {
                     console.log(err);
                 })
         }
-
     }
-
     useEffect(() => {
         if (show) { /////important mncontrole an le izy tsy haka ny commentaire rehetra
             TacheService.getOptionProbleme()
@@ -49,7 +47,6 @@ export default function Probleme({ tache }) {
                 .catch(err => {
                     console.log(err);
                 })
-
             TacheService.getProbleme(tache.id)
                 .then(rep => {
                     console.log('PROBLEME LIE', rep);
@@ -61,7 +58,6 @@ export default function Probleme({ tache }) {
         }
     }, [show])
     // console.log('listeprop', listeProbleme);
-
     return (
         <div>
             <OverlayTrigger
@@ -75,7 +71,6 @@ export default function Probleme({ tache }) {
             >
                 <img onClick={handleShow} className='logos' src='../probleme.png' />
             </OverlayTrigger>
-
             <Modal show={show} size="lg" onHide={handleClose}>
                 <Modal.Header className='bg-warning' closeButton >
                     <Modal.Title style={{ color: 'white' }}>Signaler un probleme</Modal.Title>
@@ -83,17 +78,14 @@ export default function Probleme({ tache }) {
                 <Modal.Body>
                     <Row className='p-2'>
                         <Form.Select values={{ optionsProbleme }} onChange={(rep) => { setprobleme(rep.target.value) }} style={{ padding: "10px" }}>
-                            <option >
-                                Type Probleme
-                            </option>
-                            {
-                                optionsProbleme.map(option => {
-                                    return (
-                                        <option style={{ color: option.color }} key={option.id} value={option.id}>
-                                            {option.labele}
-                                        </option>
-                                    )
-                                })}
+                            <option>Type Probleme</option>
+                            {optionsProbleme.map(option => {
+                                return (
+                                    <option style={{ color: option.color }} key={option.id} value={option.id}>
+                                        {option.labele}
+                                    </option>
+                                )
+                            })}
                         </Form.Select>
                     </Row>
                     <Row className='mt-5'>
@@ -114,19 +106,17 @@ export default function Probleme({ tache }) {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {
-                                        listeProbleme.map(prob => {
-                                            return (
-                                                <tr>
-                                                    <td>{prob.Probleme.labele}</td>
-                                                    <td>{prob.description}</td>
-                                                    <td>{moment(prob.createdAt).format('DD/MM/YYYY')}</td>
-                                                    <td>{(prob.isSolved).toString()}</td>
-                                                </tr>
-                                            )
-                                        })
+                                    {listeProbleme.map(prob => {
+                                        return (
+                                            <tr>
+                                                <td>{prob.Probleme.labele}</td>
+                                                <td>{prob.description}</td>
+                                                <td>{moment(prob.createdAt).format('DD/MM/YYYY')}</td>
+                                                <td>{(prob.isSolved).toString()}</td>
+                                            </tr>
+                                        )
+                                    })
                                     }
-
                                 </tbody>
                             </Table>
                         ) : (

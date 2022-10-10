@@ -1,5 +1,6 @@
-import React from 'react'
-import { Row, Col, Button, Image } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react'
+
+import { Row, Col } from 'react-bootstrap';
 
 import './Dashboard.css';
 import Nav from '../Nav/Nav';
@@ -7,7 +8,35 @@ import Header from '../header/Header';
 // chart
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
+//service
+
+import Service from './Service';
+
 export default function Dashboard() {
+    //probleme
+    const [probleme, setprobleme] = useState([]);
+
+    useEffect(() => {
+        Service.getProbleme()
+            .then(rep => {
+                setprobleme(rep.data);
+                // console.log(rep.data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }, []);
+
+    if (probleme.length > 0) {
+        var formatArrayPb = probleme.map(pb => {
+            return Object.values(pb);
+        })
+    }
+
+    // console.log('values', Object.values(probleme));
+    // console.log('DDD', probleme);
+
+    // console.log('ilay izy ', formatArrayPb);
     const mois = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
     const donuts = {
@@ -50,11 +79,7 @@ export default function Dashboard() {
             type: 'pie',
             name: 'pourcentage',
             innerSize: '50%',
-            data: [
-                ['Administration', 12],
-                ['Financement', 32],
-                ['Autre', 34]
-            ]
+            data: [formatArrayPb]
         }]
     }
     const batton = {
