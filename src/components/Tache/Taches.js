@@ -13,7 +13,7 @@ import useSound from 'use-sound';
 import pop from '../sound/create.mp3'
 const styleOver = {
     // transform: 'scale(0.99)',
-    backgroundColor: '#a5c7f9',
+    backgroundColor: 'rgb(233, 236, 239)',
     // boxShadow: '5px 8px 20px 3px #5f5d5d',
     transitionDuration: '1.4s'
 }
@@ -129,7 +129,8 @@ export default function Taches(props) {
         e.stopPropagation();
         e.preventDefault();
         // alert('test')
-        console.log(e.target.className);
+        // console.log(e.target.className);
+
         switch (e.target.className) {
             case 'Todo col':
                 setoverTodo(true);

@@ -31,7 +31,12 @@ const getColor = (id) => {
     if (id === 3) return '#e79b63';
 }
 
-
+const setProgressColor = (values) => {
+    if (values < 50) {
+        return 'danger';
+    }
+    else return 'success';
+}
 
 {/* <ProgressBar now={(((new Date() - tache.debut) * 100) / (tache.fin - tache.debbut)) / 100} label={(((new Date() - tache.debut) * 100) / (tache.fin - tache.debbut)) / 100} variant='info' /> */ }
 export default function CardTask({ tache, handleUpdate, handleDelete, retard }) { //ilay retard no migerer ny suppr sy ipdate
@@ -111,7 +116,7 @@ export default function CardTask({ tache, handleUpdate, handleDelete, retard }) 
                                 </Col>
                             </Row>
 
-                            <ProgressBar now={avancement} label={avancement + '%'} variant='info' />
+                            <ProgressBar now={avancement} label={avancement + '%'} variant={setProgressColor(avancement)} />
                         </Col>
                     </Row>
                 </div>
