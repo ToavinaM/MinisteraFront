@@ -2,7 +2,8 @@
     width: 80%;
     height: auto;
     background-color: white;
-    box-shadow: 4px 6px 17px 0px rgb(146, 144, 144);
+    border-color: rgb(228, 225, 225);
+    /* box-shadow: 4px 6px 17px 0px rgb(146, 144, 144); */
     /* border-radius: 5px; */
     margin: auto;
     margin-top: 23px;

@@ -26,9 +26,9 @@ const styles = {
 }
 
 const getColor = (id) => {
-    if (id === 1) return 'grey';
-    if (id === 2) return 'green';
-    if (id === 3) return 'red';
+    if (id === 1) return '#79bf3e';
+    if (id === 2) return 'rgb(109, 186, 242)';
+    if (id === 3) return '#e79b63';
 }
 
 
@@ -69,7 +69,7 @@ export default function CardTask({ tache, handleUpdate, handleDelete, retard }) 
     return (
         <StyleRoot>
             <div draggable onDragStart={(e) => dragStarted(e, tache)} style={styles.fadeIn}  >
-                <div style={{ borderLeft: `${getColor(tache.PrioriteId)} solid 8px` }} className='card'>
+                <div style={{ borderTop: `${getColor(tache.PrioriteId)} solid 8px` }} className='card'>
                     <Row >
                         <Col >
                             {tache.estAlerteur ? (<Alarm></Alarm>) : (<p></p>)}

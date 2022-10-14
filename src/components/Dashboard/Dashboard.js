@@ -8,42 +8,58 @@ import Header from '../header/Header';
 // chart
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
+import VariablePie from "highcharts/modules/variable-pie.js";
 //service
 
 import Service from './Service';
-
+VariablePie(Highcharts);
+const mois = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+require('highcharts/modules/accessibility')(Highcharts);
 export default function Dashboard() {
-    //probleme
-    const [probleme, setprobleme] = useState([]);
-
+    //problem
+    const [donutsData, setdonutsData] = useState([]);
+    //avance retard
+    const [avance, setavance] = useState(0);
+    const [retard, setretard] = useState(0);
+    //effectif
+    const [todoNumber, settodoNumber] = useState(0);
+    const [progressNumber, setprogressNumber] = useState(0);
+    const [doingNumber, setdoingNumber] = useState(0);
+    const [totalNumber, settotalNumber] = useState(0);
     useEffect(() => {
         Service.getProbleme()
             .then(rep => {
-                setprobleme(rep.data);
-                // console.log(rep.data);
+                // setprobleme(rep.data);
+                let dataDonutsPb = [];
+                console.log('MM', rep);
+                for (let i = 0; i < rep.data.length; i++) dataDonutsPb.push([rep.data[i].labele, parseInt(rep.data[i].nombre)])
+                setdonutsData(dataDonutsPb);
             })
             .catch(err => {
                 console.log(err);
             })
+        Service.getAvanceRetard()
+            .then(rep => { setavance(rep.data.avance[0].count); setretard(rep.data.retard[0].count) })
+            .catch(err => { alert('error in get avncemnt') })
+        Service.getEffectif()
+            .then(rep => {
+                console.log('effectiff', rep);
+                settodoNumber(rep.data.todo);
+                setprogressNumber(rep.data.progress);
+                setdoingNumber(rep.data.doing);
+                settotalNumber(rep.data.total);
+            })
+            .catch(err => { alert('getEffectif error') })
     }, []);
-
-    if (probleme.length > 0) {
-        var formatArrayPb = probleme.map(pb => {
-            return Object.values(pb);
-        })
-    }
-
-    // console.log('values', Object.values(probleme));
-    // console.log('DDD', probleme);
-
-    // console.log('ilay izy ', formatArrayPb);
-    const mois = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
+    // console.log(retard);
     const donuts = {
+        // chart: {
+        //     plotBackgroundColor: null,
+        //     plotBorderWidth: 0,
+        //     plotShadow: false
+        // },
         chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: 0,
-            plotShadow: false
+            type: 'variablepie'
         },
         title: {
             text: 'Statistiques des <br>problèmes',
@@ -59,6 +75,9 @@ export default function Dashboard() {
                 valueSuffix: '%'
             }
         },
+        // credits: {
+        //     enabled: false
+        // },
         plotOptions: {
             pie: {
                 dataLabels: {
@@ -79,9 +98,34 @@ export default function Dashboard() {
             type: 'pie',
             name: 'pourcentage',
             innerSize: '50%',
-            data: [formatArrayPb]
+            data: donutsData,
+            showInLegend: true
         }]
-    }
+    };
+    console.log('DOOOO', donutsData);
+    // const donuts = {
+    //     chart: {
+    //         type: 'variablepie'
+    //     },
+    //     title: {
+    //         text: 'Countries compared by population density and total area, 2022.'
+    //     },
+    //     tooltip: {
+    //         headerFormat: '',
+    //         pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
+    //             'Area (square km): <b>{point.y}</b><br/>' +
+    //             'Population density (people per square km): <b>{point.z}</b><br/>'
+    //     },
+    //     series: [{
+    //         minPointSize: 10,
+    //         innerSize: '20%',
+    //         zMin: 0,
+    //         name: 'countries',
+    //         data: donutsData
+
+    //     }]
+    // };
+
     const batton = {
         chart: {
             type: 'column'
@@ -163,7 +207,7 @@ export default function Dashboard() {
                                             </center>
                                         </div>
                                         <p>Retard</p>
-                                        <h2>12</h2>
+                                        <h2>{retard}</h2>
                                     </div>
                                 </Col>
                                 <Col>
@@ -185,7 +229,7 @@ export default function Dashboard() {
                                             </center>
                                         </div>
                                         <p>En Avance</p>
-                                        <h2>12</h2>
+                                        <h2>{avance}</h2>
                                     </div>
 
 
@@ -200,29 +244,12 @@ export default function Dashboard() {
                     </Col>
                     <Col sm={6} className="stat-general" >
                         <Row>
-                            <h5 style={{ color: 'grey' }}>Statistiques des Projets</h5>
-                            <p>mois de : Juin </p>
+                            <h5 style={{ color: 'grey' }}>Statistiques des Taches</h5>
+                            <p>Ce mois</p>
                         </Row>
                         <Row>
                             {/* <div id='box-icon-stat'> */}
-                            <Col sm={4}>
-                                <Row>
-                                    <Col sm={5}>
-
-                                        <div className={'cadreImage'} style={{ backgroundColor: '#7367F0' }}>
-                                            <center>
-                                                <img className="iconStat" src='./task.png'></img>
-                                            </center>
-                                        </div>
-                                        {/* test */}
-                                    </Col>
-                                    <Col sm={7}>
-                                        <p style={{ fontSize: 'small' }}> Effectif</p>
-                                        <h5 style={{ fontSize: 'small' }} >120</h5>
-                                    </Col>
-                                </Row>
-                            </Col>
-                            <Col sm={4}>
+                            <Col sm={3}>
                                 <Row>
                                     <Col sm={5}>
 
@@ -234,12 +261,30 @@ export default function Dashboard() {
                                         {/* test */}
                                     </Col>
                                     <Col sm={7}>
-                                        <p style={{ fontSize: 'small' }}>Accomplie</p>
-                                        <h5 style={{ fontSize: 'small' }}>15.3</h5>
+                                        <p style={{ fontSize: 'small' }}>Effectif</p>
+                                        <h5 style={{ fontSize: 'small' }}>{totalNumber}</h5>
                                     </Col>
                                 </Row>
                             </Col>
-                            <Col sm={4}>
+                            <Col sm={3}>
+                                <Row>
+                                    <Col sm={5}>
+
+                                        <div className={'cadreImage'} style={{ backgroundColor: '#7367F0' }}>
+                                            <center>
+                                                <img className="iconStat" src='./task.png'></img>
+                                            </center>
+                                        </div>
+                                        {/* test */}
+                                    </Col>
+                                    <Col sm={7}>
+                                        <p style={{ fontSize: 'small' }}> Todo</p>
+                                        <h5 style={{ fontSize: 'small' }} >{todoNumber}</h5>
+                                    </Col>
+                                </Row>
+                            </Col>
+
+                            <Col sm={3}>
                                 <Row>
                                     <Col sm={5}>
 
@@ -251,8 +296,25 @@ export default function Dashboard() {
                                         {/* test */}
                                     </Col>
                                     <Col sm={7}>
-                                        <p style={{ fontSize: 'small' }}>   Innachevés</p>
-                                        <h5 style={{ fontSize: 'small' }}>15.3</h5>
+                                        <p style={{ fontSize: 'small' }}>   In Progress</p>
+                                        <h5 style={{ fontSize: 'small' }}>{progressNumber}</h5>
+                                    </Col>
+                                </Row>
+                            </Col>
+                            <Col sm={3}>
+                                <Row>
+                                    <Col sm={5}>
+
+                                        <div className={'cadreImage'} style={{ backgroundColor: '#56CA00' }}>
+                                            <center>
+                                                <img className="iconStat" src='./done.png'></img>
+                                            </center>
+                                        </div>
+                                        {/* test */}
+                                    </Col>
+                                    <Col sm={7}>
+                                        <p style={{ fontSize: 'small' }}>Doing</p>
+                                        <h5 style={{ fontSize: 'small' }}>{doingNumber}</h5>
                                     </Col>
                                 </Row>
                             </Col>

@@ -13,7 +13,7 @@ export default function Nav() {
             <Row>
                 <center>
 
-                    <Button style={{ paddingTop: '15px', marginLeft: '-5px' }} className='buttonNav' href='/Dashboard' > <img className="ico" src='./home.png' ></img> {' '}
+                    <Button style={{ paddingTop: '15px', marginLeft: '-5px' }} className='buttonNav' onClick={() => navigation('/Dashboard')} > <img className="ico" src='./home.png' ></img> {' '}
                         <strong style={{ marginTop: "10px" }}>DASHBOARD</strong> { }
                     </Button>
                 </center>
