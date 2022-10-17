@@ -61,12 +61,15 @@ export default function Dashboard() {
         chart: {
             type: 'variablepie'
         },
-        title: {
+        title:
+        {
+
             text: 'Statistiques des <br>problèmes',
             align: 'center',
             verticalAlign: 'middle',
             y: 60
         },
+
         tooltip: {
             pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
         },
@@ -101,8 +104,12 @@ export default function Dashboard() {
             data: donutsData,
             showInLegend: true
         }]
+        // ,
+        // color: {
+        //     #90ed7d
+        // }
     };
-    console.log('DOOOO', donutsData);
+    // console.log('DOOOO', donutsData);
     // const donuts = {
     //     chart: {
     //         type: 'variablepie'
@@ -130,9 +137,10 @@ export default function Dashboard() {
         chart: {
             type: 'column'
         },
-        title: {
-            text: 'Proprietés des taches par mois'
-        },
+        title: false,
+        // {
+        // text: 'Proprietés des taches par mois'
+        // },
         // subtitle: {
         //     text: 'Detail Planning'
         // },
