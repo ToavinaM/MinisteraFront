@@ -72,7 +72,7 @@ export default function ModalTacheEnRetard({ retard, handleUpdate }) {
                 aria-labelledby="contained-modal-title-vcenter"
                 // centered
                 show={show}
-                onHides={handleClose}>
+                onHide={handleClose}>
                 <Modal.Header className='bg-danger' closeButton>
                     <Modal.Title style={{ color: 'white' }}>({tacheRetard.length}) taches en retard selon leur prevision</Modal.Title>
                 </Modal.Header>

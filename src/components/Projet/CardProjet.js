@@ -4,6 +4,7 @@ import { Badge, Col, Row } from 'react-bootstrap';
 import { fadeIn } from 'react-animations';
 import Radium, { StyleRoot } from 'radium';
 import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
 // import Taches from '../Tache/Taches';
 
 const styles = {
@@ -27,34 +28,30 @@ export default function CardProjet({ projet }) {
     return (
         <StyleRoot>
             <div style={styles.fadeIn} className='projet' onClick={() => getTache(projet.titre)} >
-                <div className='head'>
+                <div className='head' style={{ backgroundColor: projet.color }}>
                     <Row>
                         <center>
-                            <h5>{projet.titre}</h5>
+                            {/* //////gestion si pas de couleur */}
+                            <h5 style={{ color: projet.color ? 'white' : 'black' }} > {projet.titre}</h5>
                         </center>
                     </Row>
                     <Row>
                         <Col>
-                            <p>Debut: 22/08/22</p>
+                            <p style={{ color: 'black' }}> {moment(projet.debut).format('DD/MM/YYY')}</p>
                         </Col>
                         <Col>
-                            <p>Fin: 22/08/22</p>
+                            <p style={{ color: 'black' }}> {moment(projet.fin).format('DD/MM/YYY')}</p>
                         </Col>
                     </Row>
                 </div>
-
-                <hr></hr>
-                <p><strong>Status</strong>:
-                    <Badge bg="danger">  Retard</Badge>
-                </p>
-                <p><strong>Avancement</strong>: 10%</p>
-                <p><strong>Alerteur</strong>: dans 2 jours</p>
-                <p><strong>Commentaires</strong>:<span className="visually-hidden">unread messages</span><Badge bg="primary">9</Badge> nouveaux </p>
-                <span className="visually-hidden">unread messages</span>
-                <p>
-                    {/* <ProgressBar animated now={45} /> */}
-                </p>
+                <div className='bodyCard'>
+                    <p><Badge bg="success">en cours</Badge></p>
+                    <p><strong>Avancement</strong>: 10%</p>
+                    <p><strong>Region</strong>: Antananarivo</p>
+                    <p><strong>Commentaires</strong>:<span className="visually-hidden">unread messages</span><Badge bg="primary">9</Badge> nouveaux </p>
+                    <span className="visually-hidden">unread messages</span>
+                </div>
             </div>
-        </StyleRoot>
+        </StyleRoot >
     )
 }

@@ -5,7 +5,7 @@ import { Modal, Row, Button, Form, OverlayTrigger, Tooltip, Col, ProgressBar } f
 import TacheService from '../Service';
 import './sousTache.css'
 
-// animation
+// animation\
 import { fadeInRight } from 'react-animations'
 import Radium, { StyleRoot } from 'radium';
 import Swal from 'sweetalert2';
@@ -19,7 +19,7 @@ const styles = {
     }
 }
 
-export default function SousTache({ tache }) {
+export default function SousTache({ tache, setProgressColor }) {
     //sound
     const [play] = useSound(create);
     //modal
@@ -68,6 +68,7 @@ export default function SousTache({ tache }) {
 
 
     const handleSave = () => {
+        setIntitule('');
         TacheService.saveSousTache({ TacheId: tache.id, labele: intitule })
             .then(rep => {
                 console.log('save', rep.data);
@@ -137,7 +138,6 @@ export default function SousTache({ tache }) {
 
     }, [show]);
 
-    // console.log('GGGGGGGGGGGGGggggg', moyenne);
     return (
         <div>
             {/* <p>Ajouter</p> */}
@@ -161,7 +161,7 @@ export default function SousTache({ tache }) {
                 onHide={handleClose}
             >
                 <Modal.Header closeButton className='bg-info'>
-                    <Modal.Title style={{ color: 'white' }}>Activité lié </Modal.Title>
+                    <Modal.Title style={{ color: 'white' }}>Activités liés </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Row className='p-3'>
@@ -170,14 +170,11 @@ export default function SousTache({ tache }) {
                             <input onChange={(e) => getFiltre(e)} placeholder='Filtre' className='find'></input>
                         </Col>
                         <Col sm={4}>
-                            {
-                                moyenne ? (
-                                    <ProgressBar style={{ height: '20px' }} now={moyenne} label={Math.round(moyenne) + '%'} animated={true} variant='info' />) : (
-                                    <ProgressBar style={{ height: '20px' }} variant='danger' now='100' label='0%' animated={true} />
-                                )
-                            }
+
+                            <ProgressBar style={{ height: '20px' }} now={moyenne} label={Math.round(moyenne) + '%'} variant={setProgressColor(moyenne)} />
+
                         </Col>
-                        <Col sm={3} style={terminer === SousTache.length ? { backgroundColor: '#2cee11ad', textAlign: 'center', height: '20px', width: '10%', borderRadius: '6px' } : { backgroundColor: 'rgb(108, 117, 125)', textAlign: 'center', height: '20px', width: '10%', borderRadius: '6px' }}>
+                        <Col sm={3} style={terminer === SousTache.length ? { backgroundColor: 'rgb(26, 124, 46)', textAlign: 'center', height: '20px', width: '10%', borderRadius: '6px' } : { backgroundColor: 'rgb(108, 117, 125)', textAlign: 'center', height: '20px', width: '10%', borderRadius: '6px' }}>
                             <p style={{ color: 'white', fontWeight: '100' }}>{terminer}/{SousTache.length}</p>
                         </Col>
                     </Row>
@@ -236,7 +233,7 @@ export default function SousTache({ tache }) {
                             controlId="exampleForm.ControlTextarea1"
                         >
                             <Form.Label>Nouveaux</Form.Label>
-                            <Form.Control onChange={(rep) => { setIntitule(rep.target.value) }} as="textarea" rows={3} />
+                            <Form.Control onChange={(rep) => { setIntitule(rep.target.value) }} value={intitule} as="textarea" rows={3} />
                         </Form.Group>
 
                     </Form>

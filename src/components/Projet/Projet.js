@@ -31,6 +31,7 @@ export default function Projet() {
             .then(rep => {
                 setTimeout(() => {
                     setProjet(rep.data);
+                    // console.log('===========', rep.data);
                 }, 600);
             })
             .catch(err => {
@@ -40,9 +41,10 @@ export default function Projet() {
 
     //FUNCTION
     const handleSave = (newprojet) => {
+        console.log('HHHHHHHhh', newprojet);
         ServiceProjet.save(newprojet)
             .then(rep => {
-                setProjet([...projet, newprojet]);
+                setProjet([...projet, rep.data]);
                 console.log('save projet', rep);
             })
     }
@@ -62,7 +64,10 @@ export default function Projet() {
                             <Col>
                                 <h5>Liste des Projets DSI</h5>
                             </Col>
-                            <Col sm={2}>
+                            <Col sm={3}>
+                                <Pagination size="lg">{items}</Pagination>
+                            </Col>
+                            <Col sm={1} className='mt-3'>
                                 <AddProject handleSave={handleSave}></AddProject>
                             </Col>
                         </Row>
@@ -80,19 +85,13 @@ export default function Projet() {
                                                 <center>
                                                     <BeatLoader className='p-5' color="#36d7b7" />
                                                 </center>
-                                                <h3>veuillez patienter 😃 </h3>
+                                                <h3>veuillez patienter😃</h3>
                                             </div>
                                         )
                                 }
                             </Col>
                         </Row>
-                        <Row>
-                            <Col sm={9}>
-                            </Col>
-                            <Col>
-                                <Pagination size="lg">{items}</Pagination>
-                            </Col>
-                        </Row>
+
                     </Col>
                 </Row>
             </Col>

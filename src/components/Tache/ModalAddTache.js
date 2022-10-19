@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Col, Modal, Row, Form, Dropdown, FloatingLabel } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Button, Col, Modal, Row, Form, FloatingLabel } from 'react-bootstrap';
 //date
 import DatePicker from 'react-date-picker'
-import Swal from 'sweetalert2';
 import useSound from 'use-sound';
 import create from '../sound/create.mp3';
 const options = [
@@ -20,6 +19,7 @@ export default function ModalAddTache({ handleSave }) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   //formulaire
+  const [titre, settitre] = useState('');
   const [PrioriteId, setpriority] = useState(1);
   const [showDateAlerter, setshowDateAlerter] = useState(false);
   const [description, setdescription] = useState("");
@@ -31,6 +31,7 @@ export default function ModalAddTache({ handleSave }) {
   //function
   const handleSaveLocal = () => {
     const modelTask = {
+      titre,
       debut,
       fin,
       PrioriteId,
@@ -48,12 +49,13 @@ export default function ModalAddTache({ handleSave }) {
   return (
     <>
 
-      <button className='pushable' onClick={handleShow}>
+      {/* <button className='pushable' onClick={handleShow}>
         <span className='front'>
           Ajouter
         </span>
-      </button>
+      </button> */}
 
+      <Button onClick={handleShow}>Ajouter</Button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header className='bg-success' closeButton>
           <Modal.Title>Ajouter nouvelle Tache</Modal.Title>
@@ -72,10 +74,18 @@ export default function ModalAddTache({ handleSave }) {
                 </Col>
               </Row>
               <br></br>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlTextarea1"
+              >
+                <Form.Label>Titre</Form.Label>
+                <Form.Control onChange={(rep) => { settitre(rep.target.value) }} rows={3} />
+              </Form.Group>
               <Row>
-                <Form.Label>Priorité</Form.Label>
+                {/* <Form.Label>Priorité</Form.Label> */}
                 <Col>
                   <Form.Select values={{ options }} onChange={(rep) => { setpriority(rep.target.value); }} style={{ padding: "10px" }}>
+                    <option>Priorité</option>
                     {options.map(option => {
                       return (
                         <option style={{ color: option.color }} key={option.id} value={option.id}>

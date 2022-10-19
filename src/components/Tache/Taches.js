@@ -59,6 +59,7 @@ export default function Taches(props) {
         tache.ProjetId = idProjet;
         TacheService.save(tache).then((rep) => {
             settodo([...todo, rep.data]);
+            console.log(rep);
         }).catch(err => {
             console.log('tsy nisave Taches; cause:', err)
         })
@@ -246,7 +247,7 @@ export default function Taches(props) {
     return (
         <>
             {/* //////////FILTRE//////////// */}
-            {/* <ModalTacheEnRetard retard={retard} handleUpdate={handleUpdate} handleDelete={handleDelete} /> */}
+            <ModalTacheEnRetard retard={retard} handleUpdate={handleUpdate} handleDelete={handleDelete} />
 
             <Row>
                 <div className='filtre'>

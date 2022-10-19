@@ -32,6 +32,7 @@ export default function CommentCard({ tache }) {
   // function
   const handleSave = () => {
     play();
+    setIntitule('');
     TacheService.saveCommentaire({ intitule, TacheId: tache.id })
       .then(rep => {
         console.log('save', rep.data);
@@ -124,7 +125,7 @@ export default function CommentCard({ tache }) {
               controlId="exampleForm.ControlTextarea1"
             >
               <Form.Label>Ecrire un commentaire</Form.Label>
-              <Form.Control onChange={(rep) => { setIntitule(rep.target.value) }} as="textarea" rows={3} />
+              <Form.Control onChange={(rep) => { setIntitule(rep.target.value) }} value={intitule} as="textarea" rows={3} />
             </Form.Group>
 
           </Form>

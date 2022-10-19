@@ -7,7 +7,9 @@ import { Button, Col, Modal, Row, Form } from 'react-bootstrap';
 //date
 import DatePicker from 'react-date-picker'
 import LocationModal from '../MyMap/LocationModal';
-//reducer
+//colorpickup
+import { CirclePicker } from 'react-color';
+
 
 export default function AddProject({ handleSave }) {
   const [show, setShow] = useState(false);
@@ -17,12 +19,25 @@ export default function AddProject({ handleSave }) {
   const [titre, settitre] = useState("");
   const [debut, setDebut] = useState(new Date());
   const [fin, setFin] = useState(new Date());
+  const [latitude, setlatitude] = useState();
+  const [longitude, setlongitude] = useState();
+  //colorProject
+  const [color, setcolor] = useState('#9999');  ///ne gere pas la couleur
+
   ////////FONCTION/////////////////
+  function handleChangeComplete(color) {
+    setcolor(color);
+    // console.log('COLOCOl', color);
+  }
+
   const handleSaveLocal = () => {
     const modelProjet = {
       debut,
       fin,
-      titre
+      titre,
+      latitude,
+      longitude,
+      color: color.hex
     }
 
     handleSave(modelProjet);
@@ -33,16 +48,15 @@ export default function AddProject({ handleSave }) {
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
-        Nouveaux projet
+        Nouveaux
       </Button>
-
 
       <Modal
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
         show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
+        <Modal.Header closeButton style={{ backgroundColor: color.hex }}>
           <Modal.Title>Ajouter votre Projet</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -60,13 +74,24 @@ export default function AddProject({ handleSave }) {
               </Row>
               <br></br>
             </Form.Group>
-            <Form.Group
-              className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              <Form.Label>Titre de votre projet</Form.Label>
-              <Form.Control onChange={(rep) => { settitre(rep.target.value) }} rows={3} />
-            </Form.Group>
+            <Row>
+              <Col sm={7}>
+
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlTextarea1"
+                >
+                  <Form.Label>Titre de votre projet</Form.Label>
+                  <Form.Control onChange={(rep) => { settitre(rep.target.value) }} rows={3} />
+                </Form.Group>
+              </Col>
+              <Col>
+                <CirclePicker
+                  color={color}
+                  onChangeComplete={handleChangeComplete}
+                />
+              </Col>
+            </Row>
             <Row>
 
               <Col sm={4}>
@@ -75,7 +100,7 @@ export default function AddProject({ handleSave }) {
                   controlId="exampleForm.ControlTextarea1"
                 >
                   <Form.Label>Longitude</Form.Label>
-                  <Form.Control onChange={(rep) => { settitre(rep.target.value) }} rows={3} />
+                  <Form.Control onChange={(rep) => { setlongitude(rep.target.value) }} rows={3} />
                 </Form.Group>
               </Col>
 
@@ -85,11 +110,12 @@ export default function AddProject({ handleSave }) {
                   controlId="exampleForm.ControlTextarea1"
                 >
                   <Form.Label>Latitude</Form.Label>
-                  <Form.Control onChange={(rep) => { settitre(rep.target.value) }} rows={3} />
+                  <Form.Control onChange={(rep) => { setlatitude(rep.target.value) }} rows={3} />
                 </Form.Group>
               </Col>
               <Col sm={4} className='mt-2'>
                 <LocationModal></LocationModal>
+
               </Col>
             </Row>
 

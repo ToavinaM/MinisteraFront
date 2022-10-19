@@ -11,7 +11,14 @@ export const ProjetService = {
     },
     getEffectif: () => {
         return axios.get(backUrl + `/api/dash/effectif`);
+    },
+    tracageAvance: () => {
+        return axios.get(backUrl + `/api/dash/tracageAvance`);
+    },
+    tracageRetard: () => {
+        return axios.get(backUrl + `/api/dash/tracageRetard`);
     }
+
 }
 
 export default ProjetService;

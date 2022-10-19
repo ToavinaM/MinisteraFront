@@ -32,7 +32,7 @@ export default function LocationModal({ handleSave }) {
                 <Modal.Body>
                     <Row>
                         <Col sm={12} className="boxMain">
-                            <MapContainer center={position} zoom={13} scrollWheelZoom={false} onClick={alert('asd')}>
+                            <MapContainer center={position} zoom={13} scrollWheelZoom={false} >
                                 <TileLayer
 
                                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

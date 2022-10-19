@@ -24,7 +24,7 @@ const styles = {
         animationName: Radium.keyframes(fadeIn, '')
     }
 }
-
+/////////////////////////////////////////////////////////color banier border 
 const getColor = (id) => {
     if (id === 1) return '#79bf3e';
     if (id === 2) return 'rgb(109, 186, 242)';
@@ -80,7 +80,7 @@ export default function CardTask({ tache, handleUpdate, handleDelete, retard }) 
                             {tache.estAlerteur ? (<Alarm></Alarm>) : (<p></p>)}
                         </Col>
                         <Col >
-                            <h5>Titre</h5>
+                            <h5>{tache.titre}</h5>
                         </Col>
                         <Col sm={2} style={{ display: 'contents' }}>
                             <UpdateCard retard={retard} handleUpdate={handleUpdate} tache={tache} />
@@ -109,7 +109,7 @@ export default function CardTask({ tache, handleUpdate, handleDelete, retard }) 
 
                             <Row>
                                 <Col className='mb-2' sm={2}>
-                                    <SousTache tache={tache} />
+                                    <SousTache tache={tache} setProgressColor={setProgressColor} />
                                 </Col>
                                 <Col className='mt-1'>
                                     {terminer}/{total}

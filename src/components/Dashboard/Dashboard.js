@@ -12,6 +12,7 @@ import VariablePie from "highcharts/modules/variable-pie.js";
 //service
 
 import Service from './Service';
+import Retard from './Retard/Retard';
 VariablePie(Highcharts);
 const mois = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 require('highcharts/modules/accessibility')(Highcharts);
@@ -204,8 +205,9 @@ export default function Dashboard() {
                 </Row>
                 {/* //box statistique de sexe and stat general*/}
                 <Row>
-                    <Col sm={3}  >
-                        <div className="stat-sexe">
+                    <Col sm={3}>
+
+                        <div className="stat-avance">
                             <Row>
                                 <Col>
                                     <div className={'box-logo'}>
@@ -216,6 +218,7 @@ export default function Dashboard() {
                                         </div>
                                         <p>Retard</p>
                                         <h2>{retard}</h2>
+                                        <Retard statut='retard'></Retard>
                                     </div>
                                 </Col>
                                 <Col>
@@ -227,7 +230,7 @@ export default function Dashboard() {
                         </div>
                     </Col>
                     <Col sm={3}  >
-                        <div className="stat-sexe">
+                        <div className="stat-avance">
                             <Row>
                                 <Col>
                                     <div className={'box-logo'}>
@@ -238,9 +241,9 @@ export default function Dashboard() {
                                         </div>
                                         <p>En Avance</p>
                                         <h2>{avance}</h2>
+                                        <Retard statut='avance'></Retard>
+
                                     </div>
-
-
                                 </Col>
                                 <Col>
                                     <div>
