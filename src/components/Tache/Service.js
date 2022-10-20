@@ -3,6 +3,12 @@ import axios from "axios";
 // localhost: 8080 / api / auth / signin
 const backUrl = 'http://localhost:8080';
 export const TacheService = {
+    /////////retard
+    updateRetard: (tacheRetard) => {
+        // tableau de tache
+        return axios.put(backUrl + `/api/tache/updateRetard`, tacheRetard);
+    },
+
     ///////////////tache
     save: (data) => {
         return axios.post(backUrl + `/api/tache/add`, data);
@@ -46,6 +52,10 @@ export const TacheService = {
     },
     getAvancement: (data) => {
         return axios.get(backUrl + `/api/sousTache/avancement/${data}`);
+    },
+
+    endAllChecklist: (data) => {
+        return axios.put(backUrl + `/api/sousTache/endAllChecklist/${data}`);
     },
     ////////////////////////probleme
     saveProbleme: (data) => {

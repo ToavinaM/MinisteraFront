@@ -102,7 +102,6 @@ export default function SousTache({ tache, setProgressColor }) {
             }
         })
     }
-    // const all = SousTache;
     const [showData, setshowData] = useState([]);
 
     const getFiltre = event => {
@@ -123,8 +122,7 @@ export default function SousTache({ tache, setProgressColor }) {
     }
 
     useEffect(() => {
-        // console.log('ilay nalaina', tache.id)
-        if (show) { /////important mncontrole an le izy tsy haka ny SousTache rehetra
+        if (show) {
             TacheService.getSousTacheByTache(tache.id)
                 .then(rep => {
                     calculAvancement(rep.data);

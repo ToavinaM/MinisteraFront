@@ -12,6 +12,7 @@ import CardTask from './cardTask/CardTask';
 import Swal from 'sweetalert2';
 import useSound from 'use-sound';
 import event from '../sound/event.mp3'
+import TacheService from './Service';
 const styles = {
     fadeInDown: {
         animation: 'x 1s',
@@ -19,7 +20,7 @@ const styles = {
     }
 }
 
-export default function ModalTacheEnRetard({ retard, handleUpdate }) {
+export default function ModalTacheEnRetard({ retard, handleActiver }) {
     //sound
     const [play] = useSound(event);
     //modal
@@ -31,7 +32,7 @@ export default function ModalTacheEnRetard({ retard, handleUpdate }) {
     // const handleDeleteL = (tacheRetard) => {
 
     // }
-    const handleActiver = () => { ///update massive 
+    const handleActiverLocal = () => { ///update massive 
         Swal.fire({
             title: 'Les previsions seront ajuster ajourdhui!',
             icon: 'warning',
@@ -46,9 +47,14 @@ export default function ModalTacheEnRetard({ retard, handleUpdate }) {
                     'Tache mis en cours',
                     'success'
                 ).then(() => {
-                    // handleUpdate(retard)
-                    alert('mbola tsy mandray tab le any am back');
-                    setShow(false);
+                    TacheService.updateRetard({ tacheRetard })
+                        .then(rep => {
+                            handleActiver(tacheRetard);
+                            setShow(false);
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        })
 
                 })
             }
@@ -61,7 +67,7 @@ export default function ModalTacheEnRetard({ retard, handleUpdate }) {
             settacheRetard(retard);
             setTimeout(() => {
                 setShow(true);
-            }, 1000);
+            }, 500);
         }
     }, [retard])
 
@@ -92,7 +98,7 @@ export default function ModalTacheEnRetard({ retard, handleUpdate }) {
                     <Button variant="secondary" onClick={handleClose}>
                         Ignorer
                     </Button>
-                    <Button variant="primary" onClick={handleActiver}>
+                    <Button variant="primary" onClick={handleActiverLocal}>
                         Activer
                     </Button>
                 </Modal.Footer>

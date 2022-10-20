@@ -11,6 +11,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import ModalTacheEnRetard from './ModalTacheEnRetard';
 import useSound from 'use-sound';
 import pop from '../sound/create.mp3'
+import Swal from 'sweetalert2';
 const styleOver = {
     // transform: 'scale(0.99)',
     backgroundColor: 'rgb(233, 236, 239)',
@@ -64,15 +65,25 @@ export default function Taches(props) {
             console.log('tsy nisave Taches; cause:', err)
         })
     }
+    //////////////////////////////////////////////////mila jerena ////////////ato
+    const handleActiver = (array) => {
+        let newTodo = [];
+        array.map(tache => {
+            settodo(todo.filter(t => t.id !== tache.id));
+        })
+        // setinProgress([...inProgress, array]);
+        // console.log('hahahha', newTodo);
+        // settodo(newTodo);
+        // setnombreTodo(newTodo.length);
+        // tache.StatutId = 2;
+        // setnombreProrgess(inProgress.length);
 
+    }
     const handleUpdate = (tache) => {
         tache.ProjetId = idProjet;
         TacheService.update(tache).then((rep) => {
-            console.log('ILAY IZY', tache.StatutId);
             switch (tache.StatutId) {
                 case 1:
-                    console.log('HUUH', tache)
-                    // todo.slice()
                     console.log(todo.filter(t => t.id !== tache.id));
                     // if()
                     // settodo([...todo, { tache }])
@@ -125,12 +136,8 @@ export default function Taches(props) {
     const [overDoing, setoverDoing] = useState(false);
     const [play] = useSound(pop);
     const draginOver = (e) => {
-        // console.log('over')
-        // play();
         e.stopPropagation();
         e.preventDefault();
-        // alert('test')
-        // console.log(e.target.className);
 
         switch (e.target.className) {
             case 'Todo col':
@@ -164,6 +171,7 @@ export default function Taches(props) {
                 ServiceTask.update(data);
             }
             else if (cyble === "doing") {
+                // alert('Vous ne pouvez pas faire cette action')
                 const newTodo = todo.filter(t => t.id !== tache.id);
                 settodo(newTodo);
                 setnombreTodo(newTodo.length);
@@ -174,9 +182,10 @@ export default function Taches(props) {
                 ServiceTask.update(data);
             }
         }
-        ////////////////////////////////////////////////////////progress//////////////////////////////
-        if (tache.StatutId === 2) { //mila alefa any am in Progress
+        ////////////////////////////////////////////////////////progress TO doing//////////////////////////////
+        if (tache.StatutId === 2) {
             if (cyble === "todo") {
+                // alert('vous ne pouvez pas arreter la progression de cette tache')
                 const newProgress = inProgress.filter(t => t.id !== tache.id);
                 setinProgress(newProgress);
                 setnombreProrgess(newProgress.length);
@@ -186,15 +195,57 @@ export default function Taches(props) {
                 let data = { StatutId: 1, id: tache.id };
                 ServiceTask.update(data);
             }
-            if (cyble === "doing") {
-                const newProgress = inProgress.filter(t => t.id !== tache.id);
-                setinProgress(newProgress);
-                setnombreProrgess(newProgress.length);
-                tache.StatutId = 3;
-                setdoing([...doing, tache]);
-                setnombreDoing(doing.length);
-                let data = { StatutId: 3, id: tache.id };
-                ServiceTask.update(data);
+            if (cyble === "doing") { //////////////////////////////////////////////////////////////////controle si tuot les sous taches sont terminer 
+                console.log('TARITEMENT', tache);
+                ServiceTask.getAvancement(tache.id).then(rep => {
+                    console.log('console', rep.data);
+
+                    if (rep.data.total > rep.data.terminer) {
+                        // alert('Terminer tout les taches?');
+                        Swal.fire({
+                            title: 'Terminer tout les checklists?',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Terminer'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // play();
+                                Swal.fire(
+                                    'Terminer',
+                                    'Tache terminer',
+                                    'success'
+                                ).then(() => {
+                                    tache.StatutId = 3;
+                                    const newProgress = inProgress.filter(t => t.id !== tache.id);
+                                    setinProgress(newProgress); setnombreProrgess(newProgress.length);
+                                    setdoing([...doing, tache]); setnombreDoing(doing.length);
+                                    let data = { StatutId: 3, id: tache.id };
+                                    ServiceTask.update(data).then(rep => {
+                                        ServiceTask.endAllChecklist(tache.id);
+                                    });
+                                })
+                            }
+                        })
+
+                    }
+
+                    else {
+                        const newProgress = inProgress.filter(t => t.id !== tache.id);
+                        setinProgress(newProgress);
+                        setnombreProrgess(newProgress.length);
+                        tache.StatutId = 3;
+                        setdoing([...doing, tache]);
+                        setnombreDoing(doing.length);
+                        let data = { StatutId: 3, id: tache.id };
+                        ServiceTask.update(data);
+                    }
+
+                })
+                    .catch(err => {
+                        console.log('error', err);
+                    })
             }
         }
         /////////////////////////////////////////////////////////////////////doing/////////////////
@@ -246,8 +297,8 @@ export default function Taches(props) {
     const navigation = useNavigate()
     return (
         <>
-            {/* //////////FILTRE//////////// */}
-            <ModalTacheEnRetard retard={retard} handleUpdate={handleUpdate} handleDelete={handleDelete} />
+            {/* //////////RETARD//////////// */}
+            {/* <ModalTacheEnRetard retard={retard} handleActiver={handleActiver} handleDelete={handleDelete} /> */}
 
             <Row>
                 <div className='filtre'>
