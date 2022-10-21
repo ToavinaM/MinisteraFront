@@ -9,12 +9,12 @@ import useSound from 'use-sound';
 import commentSound from '../../sound/pop.mp3';
 
 // animation
-import { fadeInDown } from 'react-animations'
+import { fadeInUp } from 'react-animations'
 import Radium, { StyleRoot } from 'radium';
 const styles = {
-  fadeInDown: {
+  fadeInUp: {
     animation: 'x 1s',
-    animationName: Radium.keyframes(fadeInDown, '')
+    animationName: Radium.keyframes(fadeInUp, '')
   }
 }
 
@@ -93,7 +93,7 @@ export default function CommentCard({ tache }) {
                       commentaire.map(coms => {
                         // console.log(coms);
                         return (
-                          <div className='commentaire' style={styles.fadeInDown} >
+                          <div className='commentaire' style={styles.fadeInUp} >
                             <Row key={coms.id + 'r'}>
                               <Col key={coms.id + 'c'}>
                                 <div className="boxProfil">

@@ -3,7 +3,7 @@ import './cardTask.css';
 import { Button, Col, ProgressBar, Row } from 'react-bootstrap';
 
 // animation
-import { fadeIn } from 'react-animations'
+import { flipInX } from 'react-animations'
 import Radium, { StyleRoot } from 'radium';
 
 //modalupdate
@@ -19,15 +19,15 @@ var moment = require('moment');
 const formatDate = "DD/MM/YYYY HH:mm";
 moment().format();
 const styles = {
-    fadeIn: {
+    flipInX: {
         animation: 'x 1s',
-        animationName: Radium.keyframes(fadeIn, '')
+        animationName: Radium.keyframes(flipInX, '')
     }
 }
 /////////////////////////////////////////////////////////color banier border 
 const getColor = (id) => {
-    if (id === 1) return '#79bf3e';
-    if (id === 2) return 'rgb(109, 186, 242)';
+    if (id === 1) return '#d6d5d5';
+    if (id === 2) return '#79bf3e';
     if (id === 3) return '#e79b63';
 }
 
@@ -41,11 +41,6 @@ const setProgressColor = (values) => {
 {/* <ProgressBar now={(((new Date() - tache.debut) * 100) / (tache.fin - tache.debbut)) / 100} label={(((new Date() - tache.debut) * 100) / (tache.fin - tache.debbut)) / 100} variant='info' /> */ }
 export default function CardTask({ tache, handleUpdate, handleDelete, retard }) { //ilay retard no migerer ny suppr sy ipdate
 
-    // console.log('HHHHHHHHHHHHHHHHhhh', new Date());
-    // console.log('HHHHHHHHHHHHHHHHhhh', moment(tache.debut)._d);
-    // console.log('HHHHHHHHHHHHHHHHhhh',
-    //     ((new Date() - moment(tache.debut)._d) * 100) / (moment(tache.fin)._d - moment(tache.debut)._d) / 100
-    // );
     const [terminer, setterminer] = useState(0);
     const [avancement, setavancement] = useState(0);
     const [total, settotal] = useState(0);
@@ -55,12 +50,11 @@ export default function CardTask({ tache, handleUpdate, handleDelete, retard }) 
         e.dataTransfer.setData("tache", JSON.stringify(tache));
     }
 
-
-    useEffect(() => {
+    let avancementFunction = () => {
         let TacheId = tache.id;
         TacheService.getAvancement(TacheId)
             .then(rep => {
-                console.log('crad avacncemnt', rep);
+                console.log('crad avacncemnt', rep.data);
                 settotal(rep.data.total);
                 setavancement(rep.data.avancement);
                 setterminer(rep.data.terminer);
@@ -68,12 +62,16 @@ export default function CardTask({ tache, handleUpdate, handleDelete, retard }) 
             .catch(err => {
                 console.log('ERRRR avancemnet erro', err);
             })
-    }, []);
+    }
+
+    useEffect(() => {
+        avancementFunction();
+    }, [total, avancement]);
 
 
     return (
         <StyleRoot>
-            <div draggable onDragStart={(e) => dragStarted(e, tache)} style={styles.fadeIn}  >
+            <div draggable onDragStart={(e) => dragStarted(e, tache)} style={styles.flipInX}  >
                 <div style={{ borderTop: `${getColor(tache.PrioriteId)} solid 8px` }} className='card'>
                     <Row >
                         <Col >
@@ -109,7 +107,7 @@ export default function CardTask({ tache, handleUpdate, handleDelete, retard }) 
 
                             <Row>
                                 <Col className='mb-2' sm={2}>
-                                    <SousTache tache={tache} setProgressColor={setProgressColor} />
+                                    <SousTache tache={tache} avancementFunction={avancementFunction} setProgressColor={setProgressColor} />
                                 </Col>
                                 <Col className='mt-1'>
                                     {terminer}/{total}

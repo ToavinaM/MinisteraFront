@@ -6,20 +6,20 @@ import TacheService from '../Service';
 import './sousTache.css'
 
 // animation\
-import { fadeInRight } from 'react-animations'
+import { fadeInUp } from 'react-animations'
 import Radium, { StyleRoot } from 'radium';
 import Swal from 'sweetalert2';
 import useSound from 'use-sound';
 import create from '../../sound/create.mp3';
 
 const styles = {
-    fadeInRight: {
+    fadeInUp: {
         animation: 'x 1s',
-        animationName: Radium.keyframes(fadeInRight, '')
+        animationName: Radium.keyframes(fadeInUp, '')
     }
 }
 
-export default function SousTache({ tache, setProgressColor }) {
+export default function SousTache({ tache, setProgressColor, avancementFunction }) {
     //sound
     const [play] = useSound(create);
     //modal
@@ -60,6 +60,7 @@ export default function SousTache({ tache, setProgressColor }) {
                 })
                 setSousTache(newState);
                 calculAvancement(newState);  //////this is importatnt
+                avancementFunction();
             })
             .catch(er => {
                 console.log(er);
@@ -72,10 +73,11 @@ export default function SousTache({ tache, setProgressColor }) {
         TacheService.saveSousTache({ TacheId: tache.id, labele: intitule })
             .then(rep => {
                 console.log('save', rep.data);
-                setSousTache([...SousTache, rep.data]);
+                // calculAvancement(SousTache);
+                setSousTache([...SousTache, rep.data])
                 setshowData([...showData, rep.data]);
                 play();
-                calculAvancement(SousTache);
+                avancementFunction();
             })
             .catch(err => alert('somme error in server side'));
     }
@@ -148,7 +150,7 @@ export default function SousTache({ tache, setProgressColor }) {
                     </Tooltip>
                 }
             >
-                <img onClick={handleShow} className='logos' src='../check.png' />
+                <img onClick={handleShow} className='logos' src='../completed.jpg' />
             </OverlayTrigger>
 
             <Modal
@@ -163,17 +165,24 @@ export default function SousTache({ tache, setProgressColor }) {
                 </Modal.Header>
                 <Modal.Body>
                     <Row className='p-3'>
-
+                        {/*  */}
                         <Col>
-                            <input onChange={(e) => getFiltre(e)} placeholder='Filtre' className='find'></input>
+                            <div className="m-2">
+                                <img className='findLogo' src='../search.png' />
+                                <input onChange={(e) => getFiltre(e)} placeholder='Filtre' className='findBarTask' style={{ backgroundColor: '#f1efef' }}></input>
+                            </div>
                         </Col>
-                        <Col sm={4}>
+
+
+                    </Row>
+                    <Row>
+                        <Col sm={4} className="m-4">
 
                             <ProgressBar style={{ height: '20px' }} now={moyenne} label={Math.round(moyenne) + '%'} variant={setProgressColor(moyenne)} />
 
                         </Col>
-                        <Col sm={3} style={terminer === SousTache.length ? { backgroundColor: 'rgb(26, 124, 46)', textAlign: 'center', height: '20px', width: '10%', borderRadius: '6px' } : { backgroundColor: 'rgb(108, 117, 125)', textAlign: 'center', height: '20px', width: '10%', borderRadius: '6px' }}>
-                            <p style={{ color: 'white', fontWeight: '100' }}>{terminer}/{SousTache.length}</p>
+                        <Col sm={3} className="m-4" style={terminer === SousTache.length ? { backgroundColor: '#198754', textAlign: 'center', height: '22px', width: '10%', borderRadius: '6px' } : { backgroundColor: 'rgb(13, 202, 240)', textAlign: 'center', height: '22px', width: '10%', borderRadius: '6px' }}>
+                            <p style={{ color: 'white', fontWeight: '500' }}>{terminer}/{SousTache.length}</p>
                         </Col>
                     </Row>
                     <hr></hr>
@@ -188,7 +197,7 @@ export default function SousTache({ tache, setProgressColor }) {
                                                 showData.map(soustache => {
                                                     // console.log(coms);
                                                     return (
-                                                        <div key={soustache.id + 'div'} className='soustache' style={styles.fadeInRight} >
+                                                        <div key={soustache.id + 'div'} className='soustache' style={styles.fadeInUp} >
                                                             <Row className='mt-2' key={soustache.id + 'r'}>
                                                                 <Col sm={1} key={soustache.id + 'c2'}>
                                                                     <Form.Check

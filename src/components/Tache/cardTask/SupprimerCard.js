@@ -10,6 +10,9 @@ export default function SupprimerCard({ tache, handleDelete }) {
   const [play] = useSound(deleteSound);
   const handleDeleteL = () => {
     Swal.fire({
+      toast: true,
+      timer: 4000,
+      timerProgressBar: true,
       title: 'Confirm?',
       icon: 'warning',
       showCancelButton: true,
@@ -19,10 +22,16 @@ export default function SupprimerCard({ tache, handleDelete }) {
     }).then((result) => {
       if (result.isConfirmed) {
         play();
-        Swal.fire(
-          'Supprimer',
-          'Tache supprimer',
-          'success'
+        Swal.fire({
+          toast: true,
+          title: 'Supprimer?',
+          icon: 'success',
+          // timer: 2000,
+          // timerProgressBar: true,
+        }
+          // 'Supprimer',
+          // 'Tache supprimer',
+          // 'success'
         ).then(() => {
           handleDelete(tache);
         })

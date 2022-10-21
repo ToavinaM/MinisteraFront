@@ -1,10 +1,24 @@
-import React from 'react';
-import { Row, Col, Form, Button } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Row, Col, Form, Button, Table } from 'react-bootstrap';
 import Header from '../header/Header';
 import Nav from '../Nav/Nav';
 import './parametre.css'
+import ServiceForAll from '../ServiceForAll';
+
+
+const action = ['Tout access', 'Supprimer', 'Modifier', 'Attribuer', 'Ajouter'];
+
 
 const Parametre = () => {
+    const [role, setrole] = useState([]);
+    useEffect(() => {
+        ServiceForAll.getRole()
+            .then(rep => {
+                setrole(rep.data);
+            })
+    }, [])
+
+
     return (
         <div>
             <Row className='container-fluid'>
@@ -59,11 +73,60 @@ const Parametre = () => {
                                 </Col>
                                 {/* <input/> */}
                             </Row>
+                            <Row className='mt-5'>
+                                <Row>
+                                    <Col>
+                                        <h5 style={{ color: 'grey' }}>Gestion des actions</h5>
+                                    </Col>
+                                </Row>
+                                <hr></hr>
+                                <Row className='ml-2'>
+                                    {/* <Col className='bg-info' sm={2}>
+                                        {role.map(rol => {
+                                            return <p key={role.name}> {rol.name}</p>
+                                        })}
+                                    </Col>
+                                    <Col className='bg-info' sm={2}>
+                                        {action.map(action => {
+                                            return <p key={action}> {action}</p>
+                                        })}
+                                    </Col> */}
+
+                                    <Table striped hover responsive >
+                                        <thead>
+                                            <tr>
+                                                <th style={{ textAlign: 'center' }}>Utilisateur</th>
+                                                <th style={{ textAlign: 'center' }} colspan={action.length} >Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {role.map(rol => {
+                                                return (
+                                                    <tr>
+                                                        <td>{rol.name}</td>
+                                                        {
+                                                            action.map(act => {
+                                                                return <td><input type="checkbox" className="form-check-input" />{" "}{' ', act}</td>
+                                                            })
+                                                        }
+                                                        {/* <td><input type="checkbox" className="form-check-input" /> Modifier</td>
+                                                    <td><input type="checkbox" className="form-check-input" /> Ajouter</td>
+                                                    <td><input type="checkbox" className="form-check-input" /> Access Complet</td> */}
+                                                    </tr>
+                                                )
+                                            })}
+                                        </tbody>
+                                    </Table>
+
+
+                                </Row>
+
+                            </Row>
                         </div>
                     </Row>
                 </Col>
             </Row >
-        </div>
+        </div >
     );
 }
 

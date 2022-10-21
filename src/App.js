@@ -15,6 +15,7 @@ import Projet from './components/Projet/Projet';
 import Taches from './components/Tache/Taches';
 import Parametre from './components/Parametre/Parametre';
 import MyMap from './components/MyMap/MyMap';
+import GestionUser from './components/GestionUser/GestionUser';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/projets" element={<Projet />} />
           <Route path="/tachesById/:idProjet" element={<Taches />} />
           <Route path="/Dashboard" element={<Dashboard />} />
+          <Route path="/gestionUser" element={<GestionUser />} />
           <Route path="/parametre" element={<Parametre />} />
         </Routes>
       </Router>

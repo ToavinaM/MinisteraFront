@@ -63,9 +63,10 @@ export default function Projet() {
                         <Row className='p-3'>
                             <Col>
                                 <h5>Liste des Projets DSI</h5>
+                                <Pagination size="sm">{items}</Pagination>
+
                             </Col>
                             <Col sm={3}>
-                                <Pagination size="lg">{items}</Pagination>
                             </Col>
                             <Col sm={1} className='mt-3'>
                                 <AddProject handleSave={handleSave}></AddProject>

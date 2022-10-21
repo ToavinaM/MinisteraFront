@@ -1,6 +1,6 @@
 import './style.css';
 import React, { useEffect, useState } from 'react';
-import { Col, Form, Row } from 'react-bootstrap';
+import { Badge, Col, Form, Row } from 'react-bootstrap';
 import CardTask from './cardTask/CardTask';
 import ModalAddTache from './ModalAddTache';
 import TacheService from './Service';
@@ -14,47 +14,72 @@ import pop from '../sound/create.mp3'
 import Swal from 'sweetalert2';
 const styleOver = {
     // transform: 'scale(0.99)',
-    backgroundColor: 'rgb(233, 236, 239)',
+    backgroundColor: '#d1dce5cf',
     // boxShadow: '5px 8px 20px 3px #5f5d5d',
     transitionDuration: '1.4s'
 }
 
-const options = [
-    {
-        id: 1,
-        name: "Bas",
-        // color: "blue"
-    },
-    {
-        id: 2,
-        name: "Moyen",
-        // color: "#0ff10f"
-    },
-    {
-        id: 3,
-        name: "Urgent",
-        // color: "red"
-    },
+const optionsPriority = [
+    { id: 1, name: "Bas" },
+    { id: 2, name: "Moyen" },
+    { id: 3, name: "Urgent" },
 ];
+const optionsStatut = [
+    { id: 1, name: "Todo" },
+    { id: 2, name: "In Progress" },
+    { id: 3, name: "Doing" },
+];
+
+
 export default function Taches(props) {
-    //filter
-    const [PrioriteId, setpriority] = useState(1);
+    const navigation = useNavigate();
+
     //paramas
     const { idProjet } = useParams();
-    // console.log(idProjet);
+    //filtre
+    const [statut, setstatut] = useState('');
+    const [priority, setpriority] = useState('');
+    // console.log('statut=--------==', priority);
     //task formater
     const [todo, settodo] = useState(null);
     const [inProgress, setinProgress] = useState(null);
     const [doing, setdoing] = useState(null);
     const [retard, setretard] = useState([]);
 
-    const [nahazodata, setnahazodata] = useState(false);
     /////////nombre stat\
     const [nombreTodo, setnombreTodo] = useState(0);
     const [nombreProgress, setnombreProrgess] = useState(0);
     const [nombreDoing, setnombreDoing] = useState(0);
+    ////////////drag
+    const [overTodo, setoverTodo] = useState(false);
+    const [overProgress, setoverProgress] = useState(false);
+    const [overDoing, setoverDoing] = useState(false);
+    const [play] = useSound(pop);
+
+    ///////////dataShowing
+    const [showDataTodo, setshowDataTodo] = useState(null);
+    const [showDataProgress, setshowDataProgress] = useState(null);
+    const [showDataDoing, setshowDataDoing] = useState(null);
+
     //function==================================================
-    //passage de fonction via props
+    const filtre = (event) => {
+
+        // if (event.target.value.toLowerCase() === "") {
+        //     setshowData(SousTache);
+        // }
+        // else {
+        //     let rep = []
+        //     setshowData(SousTache);
+        //     SousTache.map(pop => {
+        //         if ((pop.labele.toLowerCase().includes(event.target.value.toLowerCase()))) {
+        //             // setSousTache(pop);
+        //             rep.push(pop);
+        //         }
+        //     })
+        //     setshowData(rep);
+        // }
+    }
+
 
     const handleSave = (tache) => {
         tache.ProjetId = idProjet;
@@ -131,10 +156,7 @@ export default function Taches(props) {
             })
     }
 
-    const [overTodo, setoverTodo] = useState(false);
-    const [overProgress, setoverProgress] = useState(false);
-    const [overDoing, setoverDoing] = useState(false);
-    const [play] = useSound(pop);
+
     const draginOver = (e) => {
         e.stopPropagation();
         e.preventDefault();
@@ -201,7 +223,6 @@ export default function Taches(props) {
                     console.log('console', rep.data);
 
                     if (rep.data.total > rep.data.terminer) {
-                        // alert('Terminer tout les taches?');
                         Swal.fire({
                             title: 'Terminer tout les checklists?',
                             icon: 'warning',
@@ -225,6 +246,7 @@ export default function Taches(props) {
                                     ServiceTask.update(data).then(rep => {
                                         ServiceTask.endAllChecklist(tache.id);
                                     });
+
                                 })
                             }
                         })
@@ -275,7 +297,6 @@ export default function Taches(props) {
         setoverProgress(false);
         setoverDoing(false);
     }
-
     useEffect(() => {
         TacheService.getTacheByIdProjet(idProjet)
             .then((rep) => {
@@ -287,14 +308,16 @@ export default function Taches(props) {
                     setretard(rep.data.retard);
                     setdoing(rep.data.doing);
                     setinProgress(rep.data.inProgress);
-                    setnahazodata(true)
+                    // setnahazodata(true)
                 }, 500);
             })
             .catch(err => {
                 console.log(err);
             })
-    }, [nahazodata])
-    const navigation = useNavigate()
+    }, [])
+
+
+
     return (
         <>
             {/* //////////RETARD//////////// */}
@@ -302,72 +325,73 @@ export default function Taches(props) {
 
             <Row>
                 <div className='filtre'>
-                    <Col sm={12} id={'header'}>
-                        {/* //icon gauche */}
-                        <Col sm={3} id={'filtregauche'}>
+                    <Col sm={12} className={'headerFiltreTache'}>
+                        {/* // gauche */}
+                        <Col sm={4} id={'filtregauche'}>
                             <div className="icons">
                                 <img onClick={() => navigation('/projets')} className="ministeraSary" src='../ministere.png'></img>
                             </div>
-                            <div className="m-4 mt-5">
-                                <p>Ministera Ny Rano</p>
-                                <p> </p>
-                            </div>
-                            <div className="icons">
-                                <img className="iconImg" src='./envelope.png'></img>
+                            <div className="m-3">
+                                <h4 style={{ color: 'white', fontFamily: 'sans-serif' }} >Pipeline Project</h4>
                             </div>
                         </Col>
-
-                        {/* //icon droite */}
-                        <Col sm={9} id={'filtredroite'}>
-                            <div className='m-3'>
-                                <Form.Select values={{ options }} onChange={(rep) => { setpriority(rep.target.value); }} style={{ width: "145px", padding: "10px" }}>
-                                    {options.map(option => {
-                                        return (
-                                            <option style={{ color: option.color }} key={option.id} value={option.id}>
-                                                {option.name}
-                                            </option>
-                                        )
-                                    })}
-                                </Form.Select>
-                            </div>
-                            <div className='m-3'>
-                                <Form.Select className='drop' values={{ options }} onChange={(rep) => { setpriority(rep.target.value); }} style={{ width: "145px", padding: "10px" }}>
-                                    {options.map(option => {
-                                        return (
-                                            <option style={{ color: option.color }} key={option.id} value={option.id}>
-                                                {option.name}
-                                            </option>
-                                        )
-                                    })}
-                                </Form.Select>
-                            </div>
-                            <div className='m-3'>
-                                <Form.Select className='drop' values={{ options }} onChange={(rep) => { setpriority(rep.target.value); }} style={{ width: "145px", padding: "10px" }}>
-                                    {options.map(option => {
-                                        return (
-                                            <option style={{ color: option.color }} key={option.id} value={option.id}>
-                                                {option.name}
-                                            </option>
-                                        )
-                                    })}
-                                </Form.Select>
-                            </div>
+                        {/* ////////////////////////eto no manomboka */}
+                        {/* // droite */}
+                        <Col sm={4}>
                             <div className="m-2">
+                                <img className='findLogo' src='../search.png' />
                                 <input className='findBarTask'></input>
                             </div>
                             {/* <Button>Rechercher</Button> */}
                         </Col>
+
+
+                        <Col sm={4} style={{ display: 'flex', alignItems: 'center' }}>
+                            <div className='m-3 ml-3'>
+                                <Form.Select values={{ optionsPriority }} onChange={(rep) => { setpriority(rep.target.value); }} style={{ width: "145px", padding: "10px" }}>
+                                    <option>Priorite</option>
+                                    {optionsPriority.map(option => {
+                                        return (
+                                            <option style={{ color: option.color }} key={option.id} value={option.id}>
+                                                {option.name}
+                                            </option>
+                                        )
+                                    })}
+                                </Form.Select>
+                            </div>
+
+                            <div className='m-3'>
+                                <Form.Select className='drop' values={{ optionsStatut }} onChange={(rep) => { setstatut(rep.target.value); }} style={{ width: "145px", padding: "10px" }}>
+                                    <option>Statut</option>
+                                    {optionsStatut.map(option => {
+                                        return (
+                                            <option style={{ color: option.color }} key={option.id} value={option.id}>
+                                                {option.name}
+                                            </option>
+                                        )
+                                    })}
+                                </Form.Select>
+                            </div>
+
+                            <div className="m-4 mt-5">
+                                <h5 style={{ color: 'white' }} >Ministeran'ny Rano</h5>
+                                <p style={{ color: 'white', fontSize: '12px' }} >Copyright ©: Rnl Tm 2022 </p>
+                                <p> </p>
+                            </div>
+                        </Col>
                     </Col>
                 </div >
             </Row >
+
             {/* ////////////////////// */}
-            < Row className='m-2  ' >
+            < Row className='m-2'>
                 <Col style={overTodo ? styleOver : {}} className='Todo' droppable='true' onDragOver={e => draginOver(e)} onDrop={e => dragDropped(e, 'todo')}>
                     <Row>
                         <Col className='m-auto'>
-                            <h3>Todos({nombreTodo})</h3>
+                            <h5>Todos</h5>
+                            <Badge>{nombreTodo}</Badge>
                         </Col>
-                        <Col md={3}>
+                        <Col md={3} style={{ display: 'contents' }}>
                             <ModalAddTache handleSave={handleSave} />
                         </Col>
                     </Row>
@@ -385,10 +409,9 @@ export default function Taches(props) {
                 </Col>
 
                 <Col style={overProgress ? styleOver : {}} className='InProgress' droppable onDragOver={e => draginOver(e)} onDrop={e => dragDropped(e, 'progress')} >
-                    <center>
-                        <h3>In progress({nombreProgress})</h3>
-                    </center>
-                    {/* <Col className='InProgress' ref={drop}> */}
+                    <h5>In progress</h5>
+                    <Badge>{nombreProgress}</Badge>
+
 
                     <div>
                         {
@@ -407,9 +430,16 @@ export default function Taches(props) {
 
 
                 <Col style={overDoing ? styleOver : {}} className='Doing' droppable onDragOver={e => draginOver(e)} onDrop={e => dragDropped(e, 'doing')}>
-                    <center>
-                        <h3>Doing({nombreDoing})</h3>
-                    </center>
+                    {/* <center> */}
+                    {/* <Row> */}
+                    {/* <Col sm={2}> */}
+                    <h5>Doing</h5>
+                    {/* </Col> */}
+                    {/* <Col sm={1}> */}
+                    <Badge>{nombreDoing}</Badge>
+                    {/* </Col> */}
+                    {/* </Row> */}
+                    {/* </center> */}
                     {
                         doing ? (
                             doing.map(tache => {

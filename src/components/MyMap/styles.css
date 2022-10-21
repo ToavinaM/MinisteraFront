@@ -18,7 +18,7 @@
 .boxMain {
     background-color: white;
     border-radius: 5px;
-    box-shadow: 1px 1px 11px grey;
+    box-shadow: 1px 1px 8px rgb(221, 218, 218);
     margin-top: 45px;
     width: 100%;
     /* min-height: 800px; */

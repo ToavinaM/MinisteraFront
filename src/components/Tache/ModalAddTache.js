@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Button, Col, Modal, Row, Form, FloatingLabel } from 'react-bootstrap';
+import { Button, Col, Modal, Row, Form, FloatingLabel, OverlayTrigger, Tooltip } from 'react-bootstrap';
 //date
 import DatePicker from 'react-date-picker'
+import Swal from 'sweetalert2';
 import useSound from 'use-sound';
 import create from '../sound/create.mp3';
 const options = [
@@ -19,11 +20,11 @@ export default function ModalAddTache({ handleSave }) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   //formulaire
-  const [titre, settitre] = useState('');
+  const [titre, settitre] = useState(null);
   const [PrioriteId, setpriority] = useState(1);
   const [showDateAlerter, setshowDateAlerter] = useState(false);
-  const [description, setdescription] = useState("");
-  const [output, setoutput] = useState("");
+  const [description, setdescription] = useState(null);
+  const [output, setoutput] = useState(null);
   const [debut, setDebut] = useState(new Date());
   const [fin, setFin] = useState(new Date());
   const [estAlerteur, setalerteur] = useState(false);
@@ -39,9 +40,20 @@ export default function ModalAddTache({ handleSave }) {
       output,
       estAlerteur,
     }
-    handleSave(modelTask);
-    play();
-    setShow(false);
+    if (titre === null || description === null || output === null) {
+      Swal.fire({
+        toast: true,
+        title: 'Veuiller remplir tout les champs!',
+        timer: 1000,
+        icon: 'warning',
+      })
+    }
+    else {
+      handleSave(modelTask);
+      settitre(null); setoutput(null); setdescription(null);
+      play();
+      setShow(false);
+    }
 
   }
 
@@ -49,16 +61,20 @@ export default function ModalAddTache({ handleSave }) {
   return (
     <>
 
-      {/* <button className='pushable' onClick={handleShow}>
-        <span className='front'>
-          Ajouter
-        </span>
-      </button> */}
-
-      <Button onClick={handleShow}>Ajouter</Button>
+      <OverlayTrigger
+        key='top'
+        placement='top'
+        overlay={
+          <Tooltip id={`tooltip-end`}>
+            <strong>Ajout Tache</strong>.
+          </Tooltip>
+        }
+      >
+        <img onClick={handleShow} className='logoAdd' src='../ajoutTask.jpg' />
+      </OverlayTrigger>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header className='bg-success' closeButton>
-          <Modal.Title>Ajouter nouvelle Tache</Modal.Title>
+          <Modal.Title style={{ color: 'white' }}>Ajouter nouvelle Tache</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -78,7 +94,7 @@ export default function ModalAddTache({ handleSave }) {
                 className="mb-3"
                 controlId="exampleForm.ControlTextarea1"
               >
-                <Form.Label>Titre</Form.Label>
+                <Form.Label>Titre *</Form.Label>
                 <Form.Control onChange={(rep) => { settitre(rep.target.value) }} rows={3} />
               </Form.Group>
               <Row>
@@ -110,11 +126,11 @@ export default function ModalAddTache({ handleSave }) {
               </Row>
             </Form.Group>
 
-            <FloatingLabel controlId="floatingTextarea2" label="Déscription">
+            <FloatingLabel controlId="floatingTextarea2" label="Déscription*">
               <Form.Control onChange={(rep) => { setdescription(rep.target.value) }} as="textarea" placeholder="Leave a comment here" style={{ height: '100px' }} />
             </FloatingLabel>
             <br></br>
-            <FloatingLabel controlId="floatingTextarea2" label="Output">
+            <FloatingLabel controlId="floatingTextarea2" label="Output*">
               <Form.Control onChange={(rep) => { setoutput(rep.target.value) }} as="textarea" placeholder="Leave a comment here" style={{ height: '100px' }} />
             </FloatingLabel>
 
@@ -122,10 +138,10 @@ export default function ModalAddTache({ handleSave }) {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            Fermer
           </Button>
-          <Button variant="primary" onClick={handleSaveLocal}>
-            Save Changes
+          <Button variant="success" onClick={handleSaveLocal}>
+            Enregistrer
           </Button>
         </Modal.Footer>
       </Modal>

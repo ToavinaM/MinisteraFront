@@ -1,17 +1,10 @@
 #header {
     background-color: white;
-    height: 64px;
+    height: 70px;
     border-radius: 5px;
-    box-shadow: 1px 1px 11px grey;
-
+    box-shadow: 1px 1px 11px rgb(223, 223, 223);
     display: flex;
     align-items: center;
-
-
-    /* animation-name: test;
-    animation-duration: 4s; */
-    /* animation-iteration-count: infinite;
-    animation-direction: reverse; */
 }
 
 #gauche {
@@ -67,8 +60,6 @@
     display: flex;
     align-items: center;
     margin-left: 27px;
-    /* padding: 8px; */
-
 }
 
 .iconImg {
@@ -79,22 +70,14 @@
 }
 
 .icons:hover {
-    /* position: relative; */
-    /* background-color: #7367F0; */
-    /* padding: 10px; */
     border-radius: 50px;
-
-    /* transform: rotate(360deg); */
     transform: scale(1.5, 1.5);
 
     transition-duration: 0.2s;
     cursor: pointer;
 }
 
-/* .icons::after{   
-    transition-duration: 0.5s;
-    background-color: red;
-} */
+
 .imgProfil {
     width: 80%;
     height: 80%;
