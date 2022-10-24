@@ -42,40 +42,17 @@ export default function Signin() {
                     let storage = {
                         id: rep.data.id,
                         email: rep.data.email,
-                        roles: rep.data.roles,
-                        accessToken: rep.data.accessToken,
+                        username: rep.data.username,
+                        initiation: rep.data.initiation,
+                        isActive: rep.data.isActive,
+                        accessToken: rep.data.accessToken
                     }
                     localStorage.setItem('users', JSON.stringify(storage));
                     navigate('/projets');
                 })
-                .catch(err => {//pas encore de controle du server perdue
-
-                    //connnection reussie mais user non reconnue                    
-                    // if(err.response!==undefined){
+                .catch(err => {
                     setError(err.response.data.message)
-                    // console.log('XXXXXXXXXXXXXXXX', err.response.data.message);
                     return;
-                    // }
-
-                    // else if(err.message !== undefined)
-                    //  console.log( err.message);
-
-
-                    // if (typeof  err.message === 'undefined') {
-                    //     console.log('asdasdasd');
-                    //     // color is undefined
-                    // }
-                    // if (typeof  err.response.data.message === 'undefined') {
-                    //     console.log('asdasdasd');
-                    //     // color is undefined
-                    // }
-
-                    // if (typeof err.response.data.message !=undefined) {
-                    //     console.log('XXXXXXXXXXXXXXXX', err.response.data.message);
-                    // }
-                    // // connection perdu
-                    // else{
-                    // }
                 })
         }
     }

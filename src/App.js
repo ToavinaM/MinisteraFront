@@ -16,6 +16,7 @@ import Taches from './components/Tache/Taches';
 import Parametre from './components/Parametre/Parametre';
 import MyMap from './components/MyMap/MyMap';
 import GestionUser from './components/GestionUser/GestionUser';
+import Compte from './components/Compte/Compte';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/Dashboard" element={<Dashboard />} />
           <Route path="/gestionUser" element={<GestionUser />} />
           <Route path="/parametre" element={<Parametre />} />
+          <Route path="/profil" element={<Compte />} />
         </Routes>
       </Router>
     </div>
