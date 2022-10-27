@@ -92,6 +92,7 @@ const Compte = () => {
                                         <div className='m-auto' style={{ width: '200px', height: '200px', borderRadius: '15px', backgroundColor: 'grey' }}>
 
                                             <img src='./ministere.png' style={{ width: '100%', height: '100%' }}></img>
+                                            <img src='./ministere.png' style={{ width: '100%', height: '100%' }}></img>
 
                                         </div>
                                     </Col>
