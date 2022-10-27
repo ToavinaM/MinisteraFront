@@ -106,6 +106,23 @@ export default function GestionUser() {
             })
     }, [])
     //FUNCTION
+
+
+
+    const ButtonLabel = (comp) => {
+
+        let activer = {
+            text: 'Activer',
+            variant: 'primary'
+        };
+        let desactiver = {
+            text: 'Desactiver',
+            variant: 'danger'
+        }
+        if (comp) return desactiver;
+        return activer;
+    }
+
     return (
         <Row className='container-fluid'>
             <Col sm={2}>
@@ -178,7 +195,9 @@ export default function GestionUser() {
                                                             </center>
                                                         </td>
                                                         <td key={user.email + '1a'}>
-                                                            <Button onClick={() => handleActiver(user)} >Activer</Button>
+                                                            {console.log('ButtonLabel', ButtonLabel(user.isActive).text)}
+                                                            <Button style={{ width: '40%' }} variant={ButtonLabel(user.isActive).variant} onClick={() => handleActiver(user)} >{ButtonLabel(user.isActive).text}</Button>{' '}
+                                                            <Button style={{ width: '40%' }} variant='success' onClick={() => handleActiver(user)} >Modifier</Button>
                                                         </td>
 
                                                     </tr>

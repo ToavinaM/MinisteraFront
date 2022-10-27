@@ -319,7 +319,7 @@ export default function Taches(props) {
 
 
     return (
-        <>
+        <div className='all'>
             {/* //////////RETARD//////////// */}
             {/* <ModalTacheEnRetard retard={retard} handleActiver={handleActiver} handleDelete={handleDelete} /> */}
 
@@ -384,7 +384,7 @@ export default function Taches(props) {
             </Row >
 
             {/* ////////////////////// */}
-            < Row className='m-2'>
+            < Row className='m-2 ' >
                 <Col style={overTodo ? styleOver : {}} className='Todo' droppable='true' onDragOver={e => draginOver(e)} onDrop={e => dragDropped(e, 'todo')}>
                     <Row>
                         <Col className='m-auto'>
@@ -455,6 +455,6 @@ export default function Taches(props) {
 
 
             </Row >
-        </>
+        </div>
     );
 }

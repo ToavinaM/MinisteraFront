@@ -159,6 +159,7 @@ export default function SousTache({ tache, setProgressColor, avancementFunction 
                 centered
                 show={show}
                 onHide={handleClose}
+                style={{ height: '100%' }}
             >
                 <Modal.Header closeButton className='bg-info'>
                     <Modal.Title style={{ color: 'white' }}>Activités liés </Modal.Title>
