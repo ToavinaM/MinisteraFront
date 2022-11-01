@@ -3,7 +3,9 @@ import { Button, Modal } from 'react-bootstrap';
 import { MapContainer, Marker, TileLayer, useMapEvents } from 'react-leaflet';
 import { Icon } from 'leaflet';
 import markerIconPng from "leaflet/dist/images/marker-icon.png";
-export default function LocationModal() {
+
+
+export default function LocationModal({ getLocalisation }) {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -28,8 +30,8 @@ export default function LocationModal() {
                     e.latlng.lat,
                     e.latlng.lng
                 ]);
-                console.log(e.latlng.lat,
-                    e.latlng.lng);
+
+                getLocalisation([e.latlng.lat, e.latlng.lng]);
             },
         })
 
@@ -55,6 +57,7 @@ export default function LocationModal() {
 
             <Modal
                 size="lg"
+                fullscreen={true}
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
                 show={show} onHide={handleClose}>
@@ -78,7 +81,7 @@ export default function LocationModal() {
                         Close
                     </Button>
                     <Button variant="primary" >
-                        Save Changes
+                        Valider
                     </Button>
                 </Modal.Footer>
             </Modal>
