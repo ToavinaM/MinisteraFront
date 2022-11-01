@@ -43,8 +43,8 @@ export default function Retard({ statut }) {
             </p>
 
             <Offcanvas show={show} placement="end" onHide={handleClose}>
-                <Offcanvas.Header closeButton>
-                    <Offcanvas.Title>Liste des taches en {statut}</Offcanvas.Title>
+                <Offcanvas.Header style={{ backgroundColor: '#35538b' }} closeButton>
+                    <Offcanvas.Title style={{ color: 'white' }}>Liste des taches en {statut}</Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
                     {

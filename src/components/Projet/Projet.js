@@ -25,6 +25,9 @@ for (let number = 1; number <= 5; number++) {
 export default function Projet() {
     const [projet, setProjet] = useState(null);
 
+    let initiation = localStorage.getItem('users');
+    const [showmodifPass, setshowmodifPass] = useState(JSON.parse(initiation).initiation);
+
     useEffect(() => {
         document.title = 'Projet DSI';
         ServiceProjet.getAll()
@@ -51,6 +54,10 @@ export default function Projet() {
 
     return (
         <Row className='container-fluid'>
+
+
+            {/* ///////////////////Modification password */}
+
             <Col sm={2}>
                 <Nav></Nav>
             </Col>
@@ -63,9 +70,10 @@ export default function Projet() {
                         <Row className='p-3'>
                             <Col>
                                 <h5>Liste des Projets DSI</h5>
+                                <Pagination size="sm">{items}</Pagination>
+
                             </Col>
                             <Col sm={3}>
-                                <Pagination size="lg">{items}</Pagination>
                             </Col>
                             <Col sm={1} className='mt-3'>
                                 <AddProject handleSave={handleSave}></AddProject>

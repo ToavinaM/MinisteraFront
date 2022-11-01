@@ -9,6 +9,7 @@ import DatePicker from 'react-date-picker'
 import LocationModal from '../MyMap/LocationModal';
 //colorpickup
 import { CirclePicker } from 'react-color';
+import Swal from 'sweetalert2';
 
 
 export default function AddProject({ handleSave }) {
@@ -16,7 +17,7 @@ export default function AddProject({ handleSave }) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   //formulaire
-  const [titre, settitre] = useState("");
+  const [titre, settitre] = useState(null);
   const [debut, setDebut] = useState(new Date());
   const [fin, setFin] = useState(new Date());
   const [latitude, setlatitude] = useState();
@@ -40,14 +41,28 @@ export default function AddProject({ handleSave }) {
       color: color.hex
     }
 
-    handleSave(modelProjet);
-    setShow(false);
+    if (titre === null || latitude === null || longitude === null) {
+      Swal.fire({
+        toast: true,
+        title: 'Veuiller remplir tout les champs!',
+        timer: 1000,
+        icon: 'warning',
+      })
+    }
+    else {
+      settitre(null); setlatitude(null); setlongitude(null);
+      handleSave(modelProjet);
+      settitre(null);
+      setShow(false);
+
+    }
   }
 
   /////////// /////VIEW /////////  
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
+        {/* <img className='logoAdd' src='../ajoutTask.jpg' /> */}
         Nouveaux
       </Button>
 
@@ -81,7 +96,7 @@ export default function AddProject({ handleSave }) {
                   className="mb-3"
                   controlId="exampleForm.ControlTextarea1"
                 >
-                  <Form.Label>Titre de votre projet</Form.Label>
+                  <Form.Label>Titre de votre projet *</Form.Label>
                   <Form.Control onChange={(rep) => { settitre(rep.target.value) }} rows={3} />
                 </Form.Group>
               </Col>
@@ -99,7 +114,7 @@ export default function AddProject({ handleSave }) {
                   className="mb-3"
                   controlId="exampleForm.ControlTextarea1"
                 >
-                  <Form.Label>Longitude</Form.Label>
+                  <Form.Label>Longitude *</Form.Label>
                   <Form.Control onChange={(rep) => { setlongitude(rep.target.value) }} rows={3} />
                 </Form.Group>
               </Col>
@@ -109,7 +124,7 @@ export default function AddProject({ handleSave }) {
                   className="mb-3"
                   controlId="exampleForm.ControlTextarea1"
                 >
-                  <Form.Label>Latitude</Form.Label>
+                  <Form.Label>Latitude *</Form.Label>
                   <Form.Control onChange={(rep) => { setlatitude(rep.target.value) }} rows={3} />
                 </Form.Group>
               </Col>

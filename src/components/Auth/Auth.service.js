@@ -3,7 +3,7 @@ import axios from "axios";
 // localhost: 8080 / api / auth / signin
 const backUrl = 'http://localhost:8080';
 export const AuthService = {
-    
+
     signin: (data) => {
         return axios.post(backUrl + `/api/auth/signin`, data);
     },
@@ -14,9 +14,19 @@ export const AuthService = {
     logout: () => {
         // return axios.get(`planning/all-detail-planning`)
     },
-    getAll:()=>{
-        return axios.get(`/getAllUser`);
-    }
 
+    getAllUser: () => {
+        // console.log('asdasdasdasdasdasdasd');
+        return axios.get(backUrl + `/api/auth/allUser`);
+    },
+
+    activation: (data) => {
+        // console.log('asdasdasdasdasdasdasd');
+        return axios.post(backUrl + `/api/auth/activation`, { email: data });
+    },
+    udpateUser: (data) => {
+        // console.log('asdasdasdasdasdasdasd');
+        return axios.post(backUrl + `/api/auth/updateUser`, data);
+    },
 }
 export default AuthService;

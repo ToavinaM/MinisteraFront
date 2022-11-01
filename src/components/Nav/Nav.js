@@ -8,12 +8,13 @@ export default function Nav() {
     return (
         <div className='navContainer' >
             <Row className='mt-4 mb-3'>
-                <Col> <h4><img className="ministeraSary" src='./ministere.png' ></img> Ministera ny Rano</h4> </Col>
             </Row>
+            <Col> <h4><img className="ministeraSary" src='./ministere.png' ></img> Ministera ny Rano</h4> </Col>
             <Row>
                 <center>
 
-                    <Button style={{ paddingTop: '15px', marginLeft: '-5px' }} className='buttonNav' onClick={() => navigation('/Dashboard')} > <img className="ico" src='./home.png' ></img> {' '}
+                    <Button style={{ paddingTop: '15px', marginLeft: '-5px' }} className='buttonNav' onClick={() => navigation('/Dashboard')} >
+                        {/* <img className="ico mb-2" src='./projet.png' ></img> {' '} */}
                         <strong style={{ marginTop: "10px" }}>DASHBOARD</strong> { }
                     </Button>
                 </center>
@@ -24,8 +25,9 @@ export default function Nav() {
                     <div className="drop-box" >
                         <p className='lienNav' onClick={() => navigation('/projets')}  ><img onClick={() => navigation('/projets')} className='logoNav' src='./projet.png' />Listes des Projets</p>
                         <p className='lienNav' onClick={() => navigation('/map')}><img onClick={() => navigation('/map')} className='logoNav' src='./Map.png' />Cartographier les projets</p>
-                        <p className='lienNav' onClick={() => navigation('/Dashboard')}><img onClick={() => navigation('/Dashboard')} className='logoNav' src='./roles.png' />Gestions des utilisateurs</p>
+                        <p className='lienNav' onClick={() => navigation('/GestionUser')}><img onClick={() => navigation('/Dashboard')} className='logoNav' src='./roles.png' />Gestions des utilisateurs</p>
                         <p className='lienNav' onClick={() => navigation('/parametre')}><img onClick={() => navigation('/parametre')} className='logoNav' src='./params.png' />Parametre de l'application</p>
+                        <p className='lienNav' onClick={() => navigation('/profil')}><img onClick={() => navigation('/parametre')} className='logoNav' src='./compte.png' />Profil</p>
                         {/* <ul>
                             <li>Liste</li>
                             <li>Bulletin</li>

@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { Button, Col, Modal, Row, Form, OverlayTrigger, Tooltip, FloatingLabel } from 'react-bootstrap';
 //date
 import DatePicker from 'react-date-picker'
-import Swal from 'sweetalert2';
 //reducer
 // import { addTache } from './TacheSlice';
 // import { useSelector, useDispatch } from 'react-redux';
