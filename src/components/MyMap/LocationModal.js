@@ -5,6 +5,7 @@ import { Icon } from 'leaflet';
 import markerIconPng from "leaflet/dist/images/marker-icon.png";
 
 
+
 export default function LocationModal({ getLocalisation }) {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);

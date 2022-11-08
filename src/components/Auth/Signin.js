@@ -58,7 +58,7 @@ export default function Signin() {
     }
     return (
         <Row className='main'>
-            <Col sm={8} >
+            <Col sm={8} style={{ height: '800px' }}>
                 <div className={styles.container} onClick={() => toggle(!open)}>
                     {/* <Row> */}
                     <center>
@@ -88,7 +88,7 @@ export default function Signin() {
                     </animated.svg>
                 </div>
             </Col>
-            <Col sm={4}>
+            <Col sm={4} >
                 <div className="formulaire-container">
                     <div className="logo">
                         <h1> Login </h1>

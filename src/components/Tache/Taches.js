@@ -332,7 +332,7 @@ export default function Taches(props) {
                                 <img onClick={() => navigation('/projets')} className="ministeraSary" src='../ministere.png'></img>
                             </div>
                             <div className="m-3">
-                                <h4 style={{ color: 'white', fontFamily: 'sans-serif' }} >Pipeline Project</h4>
+                                <h4 style={{ color: 'white', fontFamily: 'sans-serif' }} >Water tracking</h4>
                             </div>
                         </Col>
                         {/* ////////////////////////eto no manomboka */}

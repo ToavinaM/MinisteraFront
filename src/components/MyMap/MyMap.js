@@ -12,7 +12,7 @@ import Nav from '../Nav/Nav';
 import Header from '../header/Header';
 import ProjetService from '../Projet/Projet.service';
 import moment from 'moment';
-
+import { useNavigate } from 'react-router-dom';
 
 
 const center = { lat: -18.865447, lng: 47.519533 }
@@ -22,6 +22,12 @@ const MyMap = () => {
     const [position, setPosition] = useState(center);
 
     const [projet, setprojet] = useState();
+    const navigate = useNavigate();
+
+    //function
+    const getTache = (id) => {
+        navigate(`/tachesById/${id}`);
+    }
 
 
     useEffect(() => {
@@ -61,15 +67,8 @@ const MyMap = () => {
                                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                                 />
-                                <Marker position={[51.5, -0.09]} icon={new Icon({ iconUrl: markerIconPng, iconSize: [25, 41], iconAnchor: [12, 41] })}>
-                                    <Popup minWidth={90}>
-                                        fdghjkhgfd
-                                    </Popup>
-                                </Marker>
-
                                 {
                                     projet ? (
-
                                         projet.map(pro => {
                                             return (
                                                 <Marker position={[pro.latitude, pro.longitude]} icon={new Icon({ iconUrl: markerIconPng, iconSize: [25, 41], iconAnchor: [12, 41] })}>
@@ -78,6 +77,7 @@ const MyMap = () => {
                                                         <h1>{pro.titre}</h1>
                                                         <p>Debut:{moment(pro.debut).format('dd/mm/yyyy')}</p>
                                                         <p>Fin:{moment(pro.fin).format('dd/mm/yyyy')}</p>
+                                                        <p onClick={() => getTache(pro.id)}> Voir les taches</p>
                                                     </Popup>
                                                 </Marker>
                                             )
@@ -92,7 +92,7 @@ const MyMap = () => {
                 </Col>
 
             </Row >
-        </div>
+        </div >
     )
 }
 
