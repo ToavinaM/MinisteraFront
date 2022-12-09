@@ -23,30 +23,34 @@ export default function Signin() {
         to: { factor: 150, opacity: 1, scale: 1, freq: '0.0, 0.0' },
         config: { duration: 3000 },
     }))
-    const [username, setusername] = useState('');
+
+    //formulaire
+    // const [username, setusername] = useState('');
     const [password, setpassword] = useState('');
+    const [email, setemail] = useState('');
     const [error, setError] = useState(null);
 
     const navigate = useNavigate();
 
 
     function submitSignin() {
-        let data = { username, password };
-        if (username == '' || password == '') {
+        let data = { email, password };
+        if (email == '' || password == '') {
             setError('remplire tout les champs!');
         }
         else {
             AuthService.signin(data)
                 .then(rep => {
-                    console.log('======>>>', rep.data);
+                    // alert('huhu');
+                    // console.log('======>>>', rep.data);
                     let storage = {
                         id: rep.data.id,
+                        DepartementId: rep.data.DepartementId,
                         email: rep.data.email,
                         username: rep.data.username,
-                        initiation: rep.data.initiation,
-                        isActive: rep.data.isActive,
                         accessToken: rep.data.accessToken
                     }
+                    console.log('Stogarad', storage);
                     localStorage.setItem('users', JSON.stringify(storage));
                     navigate('/projets');
                 })
@@ -104,7 +108,7 @@ export default function Signin() {
                     <div className='formulaire-body'>
                         <Col sm={8} className='m-auto'>
                             <FloatingLabel controlId="floatingInput" label="Email address" className="mb-3">
-                                <Form.Control onChange={(value) => setusername(value.target.value)} type="email" placeholder="name@example.com" />
+                                <Form.Control onChange={(value) => setemail(value.target.value)} type="email" placeholder="name@example.com" />
                             </FloatingLabel>
                             <FloatingLabel controlId="floatingPassword" label="Password">
                                 <Form.Control onChange={(value) => setpassword(value.target.value)} type="password" placeholder="Password" />

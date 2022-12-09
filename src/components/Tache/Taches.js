@@ -7,11 +7,12 @@ import TacheService from './Service';
 import { FadeLoader } from 'react-spinners'
 import ServiceTask from './Service';
 //route params
-import { useNavigate, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import ModalTacheEnRetard from './ModalTacheEnRetard';
 import useSound from 'use-sound';
 import pop from '../sound/create.mp3'
 import Swal from 'sweetalert2';
+import moment from 'moment';
 const styleOver = {
     // transform: 'scale(0.99)',
     backgroundColor: '#d1dce5cf',
@@ -35,7 +36,12 @@ export default function Taches(props) {
     const navigation = useNavigate();
 
     //paramas
-    const { idProjet } = useParams();
+    let { state } = useLocation();
+    const idProjet = state.projet.id;
+    // const idProjet = state.projet.id;
+
+    console.log('HJHJHJHJHJVGVGVGv', state.projet);
+    // alert(idProjet);
     //filtre
     const [statut, setstatut] = useState('');
     const [priority, setpriority] = useState('');
@@ -324,7 +330,7 @@ export default function Taches(props) {
             {/* <ModalTacheEnRetard retard={retard} handleActiver={handleActiver} handleDelete={handleDelete} /> */}
 
             <Row>
-                <div className='filtre'>
+                <div className='filtre' /*style={{ backgroundColor: `${state.projet.color}` }}*/>
                     <Col sm={12} className={'headerFiltreTache'}>
                         {/* // gauche */}
                         <Col sm={4} id={'filtregauche'}>
@@ -332,7 +338,17 @@ export default function Taches(props) {
                                 <img onClick={() => navigation('/projets')} className="ministeraSary" src='../ministere.png'></img>
                             </div>
                             <div className="m-3">
-                                <h4 style={{ color: 'white', fontFamily: 'sans-serif' }} >Water tracking</h4>
+                                <Row>
+                                    <Col>
+                                        <h4 style={{ color: 'white', fontFamily: 'sans-serif' }} >{state.projet.titre}</h4>
+                                    </Col>
+                                    <Col>
+                                        <i style={{ color: 'white', fontFamily: 'sans-serif' }} >{moment(state.projet.debut).format('DD/MM/YYYY')}</i>
+                                    </Col>
+                                    <Col>
+                                        <i style={{ color: 'white', fontFamily: 'sans-serif' }} >{moment(state.projet.fin).format('DD/MM/YYYY')}</i>
+                                    </Col>
+                                </Row>
                             </div>
                         </Col>
                         {/* ////////////////////////eto no manomboka */}
@@ -375,7 +391,7 @@ export default function Taches(props) {
 
                             <div className="m-4 mt-5">
                                 <h5 style={{ color: 'white' }} >Ministeran'ny Rano</h5>
-                                <p style={{ color: 'white', fontSize: '12px' }} >Copyright ©: Rnl Tm 2022 </p>
+                                <p style={{ color: 'white', fontSize: '12px' }} >Copyright : © meah 2022 </p>
                                 <p> </p>
                             </div>
                         </Col>

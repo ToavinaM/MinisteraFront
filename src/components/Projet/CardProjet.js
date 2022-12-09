@@ -21,7 +21,8 @@ export default function CardProjet({ projet }) {
 
     //function
     const getTache = () => {
-        navigate(`/tachesById/${projet.id}`);
+        // navigate(`/tachesById/${projet.id}`);
+        navigate(`/tachesById`, { state: { projet } });
     }
 
 
@@ -37,25 +38,35 @@ export default function CardProjet({ projet }) {
                     </Row>
                     <Row>
                         <Col>
-                            <p style={{ color: 'black' }}> {moment(projet.debut).format('DD/MM/YYYY')}</p>
+                            <i style={{ color: 'white' }}> {moment(projet.debut).format('DD/MM/YYYY')}</i>
                         </Col>
                         <Col>
-                            <p style={{ color: 'black' }}> {moment(projet.fin).format('DD/MM/YYYY')}</p>
+                            <i style={{ color: 'white' }}> {moment(projet.fin).format('DD/MM/YYYY')}</i>
                         </Col>
                     </Row>
                 </div>
                 <div className='bodyCard'>
                     <Row>
                         <Col>
-                            <p><Badge bg="success">en cours</Badge></p>
+                            <p>
+                                <Badge bg="success">
+                                    {
+                                        projet.totalTache === projet.tacheTerminer && projet.totalTache !== 0 && projet.tacheTerminer !== 0 ?
+                                            <i>terminer</i>
+                                            : <i>en cours</i>
+                                    }
+                                </Badge>
+                            </p>
+                        </Col>
+                        <Col sm={6}>
+                            <p className='mt-1'><ProgressBar style={{ height: '20px' }} now={projet.avancement} label={projet.avancement} /></p>
                         </Col>
                     </Row>
                     <p><strong>Region</strong>: Antananarivo</p>
-                    <p><strong>Commentaires</strong>:<span className="visually-hidden">unread messages</span><Badge bg="primary">9</Badge> nouveaux </p>
+                    <p><strong>Taches</strong>: {projet.totalTache}</p>
+                    <p><strong>Terminer</strong>: {projet.tacheTerminer}</p>
+                    {/* <p><strong>Commentaires</strong>:<span className="visually-hidden">unread messages</span><Badge bg="primary">9</Badge> nouveaux </p> */}
 
-                    <Col sm={6}>
-                        <p className='mt-1'><ProgressBar style={{ height: '20px' }} now='10' label='10%' /></p>
-                    </Col>
                     <span className="visually-hidden">unread messages</span>
                 </div>
             </div>

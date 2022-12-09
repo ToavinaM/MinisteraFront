@@ -12,7 +12,7 @@ import { CirclePicker } from 'react-color';
 import Swal from 'sweetalert2';
 
 
-export default function AddProject({ handleSave }) {
+export default function AddProject({ handleSave, user }) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -38,6 +38,7 @@ export default function AddProject({ handleSave }) {
   }
   const handleSaveLocal = () => {
     const modelProjet = {
+      DepartementId: user.DepartementId,
       debut,
       fin,
       titre,
@@ -45,7 +46,7 @@ export default function AddProject({ handleSave }) {
       longitude,
       color: color.hex
     }
-
+    console.log('model Projet', modelProjet);
     if (titre === null || latitude === null || longitude === null) {
       Swal.fire({
         toast: true,
@@ -55,9 +56,11 @@ export default function AddProject({ handleSave }) {
       })
     }
     else {
+
+      handleSave(modelProjet)
+      // .then(rep => {
+      //clear formulaire and hide modal
       settitre(null); setlatitude(null); setlongitude(null);
-      handleSave(modelProjet);
-      settitre(null);
       setShow(false);
 
     }
@@ -133,8 +136,11 @@ export default function AddProject({ handleSave }) {
                 </Form.Group>
               </Col>
 
-              <Col sm={4} className='mt-2'>
-                <LocationModal getLocalisation={getLocalisation} />
+              <Col sm={4} className='mt-4'>
+                <div>
+                  <LocationModal getLocalisation={getLocalisation} />
+
+                </div>
               </Col>
             </Row>
 

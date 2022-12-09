@@ -9,10 +9,11 @@ export default function Nav() {
         <div className='navContainer' >
             <Row className='mt-4 mb-3'>
             </Row>
-            <Col> <h4><img className="ministeraSary" src='./ministere.png' ></img> Ministera ny Rano</h4> </Col>
+            <Col>
+                <h4><img className="ministeraSary" src='./ministere.png' ></img> MEAH</h4>
+            </Col>
             <Row>
                 <center>
-
                     <Button style={{ paddingTop: '15px', marginLeft: '-5px' }} className='buttonNav' onClick={() => navigation('/Dashboard')} >
                         {/* <img className="ico mb-2" src='./projet.png' ></img> {' '} */}
                         <strong style={{ marginTop: "10px" }}>DASHBOARD</strong> { }
