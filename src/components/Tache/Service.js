@@ -1,7 +1,7 @@
 // import http from "./http-common";
 import axios from "axios";
 // localhost: 8080 / api / auth / signin
-const backUrl = 'http://localhost:8080';
+import backUrl from '../config/config';
 export const TacheService = {
     /////////retard
     updateRetard: (tacheRetard) => {

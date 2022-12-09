@@ -1,7 +1,8 @@
-.main{
+.main {
     overflow: hidden;
 }
-.formulaire-container {
+
+.formulaire-containerI {
     /* padding-top :10%;
     height: max-content;
     width: 98%;
@@ -10,10 +11,35 @@
     padding-top: 10%;
     width: 100%;
     margin-bottom: auto;
-    min-height: 300px;
-    text-align: center;   
-     /* border: #202121 solid 1px; */
+    min-height: 500px;
+    text-align: center;
+    /* border: #202121 solid 1px; */
     box-shadow: 1px, 1px, 1px grey;
+    margin-left: 10%;
+    margin-top: 10%;
+    border-radius: 15px;
+    /* padding: 20px; */
+    box-shadow: 1px 3px 20px 0px #c3bcbc;
+}
+
+.formulaire-container {
+    /* padding-top :10%;
+    height: max-content;
+    width: 98%;
+    box-shadow: #eeeeee 1px -7px 7px 4px;
+    margin-bottom: auto; */
+    padding-top: 10%;
+    width: 95%;
+    margin-bottom: auto;
+    min-height: 700px;
+    text-align: center;
+    /* border: #202121 solid 1px; */
+    box-shadow: 1px, 1px, 1px grey;
+    margin-right: 20%;
+    margin-top: 5%;
+    border-radius: 15px;
+    /* padding: 20px; */
+    box-shadow: 1px 3px 20px 0px #c3bcbc;
 }
 
 .logo {
@@ -64,12 +90,15 @@
     text-align: center;
     box-shadow: 1px 1px 10px 1px #f1edff;
 }
-.buttons:hover{
+
+.buttons:hover {
     background-color: #21de14;
 }
-.button:hover{
+
+.button:hover {
     background-color: #29a4db;
 }
+
 .button {
     background-color: #35528a;
     border: #5ad9d9;

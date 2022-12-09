@@ -100,6 +100,7 @@ export default function ModalAddTache({ handleSave }) {
               <Row>
                 {/* <Form.Label>Priorité</Form.Label> */}
                 <Col>
+
                   <Form.Select values={{ options }} onChange={(rep) => { setpriority(rep.target.value); }} style={{ padding: "10px" }}>
                     <option>Priorité</option>
                     {options.map(option => {
@@ -110,6 +111,7 @@ export default function ModalAddTache({ handleSave }) {
                       )
                     })}
                   </Form.Select>
+
                 </Col>
               </Row>
 

@@ -7,7 +7,7 @@ import markerIconPng from "leaflet/dist/images/marker-icon.png"
 import { Icon } from 'leaflet'
 
 
-import { Col, ProgressBar, Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import Nav from '../Nav/Nav';
 import Header from '../header/Header';
 import ProjetService from '../Projet/Projet.service';
@@ -27,7 +27,7 @@ const MyMap = () => {
 
     //function
     const getTache = (id) => {
-        navigate(`/tachesById`, { state: { projet } });
+        navigate(`/tachesById/${id}`);
     }
 
 
@@ -75,14 +75,12 @@ const MyMap = () => {
                                         projet.map(projet => {
                                             return (
                                                 <Marker position={[projet.latitude, projet.longitude]} icon={new Icon({ iconUrl: markerIconPng, iconSize: [25, 41], iconAnchor: [12, 41] })}>
-                                                    <Popup minWidth={100}>
+                                                    <Popup minWidth={90}>
                                                         <h1>{projet.titre}</h1>
-                                                        <p className='mt-1'><ProgressBar style={{ height: '20px' }} now={projet.avancement} label={projet.avancement} /></p>
-                                                        <p>Debut:{moment(projet.debut).format('DD/MM/YYYY')}</p>
-                                                        <p>Fin:{moment(projet.fin).format('DD/MM/YYYY')}</p>
-                                                        <p>Taches:{projet.totalTache}</p>
-                                                        <p>Terminer:{projet.tacheTerminer}</p>
-                                                        <p onClick={() => getTache(projet)}> Détail</p>
+                                                        <p>Debut:{moment(projet.debut).format('dd/mm/yyyy')}</p>
+                                                        <p>Fin:{moment(projet.fin).format('dd/mm/yyyy')}</p>
+                                                        <p>Fin:{projet.avancement}</p>
+                                                        <p onClick={() => getTache(projet.id)}> Voir les taches</p>
                                                     </Popup>
                                                 </Marker>
                                             )

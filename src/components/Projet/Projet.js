@@ -9,10 +9,9 @@ import AddProject from './AddProjet';
 import CardProjet from './CardProjet';
 //service
 import ServiceProjet from './Projet.service';
-//redux
 import { BeatLoader } from 'react-spinners';
 
-let active = 2;
+let active = 1;
 let items = [];
 for (let number = 1; number <= 5; number++) {
     items.push(
@@ -23,32 +22,33 @@ for (let number = 1; number <= 5; number++) {
 }
 
 export default function Projet() {
+    const user = JSON.parse(localStorage.getItem('users'));
     const [projet, setProjet] = useState(null);
 
     let initiation = localStorage.getItem('users');
-    const [showmodifPass, setshowmodifPass] = useState(JSON.parse(initiation).initiation);
 
     useEffect(() => {
-        document.title = 'Projet DSI';
-        ServiceProjet.getAll()
+        document.title = `Suivie des projets`;
+        ServiceProjet.getAllByDept(user.DepartementId)
             .then(rep => {
                 setTimeout(() => {
                     setProjet(rep.data);
-                    // console.log('===========', rep.data);
                 }, 600);
             })
             .catch(err => {
-                console.log(err);
+                // console.log(err);
             })
     }, []);
 
     //FUNCTION
     const handleSave = (newprojet) => {
-        console.log('HHHHHHHhh', newprojet);
+        // console.log('HHHHHHHhh', newprojet);
         ServiceProjet.save(newprojet)
             .then(rep => {
                 setProjet([...projet, rep.data]);
-                console.log('save projet', rep);
+            }).catch(err => {
+                alert(err.response.data.message);
+                // console.log(err)
             })
     }
 
@@ -76,7 +76,7 @@ export default function Projet() {
                             <Col sm={3}>
                             </Col>
                             <Col sm={1} className='mt-3'>
-                                <AddProject handleSave={handleSave}></AddProject>
+                                <AddProject handleSave={handleSave} user={user}></AddProject>
                             </Col>
                         </Row>
                         <hr></hr>
@@ -85,7 +85,7 @@ export default function Projet() {
                                 {
                                     projet ? (
                                         projet.map(projet => {
-                                            // console.log('kokokoko boucle projet',projet)
+                                            // // console.log('kokokoko boucle projet',projet)
                                             return <CardProjet projet={projet}></CardProjet>
                                         }))
                                         : (

@@ -27,7 +27,8 @@ function App() {
           <Route path="/map" element={<MyMap />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/projets" element={<Projet />} />
-          <Route path="/tachesById/:idProjet" element={<Taches />} />
+          <Route path="/tachesById" element={<Taches />} />
+          {/* <Route path="/tachesById/:idProjet" element={<Taches />} /> */}
           <Route path="/Dashboard" element={<Dashboard />} />
           <Route path="/gestionUser" element={<GestionUser />} />
           <Route path="/parametre" element={<Parametre />} />

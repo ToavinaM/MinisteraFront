@@ -170,24 +170,20 @@ export default function Dashboard() {
             }
         },
         series: [{
-            name: 'Pipeline',
+            name: 'todo',
             color: 'Red',
             // data: arrayRep['high']
-            data: [2, 15, 14]
+            data: [12, 23, 19, 9, 4, 2, 4, 5, 6, 7, 29, 9]
         }, {
-            name: 'SADECK',
+            name: 'progress',
             // data: arrayRep['medium']
-            data: [5, 2, 32]
+            data: [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8]
 
         }, {
-            name: 'TANAMASOANDRO',
+            name: 'doing',
             color: 'Green',
             // data: arrayRep['low']
-            data: [17, 32, 52]
-        }, {
-            name: 'Motro',
-            color: 'Yellow',
-            data: [11, 7, 19]
+            data: [12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12]
         }
         ]
     };

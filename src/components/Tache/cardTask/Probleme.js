@@ -96,7 +96,7 @@ export default function Probleme({ tache }) {
                     <hr></hr>
                     <Row>
                         {listeProbleme.length > 0 ? (
-                            <Table striped bordered hover variant="dark">
+                            <Table striped bordered hover >
                                 <thead>
                                     <tr>
                                         <th>Labele</th>
