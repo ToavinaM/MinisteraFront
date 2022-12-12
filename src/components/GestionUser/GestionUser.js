@@ -46,35 +46,14 @@ export default function GestionUser() {
                 // play();
                 Swal.fire({
                     toast: true,
-                    title: 'Supprimer?',
+                    title: 'Activation en cours!',
                     icon: 'success',
                 }
                 ).then(() => {
                     AuthService.activation(user.email)
                         .then(rep => {
                             console.log(rep);
-                            // alert('sdf');
-                            // return (
-
-                            // < Toast
-                            //     className="d-inline-block m-1"
-                            //     bg='light'
-                            // // key={idx}
-                            // >
-                            //     <Toast.Header>
-                            //         <img
-                            //             src="holder.js/20x20?text=%20"
-                            //             className="rounded me-2"
-                            //             alt=""
-                            //         />
-                            //         <strong className="me-auto">Bootstrap</strong>
-                            //         <small>11 mins ago</small>
-                            //     </Toast.Header>
-                            //     <Toast.Body>
-                            //         Hello, world! This is a toast message.
-                            //     </Toast.Body>
-                            // </Toast >
-                            // )
+                            document.location.reload();
                         })
                         .catch(err => console.log('tsy mety:', err))
                 })
@@ -196,8 +175,8 @@ export default function GestionUser() {
                                                         </td>
                                                         <td key={user.email + '1a'}>
                                                             {console.log('ButtonLabel', ButtonLabel(user.isActive).text)}
-                                                            <Button style={{ width: '40%' }} variant={ButtonLabel(user.isActive).variant} onClick={() => handleActiver(user)} >{ButtonLabel(user.isActive).text}</Button>{' '}
-                                                            <Button style={{ width: '40%' }} variant='success' onClick={() => handleActiver(user)} >Modifier</Button>
+                                                            <Button style={{ width: '100%' }} variant={ButtonLabel(user.isActive).variant} onClick={() => handleActiver(user)} >{ButtonLabel(user.isActive).text}</Button>{' '}
+                                                            {/* <Button style={{ width: '40%' }} variant='success' onClick={() => handleActiver(user)} >Modifier</Button> */}
                                                         </td>
 
                                                     </tr>

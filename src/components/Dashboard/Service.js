@@ -1,7 +1,7 @@
 // import http from "./http-common";
 import axios from "axios";
 // localhost: 8080 / api / auth / signin
-const backUrl = 'http://localhost:8080';
+import backUrl from '../config/config'
 export const ProjetService = {
     getProbleme: () => {
         return axios.get(backUrl + `/api/dash/probleme`);

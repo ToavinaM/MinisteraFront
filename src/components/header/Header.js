@@ -3,6 +3,10 @@ import { Col } from 'react-bootstrap';
 import './header.css'
 
 export default function Header() {
+
+    const user = JSON.parse(localStorage.getItem('users'));
+    // alert(user.username);
+
     return (
         <Col sm={12} id={'header'}>
             {/* //icon gauche */}
@@ -31,7 +35,7 @@ export default function Header() {
 
                 </div>
                 <div className="status-profil">
-                    <p><strong>R.Toavina Mario</strong> </p>
+                    <p><strong>{user.username}</strong> </p>
                 </div>
                 <div className="boxProfil">
                     <center>

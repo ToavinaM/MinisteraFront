@@ -4,6 +4,8 @@ import Header from '../header/Header';
 import Nav from '../Nav/Nav';
 import './parametre.css'
 import ServiceForAll from '../ServiceForAll';
+import ParametreService from './Service';
+
 
 
 const action = ['Tout access', 'Supprimer', 'Modifier', 'Attribuer', 'Ajouter'];
@@ -11,12 +13,29 @@ const action = ['Tout access', 'Supprimer', 'Modifier', 'Attribuer', 'Ajouter'];
 
 const Parametre = () => {
     const [role, setrole] = useState([]);
+
+    const [bas, setbas] = useState(0);
+    const [moyen, setmoyen] = useState(0);
+    const [haut, sethaut] = useState(0);
+
     useEffect(() => {
         ServiceForAll.getRole()
             .then(rep => {
                 setrole(rep.data);
             })
     }, [])
+
+
+
+    const handleAlerteur = () => {
+        ParametreService.setConfigPriority(bas, moyen, haut)
+            .then(rep => {
+                console.log('success', rep);
+            })
+            .catch(err => {
+                console.log('error', err);
+            })
+    }
 
 
     return (
@@ -43,35 +62,22 @@ const Parametre = () => {
                                 <hr></hr>
                                 <Col className='mt-4 m-auto boxPrio p-auto' style={{ borderLeft: ' #5050f4 5px solid' }} sm={4}>
                                     <h6 style={{ color: 'gray' }}>Bas</h6>
-                                    <center>
-
-                                        <label>en heure:</label><input value="13:00" type='time' className='inpuT' />
-                                        <label> ou en Jours :</label><input value="1" type='number' className='inpuT' />
-                                    </center>
+                                    <label> Jours :</label><input value={bas} type='number' className='inpuT' onChange={(rep) => setbas(rep.target.value)} />
                                     <br></br>
                                     <p style={{ color: 'gray' }}>Actuelement : 5h avant </p>
                                 </Col>
                                 <Col className='mt-4 m-auto boxPrio p-auto' style={{ borderLeft: ' #22ee05 5px solid' }} sm={4}>
                                     <h6 style={{ color: 'gray' }}>Moyen</h6>
-                                    <center>
-                                        <label>en heure : </label><input value="13:00" type='time' className='inpuT' />
-                                        <label> ou en Jours :</label><input value="1" type='number' className='inpuT' />
-                                    </center>
+                                    <label> Jours :</label><input value={moyen} type='number' className='inpuT' onChange={(rep) => setmoyen(rep.target.value)} />
                                     <br></br>
-                                    <p style={{ color: 'gray' }}>Actuelement : 1j avant</p>
-
+                                    <p style={{ color: 'gray' }}>Actuelement : 5h avant </p>
                                 </Col>
                                 <Col className='mt-4 m-auto boxPrio p-auto' style={{ borderLeft: ' #ee0505  5px solid' }} sm={4}>
                                     <h6 style={{ color: 'gray' }}>Urgent</h6>
-                                    <center>
-                                        <label>en heure :</label><input value="13:00" type='time' className='inpuT' />
-                                        <label> ou en Jours :</label><input value="1" type='number' className='inpuT' />
-                                    </center>
+                                    <label> Jours :</label><input value={haut} type='number' className='inpuT' onChange={(rep) => sethaut(rep.target.value)} />
                                     <br></br>
-                                    <p style={{ color: 'gray' }}>Actuelement : 2j avant</p>
-
+                                    <p style={{ color: 'gray' }}>Actuelement : 5h avant </p>
                                 </Col>
-                                {/* <input/> */}
                             </Row>
                             <Row className='mt-5'>
                                 <Row>
