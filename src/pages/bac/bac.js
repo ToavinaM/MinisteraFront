@@ -100,10 +100,10 @@ const Bac = () => {
                             {
                                 bacs.length > 0 && (
                                     bacs.map(bac => {
-                                        const color = getColorBack(bac);
+                                        // const color = getColorBack(bac);
                                         return (
                                             <Marker
-                                                icon={color}
+                                                icon={rouge}
                                                 key={bac.localisation + 'mq'}
                                                 position={
                                                     [parseFloat(bac.longitude), parseFloat(bac.latitude)]
