@@ -29,6 +29,8 @@ export default function Nav() {
                         <p className='lienNav' onClick={() => navigation('/GestionUser')}><img onClick={() => navigation('/Dashboard')} className='logoNav' src='./roles.png' />Gestions des utilisateurs</p>
                         <p className='lienNav' onClick={() => navigation('/parametre')}><img onClick={() => navigation('/parametre')} className='logoNav' src='./params.png' />Parametre de l'application</p>
                         <p className='lienNav' onClick={() => navigation('/profil')}><img onClick={() => navigation('/parametre')} className='logoNav' src='./compte.png' />Profil</p>
+                        <p className='lienNav' onClick={() => navigation('/cartographie_sma')}><img onClick={() => navigation('/cartographie_sma')} className='logoNav' src='./compte.png' />Suivi Assaignissement</p>
+
                         {/* <ul>
                             <li>Liste</li>
                             <li>Bulletin</li>

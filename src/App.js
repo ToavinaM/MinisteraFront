@@ -17,15 +17,13 @@ import Parametre from './components/Parametre/Parametre';
 import MyMap from './components/MyMap/MyMap';
 import GestionUser from './components/GestionUser/GestionUser';
 import Compte from './components/Compte/Compte';
-import Bac from './pages/bac/bac';
+import Bac from './components/BacMap/bac';
 
 function App() {
   return (
     <div className="App">
       <Router>
         <Routes>
-          <Route path="/cartographie_sma" element={<Bac />} />
-
           <Route path="/" element={<Signin />} />
           <Route path="/map" element={<MyMap />} />
           <Route path="/signup" element={<Signup />} />
@@ -36,6 +34,9 @@ function App() {
           <Route path="/gestionUser" element={<GestionUser />} />
           <Route path="/parametre" element={<Parametre />} />
           <Route path="/profil" element={<Compte />} />
+          {/* //carte suivi assaignisssement */}
+          <Route path="/cartographie_sma" element={<Bac />} />
+          <Route path="/cartographie_sma" element={<Bac />} />
         </Routes>
       </Router>
     </div>

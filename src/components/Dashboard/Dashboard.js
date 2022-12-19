@@ -177,13 +177,13 @@ export default function Dashboard() {
         }, {
             name: 'progress',
             // data: arrayRep['medium']
-            data: [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8]
+            data: [8, 2, 13, 19, 4, 15, 21, 5, 10, 19, 21, 2]
 
         }, {
             name: 'doing',
             color: 'Green',
             // data: arrayRep['low']
-            data: [12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12]
+            data: [10, 15, 11, 13, 12, 16, 12, 13, 15, 19, 20, 13]
         }
         ]
     };
@@ -334,7 +334,7 @@ export default function Dashboard() {
                 <Row>
                     <Col sm={6}>
                         <div className="bas-sexe1">
-                            <h5>Statistiques des problèmes</h5>
+                            <h5>Statistiques des statuts par mois</h5>
                             <HighchartsReact highcharts={Highcharts} options={batton} />
                         </div>
                     </Col>

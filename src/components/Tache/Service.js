@@ -3,27 +3,20 @@ import axios from "axios";
 // localhost: 8080 / api / auth / signin
 import backUrl from '../config/config';
 export const TacheService = {
-    /////////retard
-    updateRetard: (tacheRetard) => {
-        // tableau de tache
-        return axios.put(backUrl + `/api/tache/updateRetard`, tacheRetard);
-    },
-
-    ///////////////tache
-    save: (data) => {
-        return axios.post(backUrl + `/api/tache/add`, data);
-
-    },
-    getAll: () => {
-        return axios.get(backUrl + `/api/taches`);
-    },
-
     getTacheByIdProjet: (id_Projet) => {
         return axios.get(backUrl + `/api/tache/ByIdProjet/${id_Projet}`)
     },
-
+    updateRetard: (tacheRetard) => {
+        return axios.put(backUrl + `/api/tache/updateRetard`, tacheRetard);
+    },
+    save: (data) => {
+        return axios.post(backUrl + `/api/tache/add`, data);
+    },
     update: (data) => {
         return axios.put(backUrl + `/api/tache/update`, data)
+    },
+    getAll: () => {
+        return axios.get(backUrl + `/api/taches`);
     },
     delete: (data) => {
         console.log('==', data);
