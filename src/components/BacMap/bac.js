@@ -37,7 +37,7 @@ function MyComponent() {
 export default function Bac() {
     //state
     const [bacs, setbac] = useState(null);
-    let [map, setMap] = useMap();
+    // let [map, setMap] = useMap();
     //ftch
     useEffect(() => {
         ServiceBac.getAllBac()
@@ -79,15 +79,31 @@ export default function Bac() {
                         <Col sm={12} className="bg-white">
                             {/* filtre */}
                             <Row className='p-3'>
-                                <Col sm={10} className="d-flex ">
+                                <Col sm={10} className="d-flex justify-content-between">
                                     <Form.Select
                                         // values={{ optionsPriority }} onChange={(rep) => { setpriority(rep.target.value); }}
-                                        style={{ width: "145px", padding: "10px" }}>
+                                        style={{ width: "145px", padding: "10px",margin:"10px"}}>
+                                        <option>test</option>
+                                    </Form.Select>
+                                    {/* <p>filtre</p> */}
+                                    <Form.Select
+                                        // values={{ optionsPriority }} onChange={(rep) => { setpriority(rep.target.value); }}
+                                        style={{ width: "145px", padding: "10px",margin:"10px"}}>
                                         <option>Priorite</option>
                                     </Form.Select>
                                     <Form.Select
                                         // values={{ optionsPriority }} onChange={(rep) => { setpriority(rep.target.value); }}
-                                        style={{ width: "145px", padding: "10px" }}>
+                                        style={{ width: "145px", padding: "10px",margin:"10px"}}>
+                                        <option>Priorite</option>
+                                    </Form.Select>
+                                    <Form.Select
+                                        // values={{ optionsPriority }} onChange={(rep) => { setpriority(rep.target.value); }}
+                                        style={{ width: "145px", padding: "10px",margin:"10px"}}>
+                                        <option>Priorite</option>
+                                    </Form.Select>
+                                    <Form.Select
+                                        // values={{ optionsPriority }} onChange={(rep) => { setpriority(rep.target.value); }}
+                                        style={{ width: "145px", padding: "10px",margin:"10px"}}>
                                         <option>Priorite</option>
                                     </Form.Select>
                                 </Col>
@@ -114,7 +130,7 @@ export default function Bac() {
                                             Animate panning
                                         </label>
                                     </p> */}
-                                        <MapContainer whenReady={setMap()} center={center} zoom={13} scrollWheelZoom={false}>
+                                        <MapContainer center={center} zoom={13} scrollWheelZoom={false}>
                                             <TileLayer
                                                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                                                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -144,57 +160,57 @@ export default function Bac() {
                                             }
 
                                             {/*3) ////////////////////////controleur */}
-                                            {/* <LayersControl position="topright">
-                    <LayersControl.Overlay name="Marker with popup">
-                        <Marker position={center}>
-                            <Popup>
-                                A pretty CSS3 popup. <br /> Easily customizable.
-                            </Popup>
-                        </Marker>
-                    </LayersControl.Overlay>
-                    <LayersControl.Overlay checked name="Layer group with circles">
-                        <LayerGroup>
-                            <Circle
-                                center={center}
-                                pathOptions={{ fillColor: 'blue' }}
-                                radius={200}
-                            />
-                            <Circle
-                                center={center}
-                                pathOptions={{ fillColor: 'red' }}
-                                radius={100}
-                                stroke={false}
-                            />
-                            <LayerGroup>
-                                <Circle
-                                    center={[51.51, -0.08]}
-                                    pathOptions={{ color: 'green', fillColor: 'green' }}
-                                    radius={100}
-                                />
-                            </LayerGroup>
-                        </LayerGroup>
-                    </LayersControl.Overlay>
-                    <LayersControl.Overlay name="Feature group">
-                        <FeatureGroup pathOptions={{ color: 'purple' }}>
-                            <Popup>Popup in FeatureGroup</Popup>
-                            <Circle center={[51.51, -0.06]} radius={200} />
-                            <Rectangle bounds={rectangle} />
-                        </FeatureGroup>
-                    </LayersControl.Overlay>
-                </LayersControl> */}
-                                            {/* 4My component  */}
-                                            {/* <Marker
-                    position={center}
-                    eventHandlers={{
-                        click: () => {
-                            console.log('marker clicked')
-                        },
-                    }}
+                                            <LayersControl position="topright">
+                                                <LayersControl.Overlay name="Marker with popup">
+                                                    <Marker position={center}>
+                                                        <Popup>
+                                                            A pretty CSS3 popup. <br /> Easily customizable.
+                                                        </Popup>
+                                                    </Marker>
+                                                </LayersControl.Overlay>
+                                                <LayersControl.Overlay checked name="Layer group with circles">
+                                                    <LayerGroup>
+                                                        <Circle
+                                                            center={center}
+                                                            pathOptions={{ fillColor: 'blue' }}
+                                                            radius={200}
+                                                        />
+                                                        <Circle
+                                                            center={center}
+                                                            pathOptions={{ fillColor: 'red' }}
+                                                            radius={100}
+                                                            stroke={false}
+                                                        />
+                                                        <LayerGroup>
+                                                            <Circle
+                                                                center={[51.51, -0.08]}
+                                                                pathOptions={{ color: 'green', fillColor: 'green' }}
+                                                                radius={100}
+                                                            />
+                                                        </LayerGroup>
+                                                    </LayerGroup>
+                                                </LayersControl.Overlay>
+                                                <LayersControl.Overlay name="Feature group">
+                                                    <FeatureGroup pathOptions={{ color: 'purple' }}>
+                                                        <Popup>Popup in FeatureGroup</Popup>
+                                                        <Circle center={[51.51, -0.06]} radius={200} />
+                                                        {/* <Rectangle bounds={rectangle} /> */}
+                                                    </FeatureGroup>
+                                                </LayersControl.Overlay>
+                                            </LayersControl> 
+                                                                        {/* 4My component  */}
+                                                                        {/* <Marker
+                                                position={center}
+                                                eventHandlers={{
+                                                    click: () => {
+                                                        console.log('marker clicked')
+                                                    },
+                                                }}
 
-                /> */}
+                                            />
 
                                             {/* <MyComponent></MyComponent> */}
-                                            <Legende map={map} />
+                                            {/* <Legende map={map} /> */}
                                         </MapContainer>
                                     </Row>
 
