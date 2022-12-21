@@ -3,6 +3,10 @@ import { Row, Col, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import './nav.css'
 export default function Nav() {
+    const user = JSON.parse(localStorage.getItem('users'));
+
+
+
 
     const navigation = useNavigate();
     return (
@@ -10,26 +14,39 @@ export default function Nav() {
             <Row className='mt-4 mb-3'>
             </Row>
             <Col>
-                <h4><img className="ministeraSary" src='./ministere.png' ></img> MEAH</h4>
+                <h4><img className="ministeraSary" src='./ministere.png' ></img>Ministère de l'Eau</h4>
             </Col>
             <Row>
                 <center>
-                    <Button style={{ paddingTop: '15px', marginLeft: '-5px' }} className='buttonNav' onClick={() => navigation('/Dashboard')} >
-                        {/* <img className="ico mb-2" src='./projet.png' ></img> {' '} */}
-                        <strong style={{ marginTop: "10px" }}>DASHBOARD</strong> { }
-                    </Button>
+                    {
+                        user &&
+                        <Button style={{ paddingTop: '15px', marginLeft: '-5px' }} className='buttonNav' onClick={() => navigation('/Dashboard')} >
+                            {/* <img className="ico mb-2" src='./projet.png' ></img> {' '} */}
+                            <strong style={{ marginTop: "10px" }}>DASHBOARD</strong> { }
+                        </Button>
+                    }
                 </center>
             </Row>
             <hr></hr>
             <Row>
                 <Col className='overF' sm={12}>
                     <div className="drop-box" >
-                        <p className='lienNav' onClick={() => navigation('/projets')}  ><img onClick={() => navigation('/projets')} className='logoNav' src='./projet.png' />Listes des Projets</p>
-                        <p className='lienNav' onClick={() => navigation('/map')}><img onClick={() => navigation('/map')} className='logoNav' src='./Map.png' />Cartographier les projets</p>
-                        <p className='lienNav' onClick={() => navigation('/GestionUser')}><img onClick={() => navigation('/Dashboard')} className='logoNav' src='./roles.png' />Gestions des utilisateurs</p>
-                        <p className='lienNav' onClick={() => navigation('/parametre')}><img onClick={() => navigation('/parametre')} className='logoNav' src='./params.png' />Parametre de l'application</p>
-                        <p className='lienNav' onClick={() => navigation('/profil')}><img onClick={() => navigation('/parametre')} className='logoNav' src='./compte.png' />Profil</p>
-                        <p className='lienNav' onClick={() => navigation('/cartographie_sma')}><img onClick={() => navigation('/cartographie_sma')} className='logoNav' src='./compte.png' />Suivi Assaignissement</p>
+                        {user ? (
+                            <>
+                                <p className='lienNav' onClick={() => navigation('/projets')}  ><img onClick={() => navigation('/projets')} className='logoNav' src='./projet.png' />Listes des Projets</p>
+                                <p className='lienNav' onClick={() => navigation('/map')}><img onClick={() => navigation('/map')} className='logoNav' src='./Map.png' />Cartographier les projets</p>
+                                <p className='lienNav' onClick={() => navigation('/GestionUser')}><img onClick={() => navigation('/Dashboard')} className='logoNav' src='./roles.png' />Gestions des utilisateurs</p>
+                                <p className='lienNav' onClick={() => navigation('/parametre')}><img onClick={() => navigation('/parametre')} className='logoNav' src='./params.png' />Parametre de l'application</p>
+                                <p className='lienNav' onClick={() => navigation('/profil')}><img onClick={() => navigation('/parametre')} className='logoNav' src='./compte.png' />Profil</p>
+                                <p className='lienNav' onClick={() => navigation('/cartographie_meah')}><img onClick={() => navigation('/cartographie_meah')} className='logoNav' src='./compte.png' />Suivi Assainissement</p>
+                            </>
+
+                        )
+                            : (
+                                <p className='lienNav' onClick={() => navigation('/cartographie_meah')}><img onClick={() => navigation('/cartographie_meah')} className='logoNav' src='./compte.png' />Suivi Assainissement</p>
+
+                            )}
+
 
                         {/* <ul>
                             <li>Liste</li>

@@ -50,7 +50,6 @@ export default function Signin() {
                         username: rep.data.username,
                         accessToken: rep.data.accessToken
                     }
-                    console.log('Stogarad', storage);
                     localStorage.setItem('users', JSON.stringify(storage));
                     navigate('/projets');
                 })

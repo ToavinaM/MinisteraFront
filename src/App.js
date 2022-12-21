@@ -35,8 +35,7 @@ function App() {
           <Route path="/parametre" element={<Parametre />} />
           <Route path="/profil" element={<Compte />} />
           {/* //carte suivi assaignisssement */}
-          <Route path="/cartographie_sma" element={<Bac />} />
-          <Route path="/cartographie_sma" element={<Bac />} />
+          <Route path="/cartographie_meah" element={<Bac />} />
         </Routes>
       </Router>
     </div>

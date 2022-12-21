@@ -1,25 +1,60 @@
-import React from 'react'
-import { useEffect } from 'react';
-import L from 'leaflet';
-import './styles.css';
-export default function Legende({ map }) {
+import { useMap } from "react-leaflet";
+import L from "leaflet";
+import { useEffect } from "react";
+
+const Legende = () => {
+    const map = useMap();
+    console.log(map);
 
     useEffect(() => {
-        if (map) {
-            alert('map');
-            const legend = L.control({ position: "bottomright" });
+        // get color depending on population density value
+        const getColor = d => {
+            return d > 1000
+                ? "#800026"
+                : d > 500
+                    ? "#BD0026"
+                    : d > 200
+                        ? "#E31A1C"
+                        : d > 100
+                            ? "#FC4E2A"
+                            : d > 50
+                                ? "#FD8D3C"
+                                : d > 20
+                                    ? "#FEB24C"
+                                    : d > 10
+                                        ? "#FED976"
+                                        : "#FFEDA0";
+        };
 
-            legend.onAdd = () => {
-                const div = L.DomUtil.create("div", "info legend");
-                div.innerHTML =
-                    "<h4>This is the legend</h4>" +
-                    "<b>Lorem ipsum dolor sit amet consectetur adipiscing</b>";
-                return div;
-            };
+        const legend = L.control({ position: "bottomright" });
 
-            legend.addTo(map);
-        }
-    }, [map]); //here add map
+        legend.onAdd = () => {
+            const div = L.DomUtil.create("div", "info legend");
+            const grades = [0, 10, 20, 50, 100, 200, 500, 1000];
+            let labels = [];
+            let from;
+            let to;
+
+            for (let i = 0; i < grades.length; i++) {
+                from = grades[i];
+                to = grades[i + 1];
+
+                labels.push(
+                    '<i style="background:' +
+                    getColor(from + 1) +
+                    '"></i> ' +
+                    from +
+                    (to ? "&ndash;" + to : "+")
+                );
+            }
+
+            div.innerHTML = labels.join("<br>");
+            return div;
+        };
+
+        legend.addTo(map);
+    }, []);
     return null;
+};
 
-}
+export default Legende;

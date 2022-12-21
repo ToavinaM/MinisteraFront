@@ -1,6 +1,12 @@
 .leaflet-container {
     width: 100vw;
-    height: 100vh;
+    height: 85vh;
+}
+
+.filtre {
+    box-shadow: 4px 8px 20px 0px #777373;
+    margin-bottom: 10px;
+    border-radius: 5px;
 }
 
 /* 
