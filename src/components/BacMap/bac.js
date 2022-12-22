@@ -12,7 +12,7 @@ import { Button, Col, Form, Row } from 'react-bootstrap';
 import Nav from '../Nav/Nav'
 import Legende from './Legende';
 import DateTimePicker from 'react-datetime-picker';
-import moment from 'moment';
+
 const center = [-18.865447, 47.519533]
 
 let labelEtatBac = [
@@ -46,7 +46,7 @@ export default function Bac() {
         let requestFiltre = {
             etatBac: 0,
             etatDebordement: 0,
-            date:new Date()
+            date: new Date()
         }
 
         ServiceBac.getAllBac(requestFiltre)
@@ -61,7 +61,7 @@ export default function Bac() {
 
     //function
     function fetch() {
-        let requestFiltre = {etatBac: valuelabelEtatBac,etatDebordement: valuelabelEtatDebordement,date: debut}
+        let requestFiltre = { etatBac: valuelabelEtatBac, etatDebordement: valuelabelEtatDebordement, date: debut }
         ServiceBac.getAllBac(requestFiltre)
             .then(rep => {
                 console.log('PPP', rep);
@@ -72,8 +72,8 @@ export default function Bac() {
             })
     }
 
-    
-    
+
+
     //view  
     return (
         <div>
@@ -115,7 +115,7 @@ export default function Bac() {
                                             )
                                         })}
                                     </Form.Select>
-                                  
+
                                     <DateTimePicker className="dateCss" onChange={setDebut} value={debut} />
                                     <Button onClick={fetch}>Filtrer</Button>
                                 </Col>
@@ -154,9 +154,6 @@ export default function Bac() {
                                                     bacs.map(dt => {
                                                         return (
                                                             <>
-                                                                {/* <Marker position={[dt.longitude, dt.latitude]} icon={new Icon({ iconUrl: './img/a.png', iconSize: new L.Point(50, 50) })}>
-
-                                                                </Marker> */}
                                                                 <Marker position={[dt.longitude, dt.latitude]} icon={new Icon({ iconUrl: require(`./img/${dt.etat_in_bac.toString()}.png`), iconSize: [50, 50] })}>
                                                                     <Popup minWidth={100}>
                                                                         <Popup key={dt.localisation + 'dq'} minWidth={100}>
@@ -177,8 +174,8 @@ export default function Bac() {
                                             }
 
                                             {/*3) ////////////////////////controleur */}
-                                       
-                                            <Legende />
+
+                                            <Legende labelEtatBac={labelEtatBac} />
                                         </MapContainer>
                                     </Row>
 
