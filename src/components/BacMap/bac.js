@@ -12,18 +12,8 @@ import { Button, Col, Form, Row } from 'react-bootstrap';
 import Nav from '../Nav/Nav'
 import Legende from './Legende';
 import DateTimePicker from 'react-datetime-picker';
+import moment from 'moment';
 const center = [-18.865447, 47.519533]
-
-
-
-// function SetViewOnClick({ animateRef }) {
-//     const map = useMapEvent('click', (e) => {
-//         map.setView(e.latlng, map.getZoom(), {
-//             animate: true,
-//         })
-//     })
-//     return null
-// }
 
 let labelEtatBac = [
     { labele: 'tout', id: 0 },
@@ -34,6 +24,7 @@ let labelEtatBac = [
     { labele: 'Trop Plein', id: 5 },
     { labele: 'Debordement', id: 6 }
 ];
+
 let labelEtatDebordement = [
     { labele: 'tout', id: 0 },
     { labele: 'Quart', id: 1 },
@@ -42,23 +33,9 @@ let labelEtatDebordement = [
     { labele: 'Plein', id: 4 },
     { labele: 'Trop Plein', id: 5 },
     { labele: 'Debordement', id: 6 }
-]
+];
 
-function MyComponent() {
-    const map = useMapEvents({
-        click: () => {
-            map.locate()
-        },
-        locationfound: (location) => {
-            console.log('location found:', location)
-        },
-    })
-    return null
-}
 export default function Bac() {
-    //stateLabele
-
-    //stateLabele
     const [valuelabelEtatBac, setvaluelabelEtatBac] = useState(0);
     const [valuelabelEtatDebordement, setvaluelabelEtatDebordement] = useState(0);
     //state
@@ -69,10 +46,7 @@ export default function Bac() {
         let requestFiltre = {
             etatBac: 0,
             etatDebordement: 0,
-            date: {
-                debut: '22/11/12',
-                fin: '22/11/12',
-            }
+            date:new Date()
         }
 
         ServiceBac.getAllBac(requestFiltre)
@@ -84,20 +58,10 @@ export default function Bac() {
                 console.log('error', err);
             })
     }, [])
+
     //function
     function fetch() {
-        // alert('huhu')
-
-        console.log('xxx', valuelabelEtatBac, valuelabelEtatDebordement);
-        let requestFiltre = {
-            etatBac: valuelabelEtatBac,
-            etatDebordement: valuelabelEtatDebordement,
-            date: {
-                debut: '22/11/12',
-                fin: '22/11/12',
-            }
-        }
-
+        let requestFiltre = {etatBac: valuelabelEtatBac,etatDebordement: valuelabelEtatDebordement,date: debut}
         ServiceBac.getAllBac(requestFiltre)
             .then(rep => {
                 console.log('PPP', rep);
@@ -108,21 +72,8 @@ export default function Bac() {
             })
     }
 
-    function generatePath(dt) {
-        if (parseInt(dt.etat_in_bac) < 5) {
-            return './img/vert-blanc.png';
-        }
-        if (parseInt(dt.etat_in_bac) === 5) {
-            return './img/jaune-blanc.png';
-        }
-        if (parseInt(dt.etat_in_bac) >= 6) {
-            return './img/rouge-blanc.png';
-        }
-        else {
-            return './img/rouge-noir.png';
-        }
-    }
-    const animateRef = useRef(false)
+    
+    
     //view  
     return (
         <div>
@@ -143,7 +94,7 @@ export default function Bac() {
                                     <Form.Select
                                         values={{ valuelabelEtatBac }} onChange={async (rep) => { await setvaluelabelEtatBac(rep.target.value); }}
                                         style={{ width: "145px", padding: "10px" }}>
-                                        <option value={0} >Etat Back</option>
+                                        <option value={0} >Etat Bac</option>
                                         {labelEtatBac && labelEtatBac.map(option => {
                                             return (
                                                 <option style={{ color: option.color }} key={option.id} value={option.id}>
@@ -164,8 +115,8 @@ export default function Bac() {
                                             )
                                         })}
                                     </Form.Select>
-
-                                    <DateTimePicker className=" zindex-sticky:1020" onChange={setDebut} value={debut} />
+                                  
+                                    <DateTimePicker className="dateCss" onChange={setDebut} value={debut} />
                                     <Button onClick={fetch}>Filtrer</Button>
                                 </Col>
                                 <Col sm={1} className='mt-3'>
@@ -226,56 +177,7 @@ export default function Bac() {
                                             }
 
                                             {/*3) ////////////////////////controleur */}
-                                            <LayersControl position="topright">
-                                                <LayersControl.Overlay name="Marker with popup">
-                                                    <Marker position={center}>
-                                                        <Popup>
-                                                            A pretty CSS3 popup. <br /> Easily customizable.
-                                                        </Popup>
-                                                    </Marker>
-                                                </LayersControl.Overlay>
-                                                <LayersControl.Overlay checked name="Layer group with circles">
-                                                    <LayerGroup>
-                                                        <Circle
-                                                            center={center}
-                                                            pathOptions={{ fillColor: 'blue' }}
-                                                            radius={200}
-                                                        />
-                                                        <Circle
-                                                            center={center}
-                                                            pathOptions={{ fillColor: 'red' }}
-                                                            radius={100}
-                                                            stroke={false}
-                                                        />
-                                                        <LayerGroup>
-                                                            <Circle
-                                                                center={[51.51, -0.08]}
-                                                                pathOptions={{ color: 'green', fillColor: 'green' }}
-                                                                radius={100}
-                                                            />
-                                                        </LayerGroup>
-                                                    </LayerGroup>
-                                                </LayersControl.Overlay>
-                                                <LayersControl.Overlay name="Feature group">
-                                                    <FeatureGroup pathOptions={{ color: 'purple' }}>
-                                                        <Popup>Popup in FeatureGroup</Popup>
-                                                        <Circle center={[51.51, -0.06]} radius={200} />
-                                                        {/* <Rectangle bounds={rectangle} /> */}
-                                                    </FeatureGroup>
-                                                </LayersControl.Overlay>
-                                            </LayersControl>
-                                            {/* 4My component  */}
-                                            {/* <Marker
-                                                position={center}
-                                                eventHandlers={{
-                                                    click: () => {
-                                                        console.log('marker clicked')
-                                                    },
-                                                }}
-
-                                            />
-
-                                            {/* <MyComponent></MyComponent> */}
+                                       
                                             <Legende />
                                         </MapContainer>
                                     </Row>
