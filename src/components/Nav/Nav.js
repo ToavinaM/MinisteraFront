@@ -4,17 +4,15 @@ import { useNavigate } from 'react-router-dom';
 import './nav.css'
 export default function Nav() {
     const user = JSON.parse(localStorage.getItem('users'));
-
-
-
-
     const navigation = useNavigate();
     return (
         <div className='navContainer' >
-            <Row className='mt-4 mb-3'>
+            <Row >
             </Row>
             <Col>
-                <h4><img className="ministeraSary" src='./ministere.png' ></img>Ministère de l'Eau</h4>
+                <center>
+                    <h5> <img className="ministeraNav" src='./ministere.png' ></img> Suivi Opérationnel</h5>
+                </center>
             </Col>
             <Row>
                 <center>
@@ -29,21 +27,21 @@ export default function Nav() {
             </Row>
             <hr></hr>
             <Row>
-                <Col className='overF' sm={12}>
+                <Col className='overF' md={12}>
                     <div className="drop-box" >
                         {user ? (
                             <>
-                                <p className='lienNav' onClick={() => navigation('/projets')}  ><img onClick={() => navigation('/projets')} className='logoNav' src='./projet.png' />Listes des Projets</p>
-                                <p className='lienNav' onClick={() => navigation('/map')}><img onClick={() => navigation('/map')} className='logoNav' src='./Map.png' />Cartographier les projets</p>
-                                <p className='lienNav' onClick={() => navigation('/GestionUser')}><img onClick={() => navigation('/Dashboard')} className='logoNav' src='./roles.png' />Gestions des utilisateurs</p>
-                                <p className='lienNav' onClick={() => navigation('/parametre')}><img onClick={() => navigation('/parametre')} className='logoNav' src='./params.png' />Parametre de l'application</p>
+                                <p className='lienNav' onClick={() => navigation('/projets')}  ><img onClick={() => navigation('/projets')} className='logoNav' src='./projet.png' />Projets</p>
+                                <p className='lienNav' onClick={() => navigation('/map')}><img onClick={() => navigation('/map')} className='logoNav' src='./Map.png' />Localisation</p>
+                                <p className='lienNav' onClick={() => navigation('/GestionUser')}><img onClick={() => navigation('/Dashboard')} className='logoNav' src='./roles.png' />Utilisateurs</p>
+                                <p className='lienNav' onClick={() => navigation('/parametre')}><img onClick={() => navigation('/parametre')} className='logoNav' src='./params.png' />Paramètre </p>
                                 <p className='lienNav' onClick={() => navigation('/profil')}><img onClick={() => navigation('/parametre')} className='logoNav' src='./compte.png' />Profil</p>
-                                <p className='lienNav' onClick={() => navigation('/cartographie_meah')}><img onClick={() => navigation('/cartographie_meah')} className='logoNav' src='./compte.png' />Suivi Assainissement</p>
+                                <p className='lienNav' onClick={() => navigation('/cartographie_meah')}><img onClick={() => navigation('/cartographie_meah')} className='logoNav' src='./map.png' />Assainissement</p>
                             </>
 
                         )
                             : (
-                                <p className='lienNav' onClick={() => navigation('/cartographie_meah')}><img onClick={() => navigation('/cartographie_meah')} className='logoNav' src='./compte.png' />Suivi Assainissement</p>
+                                <p className='lienNav' onClick={() => navigation('/cartographie_meah')}><img onClick={() => navigation('/cartographie_meah')} className='logoNav' src='./compte.png' />Assainissement</p>
 
                             )}
 

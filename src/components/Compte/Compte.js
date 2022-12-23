@@ -53,10 +53,10 @@ const Compte = () => {
     return (
         <div>
             <Row className='container-fluid'>
-                <Col sm={2}>
+                <Col md={2}>
                     <Nav></Nav>
                 </Col>
-                <Col sm={10} className={'container'}>
+                <Col md={10} className={'container'}>
                     <Row>
                         <Header></Header>
                     </Row>
@@ -67,7 +67,7 @@ const Compte = () => {
                                 <h1>Modifier votre compte</h1>
                                 <hr></hr>
                                 <Row>
-                                    <Col sm={8}>
+                                    <Col md={8}>
                                         <FloatingLabel controlId="floatingInput" label="Email address" className="mb-3">
                                             <Form.Control onChange={(value) => setusername(value.target.value)} defaultValue={user.email} type="email" placeholder="name@example.com" />
                                         </FloatingLabel>
@@ -88,7 +88,7 @@ const Compte = () => {
                                         <Button onClick={handleUpdate} >Enregistrer</Button>
                                     </Col>
 
-                                    <Col sm={4}>
+                                    <Col md={4}>
                                         <div className='m-auto' style={{ width: '200px', height: '200px', borderRadius: '15px', backgroundColor: 'grey' }}>
 
                                             <img src='./ministere.png' style={{ width: '100%', height: '100%' }}></img>

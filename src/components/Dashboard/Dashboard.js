@@ -190,18 +190,18 @@ export default function Dashboard() {
     return (
         <Row className='container-fluid'>
             {/* ///////////////////////component include NAVIGATION */}
-            <Col sm={2}>
+            <Col md={2}>
                 <Nav></Nav>
             </Col>
             {/* /////////////////CONTAINER */}
-            <Col sm={10} className={'container'}>
+            <Col md={10} className={'container'}>
                 {/* //heder */}
                 <Row>
                     <Header></Header>
                 </Row>
                 {/* //box statistique de sexe and stat general*/}
                 <Row>
-                    <Col sm={3}>
+                    <Col md={3}>
 
                         <div className="stat-avance">
                             <Row>
@@ -225,7 +225,7 @@ export default function Dashboard() {
                             </Row>
                         </div>
                     </Col>
-                    <Col sm={3}  >
+                    <Col md={3}  >
                         <div className="stat-avance">
                             <Row>
                                 <Col>
@@ -249,16 +249,16 @@ export default function Dashboard() {
                             </Row>
                         </div>
                     </Col>
-                    <Col sm={6} className="stat-general" >
+                    <Col md={6} className="stat-general" >
                         <Row>
                             <h5 style={{ color: 'grey' }}>Statistiques des Taches</h5>
                             <p>Ce mois</p>
                         </Row>
                         <Row>
                             {/* <div id='box-icon-stat'> */}
-                            <Col sm={3}>
+                            <Col md={3}>
                                 <Row>
-                                    <Col sm={5}>
+                                    <Col md={5}>
 
                                         <div className={'cadreImage'} style={{ backgroundColor: '#56CA00' }}>
                                             <center>
@@ -267,15 +267,15 @@ export default function Dashboard() {
                                         </div>
                                         {/* test */}
                                     </Col>
-                                    <Col sm={7}>
+                                    <Col md={7}>
                                         <p style={{ fontSize: 'small' }}>Effectif</p>
                                         <h5 style={{ fontSize: 'small' }}>{totalNumber}</h5>
                                     </Col>
                                 </Row>
                             </Col>
-                            <Col sm={3}>
+                            <Col md={3}>
                                 <Row>
-                                    <Col sm={5}>
+                                    <Col md={5}>
 
                                         <div className={'cadreImage'} style={{ backgroundColor: '#7367F0' }}>
                                             <center>
@@ -284,16 +284,16 @@ export default function Dashboard() {
                                         </div>
                                         {/* test */}
                                     </Col>
-                                    <Col sm={7}>
+                                    <Col md={7}>
                                         <p style={{ fontSize: 'small' }}> Todo</p>
                                         <h5 style={{ fontSize: 'small' }} >{todoNumber}</h5>
                                     </Col>
                                 </Row>
                             </Col>
 
-                            <Col sm={3}>
+                            <Col md={3}>
                                 <Row>
-                                    <Col sm={5}>
+                                    <Col md={5}>
 
                                         <div className={'cadreImage'} style={{ backgroundColor: '#FFB400' }}>
                                             <center>
@@ -302,15 +302,15 @@ export default function Dashboard() {
                                         </div>
                                         {/* test */}
                                     </Col>
-                                    <Col sm={7}>
+                                    <Col md={7}>
                                         <p style={{ fontSize: 'small' }}>   In Progress</p>
                                         <h5 style={{ fontSize: 'small' }}>{progressNumber}</h5>
                                     </Col>
                                 </Row>
                             </Col>
-                            <Col sm={3}>
+                            <Col md={3}>
                                 <Row>
-                                    <Col sm={5}>
+                                    <Col md={5}>
 
                                         <div className={'cadreImage'} style={{ backgroundColor: '#56CA00' }}>
                                             <center>
@@ -319,7 +319,7 @@ export default function Dashboard() {
                                         </div>
                                         {/* test */}
                                     </Col>
-                                    <Col sm={7}>
+                                    <Col md={7}>
                                         <p style={{ fontSize: 'small' }}>Doing</p>
                                         <h5 style={{ fontSize: 'small' }}>{doingNumber}</h5>
                                     </Col>
@@ -332,13 +332,13 @@ export default function Dashboard() {
                 </Row>
                 {/* /////////////////////1 et 2  */}
                 <Row>
-                    <Col sm={6}>
+                    <Col md={6}>
                         <div className="bas-sexe1">
                             <h5>Statistiques des statuts par mois</h5>
                             <HighchartsReact highcharts={Highcharts} options={batton} />
                         </div>
                     </Col>
-                    <Col sm={6}>
+                    <Col md={6}>
                         <div className="bas-sexe2">
                             <h5>Statistiques des problèmes</h5>
                             <HighchartsReact highcharts={Highcharts} options={donuts} />
@@ -346,7 +346,7 @@ export default function Dashboard() {
                     </Col>
                 </Row>
                 <Row>
-                    <Col sm={12} className="Urgence">
+                    <Col md={12} className="Urgence">
                         <h5>Urgent</h5>
                     </Col>
                 </Row>

@@ -80,7 +80,7 @@ export default function CardTask({ tache, handleUpdate, handleDelete, retard }) 
                         <Col >
                             <h5>{tache.titre}</h5>
                         </Col>
-                        <Col sm={2} style={{ display: 'contents' }}>
+                        <Col md={2} style={{ display: 'contents' }}>
                             <UpdateCard retard={retard} handleUpdate={handleUpdate} tache={tache} />
                             {retard ? (<p></p>) : (<SupprimerCard handleDelete={handleDelete} tache={tache} />)}
                             <CommentCard tache={tache} />
@@ -92,7 +92,7 @@ export default function CardTask({ tache, handleUpdate, handleDelete, retard }) 
                         <Col>
                             <p>{moment(tache.debut).format(formatDate)}</p>
                         </Col>
-                        <Col sm={4}>
+                        <Col md={4}>
                             <p>{moment(tache.fin).format(formatDate)}</p>
                         </Col>
                     </Row>
@@ -106,7 +106,7 @@ export default function CardTask({ tache, handleUpdate, handleDelete, retard }) 
                         <Col>
 
                             <Row>
-                                <Col className='mb-2' sm={2}>
+                                <Col className='mb-2' md={2}>
                                     <SousTache tache={tache} avancementFunction={avancementFunction} setProgressColor={setProgressColor} />
                                 </Col>
                                 <Col className='mt-1'>

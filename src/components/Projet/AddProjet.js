@@ -98,7 +98,7 @@ export default function AddProject({ handleSave, user }) {
               <br></br>
             </Form.Group>
             <Row>
-              <Col sm={7}>
+              <Col md={7}>
 
                 <Form.Group
                   className="mb-3"
@@ -117,7 +117,7 @@ export default function AddProject({ handleSave, user }) {
             </Row>
             <Row>
 
-              <Col sm={4}>
+              <Col md={4}>
                 <Form.Group
                   className="mb-3"
                   controlId="exampleForm.ControlTextarea1"
@@ -126,7 +126,7 @@ export default function AddProject({ handleSave, user }) {
                   <Form.Control value={latitude} onChange={(rep) => { setlatitude(rep.target.value) }} rows={3} />
                 </Form.Group>
               </Col>
-              <Col sm={4}>
+              <Col md={4}>
                 <Form.Group
                   className="mb-3"
                   controlId="exampleForm.ControlTextarea1"
@@ -136,7 +136,7 @@ export default function AddProject({ handleSave, user }) {
                 </Form.Group>
               </Col>
 
-              <Col sm={4} className='mt-4'>
+              <Col md={4} className='mt-4'>
                 <div>
                   <LocationModal getLocalisation={getLocalisation} />
 

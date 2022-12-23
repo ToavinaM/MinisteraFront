@@ -103,7 +103,7 @@ export default function CommentCard({ tache }) {
                                 </div>
                                 <p className='p-4 pComs' key={coms.id} > {coms.intitule}</p>
                               </Col>
-                              <Col sm={4} key={coms.id + 'c2'}>
+                              <Col md={4} key={coms.id + 'c2'}>
                                 <p className='p-4 pComs' key={coms.createdAt} > {moment(coms.createdAt).format('DD-MM-YY HH:MM')}</p>
                               </Col>
                             </Row>

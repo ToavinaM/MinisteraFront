@@ -58,7 +58,7 @@ export default function CardProjet({ projet }) {
                                 </Badge>
                             </p>
                         </Col>
-                        <Col sm={6}>
+                        <Col md={6}>
                             <p className='mt-1'><ProgressBar style={{ height: '20px' }} now={projet.avancement} label={projet.avancement} /></p>
                         </Col>
                     </Row>

@@ -75,7 +75,7 @@ export default function Signup() {
 
     return (
         <Row>
-            <Col sm={4}>
+            <Col md={4}>
                 <div className="formulaire-containerI">
                     <div className="logo">
                         <h1>Inscription </h1>
@@ -89,7 +89,7 @@ export default function Signup() {
 
                     <div className='formulaire-body'>
 
-                        <Col sm={8} className='m-auto'>
+                        <Col md={8} className='m-auto'>
                             <FloatingLabel controlId="floatingInput" label="User Name" className="mb-3">
                                 <Form.Control onChange={(value) => setusername(value.target.value)} type="email" placeholder="name@example.com" />
                             </FloatingLabel>
@@ -154,7 +154,7 @@ export default function Signup() {
                 </div>
 
             </Col>
-            <Col sm={8}>
+            <Col md={8}>
                 <center>
                     <img src='./ministere.png' style={{ width: '60%', height: '60%' }}></img>
                 </center>

@@ -61,7 +61,7 @@ export default function Signin() {
     }
     return (
         <Row className='main'>
-            <Col sm={8} style={{ height: '800px' }}>
+            <Col md={8}>
                 <div className={styles.container} onClick={() => toggle(!open)}>
                     {/* <Row> */}
                     <center>
@@ -91,7 +91,7 @@ export default function Signin() {
                     </animated.svg>
                 </div>
             </Col>
-            <Col sm={4} >
+            <Col md={4} >
                 <div className="formulaire-container">
                     <div className="logo">
                         <h1> Login </h1>
@@ -105,7 +105,7 @@ export default function Signin() {
                     </div>
 
                     <div className='formulaire-body'>
-                        <Col sm={8} className='m-auto'>
+                        <Col md={8} className='m-auto'>
                             <FloatingLabel controlId="floatingInput" label="Email address" className="mb-3">
                                 <Form.Control onChange={(value) => setemail(value.target.value)} type="email" placeholder="name@example.com" />
                             </FloatingLabel>
@@ -113,10 +113,6 @@ export default function Signin() {
                                 <Form.Control onChange={(value) => setpassword(value.target.value)} type="password" placeholder="Password" />
                             </FloatingLabel>
                         </Col>
-
-                        <div className='formControl'>
-                            <FormCheckInput className='check'></FormCheckInput> <label>Resté connecté</label>
-                        </div>
                         {error &&
                             <Alert className='my-input' key='danger' variant='danger'>
                                 {error}

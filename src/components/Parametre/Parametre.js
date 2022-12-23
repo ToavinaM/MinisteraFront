@@ -41,10 +41,10 @@ const Parametre = () => {
     return (
         <div>
             <Row className='container-fluid'>
-                <Col sm={2}>
+                <Col md={2}>
                     <Nav></Nav>
                 </Col>
-                <Col sm={10} className={'container'}>
+                <Col md={10} className={'container'}>
                     <Row>
                         <Header></Header>
                     </Row>
@@ -55,24 +55,24 @@ const Parametre = () => {
                                 <Col>
                                     <h5 style={{ color: 'grey' }}>Gestion des alerteurs</h5>
                                 </Col>
-                                <Col className='ml-2' sm={2}>
+                                <Col className='ml-2' md={2}>
                                     <Button class="btn btn-success mb-2 w-100">Enregistrer</Button>
                                 </Col>
 
                                 <hr></hr>
-                                <Col className='mt-4 m-auto boxPrio p-auto' style={{ borderLeft: ' #5050f4 5px solid' }} sm={4}>
+                                <Col className='mt-4 m-auto boxPrio p-auto' style={{ borderLeft: ' #5050f4 5px solid' }} md={4}>
                                     <h6 style={{ color: 'gray' }}>Bas</h6>
                                     <label> Jours :</label><input value={bas} type='number' className='inpuT' onChange={(rep) => setbas(rep.target.value)} />
                                     <br></br>
                                     <p style={{ color: 'gray' }}>Actuelement : 5h avant </p>
                                 </Col>
-                                <Col className='mt-4 m-auto boxPrio p-auto' style={{ borderLeft: ' #22ee05 5px solid' }} sm={4}>
+                                <Col className='mt-4 m-auto boxPrio p-auto' style={{ borderLeft: ' #22ee05 5px solid' }} md={4}>
                                     <h6 style={{ color: 'gray' }}>Moyen</h6>
                                     <label> Jours :</label><input value={moyen} type='number' className='inpuT' onChange={(rep) => setmoyen(rep.target.value)} />
                                     <br></br>
                                     <p style={{ color: 'gray' }}>Actuelement : 5h avant </p>
                                 </Col>
-                                <Col className='mt-4 m-auto boxPrio p-auto' style={{ borderLeft: ' #ee0505  5px solid' }} sm={4}>
+                                <Col className='mt-4 m-auto boxPrio p-auto' style={{ borderLeft: ' #ee0505  5px solid' }} md={4}>
                                     <h6 style={{ color: 'gray' }}>Urgent</h6>
                                     <label> Jours :</label><input value={haut} type='number' className='inpuT' onChange={(rep) => sethaut(rep.target.value)} />
                                     <br></br>
@@ -87,12 +87,12 @@ const Parametre = () => {
                                 </Row>
                                 <hr></hr>
                                 <Row className='ml-2'>
-                                    {/* <Col className='bg-info' sm={2}>
+                                    {/* <Col className='bg-info' md={2}>
                                         {role.map(rol => {
                                             return <p key={role.name}> {rol.name}</p>
                                         })}
                                     </Col>
-                                    <Col className='bg-info' sm={2}>
+                                    <Col className='bg-info' md={2}>
                                         {action.map(action => {
                                             return <p key={action}> {action}</p>
                                         })}

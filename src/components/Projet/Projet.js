@@ -58,30 +58,30 @@ export default function Projet() {
 
             {/* ///////////////////Modification password */}
 
-            <Col sm={2}>
+            <Col md={2}>
                 <Nav></Nav>
             </Col>
-            <Col sm={10} className={'container'}>
+            <Col md={10} className={'container'}>
                 <Row>
                     <Header></Header>
                 </Row>
                 <Row>
-                    <Col sm={12} className="ListProjet">
+                    <Col md={12} className="ListProjet">
                         <Row className='p-3'>
                             <Col>
                                 <h5>Liste des Projets DSI</h5>
                                 <Pagination size="sm">{items}</Pagination>
 
                             </Col>
-                            <Col sm={3}>
+                            <Col md={3}>
                             </Col>
-                            <Col sm={1} className='mt-3'>
+                            <Col md={1} className='mt-3'>
                                 <AddProject handleSave={handleSave} user={user}></AddProject>
                             </Col>
                         </Row>
                         <hr></hr>
                         <Row>
-                            <Col sm={12} className="containerListProjet">
+                            <Col md={12} className="containerListProjet">
                                 {
                                     projet ? (
                                         projet.map(projet => {

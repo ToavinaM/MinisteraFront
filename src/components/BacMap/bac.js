@@ -12,6 +12,8 @@ import { Button, Col, Form, Row } from 'react-bootstrap';
 import Nav from '../Nav/Nav'
 import Legende from './Legende';
 import DateTimePicker from 'react-datetime-picker';
+import { BeatLoader } from 'react-spinners';
+import Swal from 'sweetalert2';
 
 const center = [-18.865447, 47.519533]
 
@@ -22,7 +24,7 @@ let labelEtatBac = [
     { labele: 'trois quart', id: 3 },
     { labele: 'Plein', id: 4 },
     { labele: 'Trop Plein', id: 5 },
-    { labele: 'Debordement', id: 6 }
+    { labele: 'Débordement', id: 6 }
 ];
 
 let labelEtatDebordement = [
@@ -32,14 +34,14 @@ let labelEtatDebordement = [
     { labele: 'trois quart', id: 3 },
     { labele: 'Plein', id: 4 },
     { labele: 'Trop Plein', id: 5 },
-    { labele: 'Debordement', id: 6 }
+    { labele: 'Débordement', id: 6 }
 ];
 
 export default function Bac() {
     const [valuelabelEtatBac, setvaluelabelEtatBac] = useState(0);
     const [valuelabelEtatDebordement, setvaluelabelEtatDebordement] = useState(0);
     //state
-    const [bacs, setbac] = useState(null);
+    const [bacs, setbac] = useState([]);
     const [debut, setDebut] = useState(new Date());
 
     useEffect(() => {
@@ -51,7 +53,14 @@ export default function Bac() {
 
         ServiceBac.getAllBac(requestFiltre)
             .then(rep => {
-                console.log(rep.data);
+                if (rep.data.length === 0) {
+                    Swal.fire({
+                        toast: true,
+                        title: "Pas d'information pour cette date",
+                        timer: 3000,
+                        icon: 'info',
+                    })
+                }
                 setbac(rep.data);
             })
             .catch(err => {
@@ -64,7 +73,14 @@ export default function Bac() {
         let requestFiltre = { etatBac: valuelabelEtatBac, etatDebordement: valuelabelEtatDebordement, date: debut }
         ServiceBac.getAllBac(requestFiltre)
             .then(rep => {
-                console.log('PPP', rep);
+                if (rep.data.length === 0) {
+                    Swal.fire({
+                        toast: false,
+                        title: "Pas d'information pour cette date",
+                        timer: 3000,
+                        icon: 'info',
+                    })
+                }
                 setbac(rep.data);
             })
             .catch(err => {
@@ -77,20 +93,19 @@ export default function Bac() {
     //view  
     return (
         <div>
-
             <Row className='container-fluid'>
-                <Col sm={2}>
+                <Col md={2}>
                     <Nav></Nav>
                 </Col>
-                <Col sm={10} className={'container'}>
+                <Col md={10} className={'container'}>
                     <Row>
-                        <Col sm={12} className="bg-white filtre">
+                        <Col md={12} className="bg-white filtre">
                             {/* filtre */}
                             <Row className='p-3'>
-                                <Col sm={7}>
+                                <Col md={5}>
 
                                 </Col>
-                                <Col sm={5} className="d-flex justify-content-around">
+                                <Col md={7} className="d-flex justify-content-around">
                                     <Form.Select
                                         values={{ valuelabelEtatBac }} onChange={async (rep) => { await setvaluelabelEtatBac(rep.target.value); }}
                                         style={{ width: "145px", padding: "10px" }}>
@@ -119,72 +134,45 @@ export default function Bac() {
                                     <DateTimePicker className="dateCss" onChange={setDebut} value={debut} />
                                     <Button onClick={fetch}>Filtrer</Button>
                                 </Col>
-                                <Col sm={1} className='mt-3'>
+                                <Col md={1} className='mt-3'>
 
                                 </Col>
                             </Row>
-
-                            {/* //map */}
                             <Row>
-
-                                <Col sm={12}>
+                                <Col md={12}>
                                     <Row>
-                                        {/* 1) useRef */}
-                                        {/* <p>
-                                        <label>
-                                            <input
-                                                type="checkbox"
-                                                onChange={() => {
-                                                    animateRef.current = !animateRef.current
-                                                    console.log(animateRef);
-                                                }}
-                                            />
-                                            Animate panning
-                                        </label>
-                                    </p> */}
                                         <MapContainer center={center} zoom={13} scrollWheelZoom={true}>
                                             <TileLayer
                                                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                                                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                                             />
-                                            {/* <SetViewOnClick animateRef={animateRef} /> */}
                                             {
-                                                bacs !== null &&
+                                                bacs !== [] &&
                                                 (
                                                     bacs.map(dt => {
                                                         return (
                                                             <>
                                                                 <Marker position={[dt.longitude, dt.latitude]} icon={new Icon({ iconUrl: require(`./img/${dt.etat_in_bac.toString()}.png`), iconSize: [50, 50] })}>
-                                                                    <Popup minWidth={100}>
-                                                                        <Popup key={dt.localisation + 'dq'} minWidth={100}>
-                                                                            <p key={dt.localisation + 'qi'}>Nom Pc:{dt.nom_pc}</p>
-                                                                            <p key={dt.localisation + 'q'}>Localisation:{dt.localisation}</p>
-                                                                            <p key={dt.localisation + 'qw'}>Date Signalement:{dt.date_signalement}</p>
-                                                                            <p key={dt.localisation + 'qe'}>Heure Signalement:{dt.heure_signalement}</p>
-                                                                            <p key={dt.localisation + 'qt'}>Etat Bac:{dt.etat_in_bac}</p>
-                                                                            <p key={dt.localisation + 'qr'}>Etat Débordement:{dt.etat_debordement}</p>
-                                                                        </Popup>
+                                                                    <Popup key={dt.localisation + 'dq'} minWidth={100}>
+                                                                        <p key={dt.localisation + 'qi'}>Nom Pc:{dt.nom_pc}</p>
+                                                                        <p key={dt.localisation + 'q'}>Localisation:{dt.localisation}</p>
+                                                                        <p key={dt.localisation + 'qw'}>Date Signalement:{dt.date_signalement}</p>
+                                                                        <p key={dt.localisation + 'qe'}>Heure Signalement:{dt.heure_signalement}</p>
+                                                                        <p key={dt.localisation + 'qt'}>Etat Bac:{labelEtatBac[dt.etat_in_bac]['labele']}</p>
+                                                                        <p key={dt.localisation + 'qr'}>Etat Débordement:{labelEtatDebordement[dt.etat_debordement]['labele']}</p>
                                                                     </Popup>
                                                                 </Marker>
-
                                                             </>
                                                         )
                                                     })
                                                 )
                                             }
-
                                             {/*3) ////////////////////////controleur */}
-
                                             <Legende labelEtatBac={labelEtatBac} />
                                         </MapContainer>
                                     </Row>
-
                                 </Col>
-
-
-
                             </Row>
-
                         </Col>
                     </Row>
                 </Col>

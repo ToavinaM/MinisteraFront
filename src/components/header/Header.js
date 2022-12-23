@@ -8,9 +8,9 @@ export default function Header() {
     // alert(user.username);
 
     return (
-        <Col sm={12} id={'header'}>
+        <Col md={12} id={'header'}>
             {/* //icon gauche */}
-            <Col sm={6} id={'gauche'}>
+            <Col md={6} id={'gauche'}>
                 <div className="icons">
                     <img className="iconImg" src='./menu.png'></img>
                 </div>
@@ -22,7 +22,7 @@ export default function Header() {
                 </div>
             </Col>
             {/* //icon droite */}
-            <Col sm={6} id={'droite'}>
+            <Col md={6} id={'droite'}>
                 <div className="icons">
 
                     <img className="iconImg" src='./search.png'></img>

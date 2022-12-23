@@ -48,11 +48,11 @@ const MyMap = () => {
         <div style={{ overflow: 'hidden' }}>
             <Row className='container-fluid'>
                 {/* ///////////////////////component include NAVIGATION */}
-                <Col sm={2}>
+                <Col md={2}>
                     <Nav></Nav>
                 </Col>
                 {/* /////////////////CONTAINER */}
-                <Col sm={10} className={'container'}>
+                <Col md={10} className={'container'}>
                     <Row>
                         <Header></Header>
                     </Row>
@@ -62,7 +62,7 @@ const MyMap = () => {
 
 
                     <Row>
-                        <Col sm={12} className="boxMain">
+                        <Col md={12} className="boxMain">
                             <MapContainer center={centers} zoom={13} scrollWheelZoom={true}>
                                 <TileLayer
                                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
