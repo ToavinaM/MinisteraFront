@@ -105,7 +105,7 @@ export default function Bac() {
                                 <Col md={5}>
 
                                 </Col>
-                                <Col md={7} className="d-flex justify-content-around">
+                                <Col md={11} className="d-flex justify-content-around">
                                     <Form.Select
                                         values={{ valuelabelEtatBac }} onChange={async (rep) => { await setvaluelabelEtatBac(rep.target.value); }}
                                         style={{ width: "145px", padding: "10px" }}>
@@ -132,7 +132,7 @@ export default function Bac() {
                                     </Form.Select>
 
                                     <DateTimePicker className="dateCss" onChange={setDebut} value={debut} />
-                                    <Button onClick={fetch}>Filtrer</Button>
+                                    <Button variant="outline-success" onClick={fetch}>Filtrer</Button>
                                 </Col>
                                 <Col md={1} className='mt-3'>
 
@@ -159,7 +159,7 @@ export default function Bac() {
                                                                         <p key={dt.localisation + 'qw'}>Date Signalement:{dt.date_signalement}</p>
                                                                         <p key={dt.localisation + 'qe'}>Heure Signalement:{dt.heure_signalement}</p>
                                                                         <p key={dt.localisation + 'qt'}>Etat Bac:{labelEtatBac[dt.etat_in_bac]['labele']}</p>
-                                                                        <p key={dt.localisation + 'qr'}>Etat Débordement:{labelEtatDebordement[dt.etat_debordement]['labele']}</p>
+                                                                        <p key={dt.localisation + 'qr'}>Estimation Débordement:{labelEtatDebordement[dt.etat_debordement]['labele']}</p>
                                                                     </Popup>
                                                                 </Marker>
                                                             </>

@@ -26,7 +26,7 @@ const Legende = ({ labelEtatBac }) => {
         //                                 : "#FFEDA0";
         // };
         if (!build) {
-            const legend = L.control({ position: "bottomright" });
+            const legend = L.control({ position: "bottomleft" });
             legend.onAdd = () => {
                 const div = L.DomUtil.create("div", "info legend");
                 // const grades = [0, 10, 20, 50, 100, 200, 500, 1000];
