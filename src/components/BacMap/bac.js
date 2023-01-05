@@ -1,18 +1,16 @@
 import { React, useEffect, useRef, useState } from 'react'
 import {
-    MapContainer, Marker, Popup, TileLayer, useMap
+    MapContainer, Marker, Popup, TileLayer
 } from 'react-leaflet'
 import './styles.css';
 import 'leaflet/dist/leaflet.css';
-import { useMapEvents, useMapEvent } from 'react-leaflet/hooks'
-import { Icon } from 'leaflet';
-import L from 'leaflet';
+import { Control, Icon } from 'leaflet';
+
 import ServiceBac from './service';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import Nav from '../Nav/Nav'
 import Legende from './Legende';
 import DateTimePicker from 'react-datetime-picker';
-import { BeatLoader } from 'react-spinners';
 import Swal from 'sweetalert2';
 
 const center = [-18.865447, 47.519533]
@@ -43,17 +41,22 @@ export default function Bac() {
     //state
     const [bacs, setbac] = useState([]);
     const [debut, setDebut] = useState(new Date());
+    const [effectif, seteffectif] = useState([]);
+    const [mapViewSatelite, setmapViewSatelite] = useState(false);
+
+
+
 
     useEffect(() => {
         let requestFiltre = {
             etatBac: 0,
             etatDebordement: 0,
-            date: new Date()
+            date: debut
         }
 
         ServiceBac.getAllBac(requestFiltre)
             .then(rep => {
-                if (rep.data.length === 0) {
+                if (rep.data.data.length === 0) {
                     Swal.fire({
                         toast: true,
                         title: "Pas d'information pour cette date",
@@ -61,19 +64,22 @@ export default function Bac() {
                         icon: 'info',
                     })
                 }
-                setbac(rep.data);
+                // console.log('===/',rep.data);
+                setbac(rep.data.data);
+                seteffectif(rep.data.effectif)
             })
             .catch(err => {
+                alert(err);
                 console.log('error', err);
             })
-    }, [])
+    }, [mapViewSatelite])
 
-    //function
+
     function fetch() {
         let requestFiltre = { etatBac: valuelabelEtatBac, etatDebordement: valuelabelEtatDebordement, date: debut }
         ServiceBac.getAllBac(requestFiltre)
             .then(rep => {
-                if (rep.data.length === 0) {
+                if (rep.data.data.length === 0) {
                     Swal.fire({
                         toast: false,
                         title: "Pas d'information pour cette date",
@@ -81,7 +87,10 @@ export default function Bac() {
                         icon: 'info',
                     })
                 }
-                setbac(rep.data);
+                setbac(rep.data.data);
+                seteffectif(rep.data.effectif)
+                //  console.log('===/',rep.data.data);
+                
             })
             .catch(err => {
                 console.log('error', err);
@@ -102,10 +111,18 @@ export default function Bac() {
                         <Col md={12} className="bg-white filtre">
                             {/* filtre */}
                             <Row className='p-3'>
-                                <Col md={5}>
-
+                                <Col  md={2}>
+                                     <Form.Check
+                                      
+                                        type='checkbox'
+                                        id={`default-checkbox`}
+                                        defaultChecked={false}
+                                        label={`Satelite View`}
+                                        onChange={(event) => setmapViewSatelite(event.target.checked)}
+                                    />
                                 </Col>
-                                <Col md={11} className="d-flex justify-content-around">
+                                <Col md={10} className="d-flex justify-content-around">
+                                  
                                     <Form.Select
                                         values={{ valuelabelEtatBac }} onChange={async (rep) => { await setvaluelabelEtatBac(rep.target.value); }}
                                         style={{ width: "145px", padding: "10px" }}>
@@ -134,18 +151,26 @@ export default function Bac() {
                                     <DateTimePicker className="dateCss" onChange={setDebut} value={debut} />
                                     <Button variant="outline-success" onClick={fetch}>Filtrer</Button>
                                 </Col>
-                                <Col md={1} className='mt-3'>
-
-                                </Col>
+                               
                             </Row>
                             <Row>
                                 <Col md={12}>
                                     <Row>
+                                        
                                         <MapContainer center={center} zoom={13} scrollWheelZoom={true}>
-                                            <TileLayer
-                                                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                            />
+                                               {
+                                                mapViewSatelite ? (
+                                                    <TileLayer 
+                                                        url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+                                                        attribution='Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+                                                    />
+                                                ):(
+                                                    <TileLayer
+                                                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                                    /> 
+                                                )
+                                               } 
                                             {
                                                 bacs !== [] &&
                                                 (
@@ -168,7 +193,7 @@ export default function Bac() {
                                                 )
                                             }
                                             {/*3) ////////////////////////controleur */}
-                                            <Legende labelEtatBac={labelEtatBac} />
+                                            <Legende effectif={effectif} labelEtatBac={labelEtatBac} />
                                         </MapContainer>
                                     </Row>
                                 </Col>

@@ -18,8 +18,14 @@ import MyMap from './components/MyMap/MyMap';
 import GestionUser from './components/GestionUser/GestionUser';
 import Compte from './components/Compte/Compte';
 import Bac from './components/BacMap/bac';
+import { useEffect } from 'react';
 
 function App() {
+ 
+  useEffect(() => {
+      document.title = `Meah-Suivi-Operationnel`;
+  }, []);
+
   return (
     <div className="App">
       <Router>

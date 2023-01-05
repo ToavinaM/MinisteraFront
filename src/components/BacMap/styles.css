@@ -14,7 +14,7 @@
 
 .dateCss {
 
-    z-index: 1000 !important;
+    z-index: 5000 !important;
 }
 
 .filtre {
@@ -36,25 +36,24 @@
     background-color: #e1dfdf;
 } */
 
-.boxMain {
-    /* background-color: white;
-    border-radius: 5px;
-    box-shadow: 1px 1px 8px rgb(221, 218, 218);
-    margin-top: 45px; */
-    /* width: 100%; */
-    /* min-height: 800px; */
-}
 
 /* //////////\\///legende */
+.leaflet-right .leaflet-control {
+    margin-right: 61px;
+    z-index: 900 ;
+}
 .info {
-    padding: 6px 8px;
-    font: 14px/16px Arial, Helvetica, sans-serif;
-    background: white;
-    border-radius: 5px;
+    width: 210px;
+    height: 360px;
+    /* padding: 16px; */
+    font: 16px/16px Arial, Helvetica, sans-serif;
+    background: rgb(255, 255, 255);
+    position: fixed;
+    /* margin-right: -10px; */
+        /* margin-right: 55px; */
+    right: 0;
 }
-
-.legend {
-    text-align: left;
-    line-height: 18px;
-    color: #555;
-}
+/* 
+.info {
+    position: -ms-;
+} */
