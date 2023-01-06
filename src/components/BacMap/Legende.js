@@ -2,8 +2,6 @@ import { useMap } from "react-leaflet";
 import L from "leaflet";
 import { useEffect } from "react";
 
-import { useRef } from "react";
-
 const Legende = ({ labelEtatBac, effectif }) => {
   const map = useMap();
   const legend = L.control({ position: "topright" });

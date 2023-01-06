@@ -1,10 +1,9 @@
-import { React, useEffect, useRef, useState } from 'react'
-import {
-    MapContainer, Marker, Popup, TileLayer
-} from 'react-leaflet'
+import { React, useEffect,  useState } from 'react';
+import { Radio } from 'antd';
+import { useMap, MapContainer, Marker, Popup, TileLayer, LayersControl   } from 'react-leaflet'
 import './styles.css';
 import 'leaflet/dist/leaflet.css';
-import { Control, Icon } from 'leaflet';
+import { Control, Icon ,Layer} from 'leaflet';
 
 import ServiceBac from './service';
 import { Button, Col, Form, Row } from 'react-bootstrap';
@@ -42,10 +41,12 @@ export default function Bac() {
     const [bacs, setbac] = useState([]);
     const [debut, setDebut] = useState(new Date());
     const [effectif, seteffectif] = useState([]);
-    const [mapViewSatelite, setmapViewSatelite] = useState(false);
 
+    const [mapType, setMapType] = useState('satellites');
 
-
+    const onMapTypeChange = (e) => {
+        setMapType(e.target.value);
+    };
 
     useEffect(() => {
         let requestFiltre = {
@@ -72,8 +73,7 @@ export default function Bac() {
                 alert(err);
                 console.log('error', err);
             })
-    }, [mapViewSatelite])
-
+    }, [])
 
     function fetch() {
         let requestFiltre = { etatBac: valuelabelEtatBac, etatDebordement: valuelabelEtatDebordement, date: debut }
@@ -97,8 +97,6 @@ export default function Bac() {
             })
     }
 
-
-
     //view  
     return (
         <div>
@@ -112,14 +110,10 @@ export default function Bac() {
                             {/* filtre */}
                             <Row className='p-3'>
                                 <Col  md={2}>
-                                     <Form.Check
-                                      
-                                        type='checkbox'
-                                        id={`default-checkbox`}
-                                        defaultChecked={false}
-                                        label={`Satelite View`}
-                                        onChange={(event) => setmapViewSatelite(event.target.checked)}
-                                    />
+                                    <Radio.Group onChange={onMapTypeChange} value={mapType}>
+                                            <Radio value="satellite">Satellite</Radio>
+                                            <Radio value="streets">Streets</Radio>
+                                    </Radio.Group>      
                                 </Col>
                                 <Col md={10} className="d-flex justify-content-around">
                                   
@@ -151,26 +145,49 @@ export default function Bac() {
                                     <DateTimePicker className="dateCss" onChange={setDebut} value={debut} />
                                     <Button variant="outline-success" onClick={fetch}>Filtrer</Button>
                                 </Col>
-                               
                             </Row>
                             <Row>
                                 <Col md={12}>
                                     <Row>
-                                        
-                                        <MapContainer center={center} zoom={13} scrollWheelZoom={true}>
-                                               {
-                                                mapViewSatelite ? (
-                                                    <TileLayer 
-                                                        url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
-                                                        attribution='Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
-                                                    />
-                                                ):(
-                                                    <TileLayer
-                                                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                                                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                                    /> 
-                                                )
-                                               } 
+                                        {mapType === 'satellite' ?
+                                        (
+                                            <MapContainer center={center} zoom={13} scrollWheelZoom={true}>
+                                            
+                                                <TileLayer
+                                                url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+                                                attribution='Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+                                                />
+                                                {
+                                                    bacs !== [] &&
+                                                    (
+                                                        bacs.map(dt => {
+                                                            return (
+                                                                <>
+                                                                    <Marker position={[dt.longitude, dt.latitude]} icon={new Icon({ iconUrl: require(`./img/${dt.etat_in_bac.toString()}.png`), iconSize: [50, 50] })}>
+                                                                        <Popup key={dt.localisation + 'dq'} minWidth={100}>
+                                                                            <p key={dt.localisation + 'qi'}>Nom Pc:{dt.nom_pc}</p>
+                                                                            <p key={dt.localisation + 'q'}>Localisation:{dt.localisation}</p>
+                                                                            <p key={dt.localisation + 'qw'}>Date Signalement:{dt.date_signalement}</p>
+                                                                            <p key={dt.localisation + 'qe'}>Heure Signalement:{dt.heure_signalement}</p>
+                                                                            <p key={dt.localisation + 'qt'}>Etat Bac:{labelEtatBac[dt.etat_in_bac]['labele']}</p>
+                                                                            <p key={dt.localisation + 'qr'}>Estimation Débordement:{labelEtatDebordement[dt.etat_debordement]['labele']}</p>
+                                                                        </Popup>
+                                                                    </Marker>
+                                                                </>
+                                                            )
+                                                        })
+                                                    )
+                                                }
+                                                {/*3) ////////////////////////controleur */}
+                                            
+                                                <Legende effectif={effectif} labelEtatBac={labelEtatBac} />
+                                            </MapContainer>
+                                        ) : (
+                                            <MapContainer center={center} zoom={13} scrollWheelZoom={true}>
+                                            <TileLayer
+                                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                                            />
                                             {
                                                 bacs !== [] &&
                                                 (
@@ -193,8 +210,9 @@ export default function Bac() {
                                                 )
                                             }
                                             {/*3) ////////////////////////controleur */}
-                                            <Legende effectif={effectif} labelEtatBac={labelEtatBac} />
-                                        </MapContainer>
+                                            {/* <Legende effectif={effectif} labelEtatBac={labelEtatBac} /> */}
+                                            </MapContainer>
+                                        )}
                                     </Row>
                                 </Col>
                             </Row>
