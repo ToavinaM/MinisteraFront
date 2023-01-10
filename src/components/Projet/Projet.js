@@ -23,6 +23,7 @@ for (let number = 1; number <= 5; number++) {
 
 export default function Projet() {
     const user = JSON.parse(localStorage.getItem('users'));
+    console.log(user);
     const [projet, setProjet] = useState(null);
 
     let initiation = localStorage.getItem('users');

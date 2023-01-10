@@ -25,7 +25,7 @@ export default function CommentCard({ tache }) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+ const user = JSON.parse(localStorage.getItem('users'));
   //formulaire
   const [intitule, setIntitule] = useState('');
   const [commentaire, setcommentaire] = useState([]);
@@ -33,7 +33,7 @@ export default function CommentCard({ tache }) {
   const handleSave = () => {
     play();
     setIntitule('');
-    TacheService.saveCommentaire({ intitule, TacheId: tache.id })
+    TacheService.saveCommentaire({commentaire:intitule,TypeCom:2,idObjet:tache.id,UserId:user.id })
       .then(rep => {
         console.log('save', rep.data);
         setcommentaire([...commentaire, rep.data]);

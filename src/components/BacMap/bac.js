@@ -42,12 +42,23 @@ export default function Bac() {
     const [debut, setDebut] = useState(new Date());
     const [effectif, seteffectif] = useState([]);
 
-    const [mapType, setMapType] = useState('satellites');
+    let df = JSON.parse(localStorage.getItem('mapView'));
+    const [mapType, setMapType] = useState(df);
+
+    // console.log(df,'kjhgkjhg');
+    
+    // if(mapType){
+    // } 
 
     const onMapTypeChange = (e) => {
         setMapType(e.target.value);
-    };
+        localStorage.setItem('mapView', JSON.stringify(e.target.value));
+        // setMapType(df)
+        window.location.reload();
 
+        // setMapType()
+    };
+console.log('huhuhuhu',mapType);
     useEffect(() => {
         let requestFiltre = {
             etatBac: 0,
@@ -210,7 +221,7 @@ export default function Bac() {
                                                 )
                                             }
                                             {/*3) ////////////////////////controleur */}
-                                            {/* <Legende effectif={effectif} labelEtatBac={labelEtatBac} /> */}
+                                            <Legende effectif={effectif} labelEtatBac={labelEtatBac} />
                                             </MapContainer>
                                         )}
                                     </Row>

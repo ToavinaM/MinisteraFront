@@ -3,7 +3,7 @@ import backUrl from './config/config'
 
 export const ServiceForAll = {
     getDept: () => {
-        return axios.get(backUrl + `/api/departement`);
+        return axios.get(backUrl + `/api/departement/all`);
     },
     getRole: () => {
         return axios.get(backUrl + `/api/roles`);

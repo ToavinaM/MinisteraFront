@@ -42,10 +42,10 @@ export default function Signin() {
             AuthService.signin(data)
                 .then(rep => {
                     // alert('huhu');
-                    // console.log('======>>>', rep.data);
+                    console.log('======>>>', rep.data);
                     let storage = {
                         id: rep.data.id,
-                        DepartementId: rep.data.DepartementId,
+                        DepartementId: rep.data.idDept,
                         email: rep.data.email,
                         username: rep.data.username,
                         accessToken: rep.data.accessToken

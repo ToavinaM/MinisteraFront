@@ -40,6 +40,7 @@ export default function AddProject({ handleSave, user }) {
     const modelProjet = {
       DepartementId: user.DepartementId,
       debut,
+      description:'description',
       fin,
       titre,
       latitude,
