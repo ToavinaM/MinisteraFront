@@ -23,13 +23,13 @@ for (let number = 1; number <= 5; number++) {
 
 export default function Projet() {
     const user = JSON.parse(localStorage.getItem('users'));
-    console.log(user);
+    console.log('user dept',user);
     const [projet, setProjet] = useState(null);
 
     let initiation = localStorage.getItem('users');
 
     useEffect(() => {
-        document.title = `Suivie des projets`;
+        document.title = `Suivi opérationnel`;
         ServiceProjet.getAllByDept(user.DepartementId)
             .then(rep => {
                 setTimeout(() => {

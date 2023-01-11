@@ -1,1 +1,1 @@
-pm2 serve build 8081 --spa --watch
+pm2 serve build 8081 --watch --spa 

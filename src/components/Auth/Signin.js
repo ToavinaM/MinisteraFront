@@ -45,11 +45,12 @@ export default function Signin() {
                     console.log('======>>>', rep.data);
                     let storage = {
                         id: rep.data.id,
-                        DepartementId: rep.data.idDept,
+                        DepartementId: rep.data.DepartementId,
                         email: rep.data.email,
                         username: rep.data.username,
                         accessToken: rep.data.accessToken
                     }
+                    console.log('storage',storage);
                     localStorage.setItem('users', JSON.stringify(storage));
                     navigate('/projets');
                 })
