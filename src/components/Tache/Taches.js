@@ -328,11 +328,12 @@ export default function Taches(props) {
         <div className='all'>
             {/* //////////RETARD//////////// */}
             {/* <ModalTacheEnRetard retard={retard} handleActiver={handleActiver} handleDelete={handleDelete} /> */}
+
             <Row>
                 <div className='filtre' /*style={{ backgroundColor: `${state.projet.color}` }}*/>
-                    <Col md={12} className={'headerFiltreTache'}>
+                    <Col sm={12} className={'headerFiltreTache'}>
                         {/* // gauche */}
-                        <Col md={4} id={'filtregauche'}>
+                        <Col sm={4} id={'filtregauche'}>
                             <div className="icons">
                                 <img onClick={() => navigation('/projets')} className="ministeraSary" src='../ministere.png'></img>
                             </div>
@@ -352,7 +353,7 @@ export default function Taches(props) {
                         </Col>
                         {/* ////////////////////////eto no manomboka */}
                         {/* // droite */}
-                        <Col md={4}>
+                        <Col sm={4}>
                             <div className="m-2">
                                 <img className='findLogo' src='../search.png' />
                                 <input className='findBarTask'></input>
@@ -361,7 +362,7 @@ export default function Taches(props) {
                         </Col>
 
 
-                        <Col md={4} style={{ display: 'flex', alignItems: 'center' }}>
+                        <Col sm={4} style={{ display: 'flex', alignItems: 'center' }}>
                             <div className='m-3 ml-3'>
                                 <Form.Select values={{ optionsPriority }} onChange={(rep) => { setpriority(rep.target.value); }} style={{ width: "145px", padding: "10px" }}>
                                     <option>Priorite</option>
@@ -447,10 +448,10 @@ export default function Taches(props) {
                 <Col style={overDoing ? styleOver : {}} className='Doing' droppable onDragOver={e => draginOver(e)} onDrop={e => dragDropped(e, 'doing')}>
                     {/* <center> */}
                     {/* <Row> */}
-                    {/* <Col md={2}> */}
+                    {/* <Col sm={2}> */}
                     <h5>Doing</h5>
                     {/* </Col> */}
-                    {/* <Col md={1}> */}
+                    {/* <Col sm={1}> */}
                     <Badge>{nombreDoing}</Badge>
                     {/* </Col> */}
                     {/* </Row> */}

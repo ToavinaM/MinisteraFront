@@ -25,7 +25,7 @@ export default function CommentCard({ tache }) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
- const user = JSON.parse(localStorage.getItem('users'));
+
   //formulaire
   const [intitule, setIntitule] = useState('');
   const [commentaire, setcommentaire] = useState([]);
@@ -33,7 +33,7 @@ export default function CommentCard({ tache }) {
   const handleSave = () => {
     play();
     setIntitule('');
-    TacheService.saveCommentaire({commentaire:intitule,TypeCom:2,idObjet:tache.id,UserId:user.id })
+    TacheService.saveCommentaire({ intitule, TacheId: tache.id })
       .then(rep => {
         console.log('save', rep.data);
         setcommentaire([...commentaire, rep.data]);
@@ -103,7 +103,7 @@ export default function CommentCard({ tache }) {
                                 </div>
                                 <p className='p-4 pComs' key={coms.id} > {coms.intitule}</p>
                               </Col>
-                              <Col md={4} key={coms.id + 'c2'}>
+                              <Col sm={4} key={coms.id + 'c2'}>
                                 <p className='p-4 pComs' key={coms.createdAt} > {moment(coms.createdAt).format('DD-MM-YY HH:MM')}</p>
                               </Col>
                             </Row>

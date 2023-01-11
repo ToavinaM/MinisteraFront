@@ -177,12 +177,12 @@ export default function SousTache({ tache, setProgressColor, avancementFunction 
 
                     </Row>
                     <Row>
-                        <Col md={4} className="m-4">
+                        <Col sm={4} className="m-4">
 
                             <ProgressBar style={{ height: '20px' }} now={moyenne} label={Math.round(moyenne) + '%'} variant={setProgressColor(moyenne)} />
 
                         </Col>
-                        <Col md={3} className="m-4" style={terminer === SousTache.length ? { backgroundColor: '#198754', textAlign: 'center', height: '22px', width: '10%', borderRadius: '6px' } : { backgroundColor: 'rgb(13, 202, 240)', textAlign: 'center', height: '22px', width: '10%', borderRadius: '6px' }}>
+                        <Col sm={3} className="m-4" style={terminer === SousTache.length ? { backgroundColor: '#198754', textAlign: 'center', height: '22px', width: '10%', borderRadius: '6px' } : { backgroundColor: 'rgb(13, 202, 240)', textAlign: 'center', height: '22px', width: '10%', borderRadius: '6px' }}>
                             <p style={{ color: 'white', fontWeight: '500' }}>{terminer}/{SousTache.length}</p>
                         </Col>
                     </Row>
@@ -200,7 +200,7 @@ export default function SousTache({ tache, setProgressColor, avancementFunction 
                                                     return (
                                                         <div key={soustache.id + 'div'} className='soustache' style={styles.fadeInUp} >
                                                             <Row className='mt-2' key={soustache.id + 'r'}>
-                                                                <Col md={1} key={soustache.id + 'c2'}>
+                                                                <Col sm={1} key={soustache.id + 'c2'}>
                                                                     <Form.Check
                                                                         key={soustache.id + 'chk'}
                                                                         type='checkbox'
@@ -214,10 +214,10 @@ export default function SousTache({ tache, setProgressColor, avancementFunction 
                                                                 <Col key={soustache.id + 'cs'}>
                                                                     <p className='pComs' key={soustache.id + 'ewr'} > {soustache.labele}</p>
                                                                 </Col>
-                                                                <Col md={3} key={soustache.id + 'cas2'}>
+                                                                <Col sm={3} key={soustache.id + 'cas2'}>
                                                                     <p className='' key={soustache.createdAt} > {moment(soustache.createdAt).format('DD-MM-YY HH:MM')}</p>
                                                                 </Col>
-                                                                <Col md={1} key={soustache.id + 'cdvf2'}>
+                                                                <Col sm={1} key={soustache.id + 'cdvf2'}>
                                                                     <img key={soustache.id + 'cvf2'} onClick={() => handleDeleteL(soustache)} className='logos' src='../delete.png' />
                                                                 </Col>
                                                             </Row>

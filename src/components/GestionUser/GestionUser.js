@@ -104,26 +104,26 @@ export default function GestionUser() {
 
     return (
         <Row className='container-fluid'>
-            <Col md={2}>
+            <Col sm={2}>
                 <Nav></Nav>
             </Col>
-            <Col md={10} className={'container'}>
+            <Col sm={10} className={'container'}>
                 <Row>
                     <Header></Header>
                 </Row>
                 <Row>
-                    <Col md={12} className="ListProjet">
+                    <Col sm={12} className="ListProjet">
                         <Row className='p-3'>
                             <Col>
                                 <h5>Gestions des utilisateurs</h5>
                                 <Pagination size="sm">{items}</Pagination>
                             </Col>
-                            <Col md={3}>
+                            <Col sm={3}>
                             </Col>
                         </Row>
                         {/* <hr></hr> */}
                         <Row>
-                            <Col md={12} className="containerListProjet">
+                            <Col sm={12} className="containerListProjet">
                                 <Table striped bordered hover >
                                     <thead>
                                         <tr>
