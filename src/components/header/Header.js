@@ -3,8 +3,9 @@ import { Col } from 'react-bootstrap';
 import './header.css'
 
 export default function Header() {
-
+    
     const user = JSON.parse(localStorage.getItem('users'));
+
     // alert(user.username);
 
     return (
@@ -34,9 +35,13 @@ export default function Header() {
 
 
                 </div>
-                <div className="status-profil">
-                    <p><strong>{user.username}</strong> </p>
-                </div>
+                    {
+                        user && (
+                            <div className="status-profil">
+                            <p><strong>{user.username}</strong> </p>
+                        </div>  
+                        )
+                    }
                 <div className="boxProfil">
                     <center>
                         <img className="imgProfil" src='./user.png'></img>

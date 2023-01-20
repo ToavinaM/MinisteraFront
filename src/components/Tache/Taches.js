@@ -327,7 +327,7 @@ export default function Taches(props) {
     return (
         <div className='all'>
             {/* //////////RETARD//////////// */}
-            {/* <ModalTacheEnRetard retard={retard} handleActiver={handleActiver} handleDelete={handleDelete} /> */}
+            <ModalTacheEnRetard retard={retard} handleActiver={handleActiver} handleDelete={handleDelete} />
 
             <Row>
                 <div className='filtre' /*style={{ backgroundColor: `${state.projet.color}` }}*/>

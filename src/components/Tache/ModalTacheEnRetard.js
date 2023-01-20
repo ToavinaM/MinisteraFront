@@ -51,6 +51,9 @@ export default function ModalTacheEnRetard({ retard, handleActiver }) {
                         .then(rep => {
                             handleActiver(tacheRetard);
                             setShow(false);
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 400);
                         })
                         .catch(err => {
                             console.log(err);
@@ -80,9 +83,9 @@ export default function ModalTacheEnRetard({ retard, handleActiver }) {
                 show={show}
                 onHide={handleClose}>
                 <Modal.Header className='bg-danger' closeButton>
-                    <Modal.Title style={{ color: 'white' }}>({tacheRetard.length}) taches en retard selon leur prevision</Modal.Title>
+                    <Modal.Title style={{ color: 'white' }}>({tacheRetard.length}) taches en retard selon leur previsions</Modal.Title>
                 </Modal.Header>
-                <Modal.Body >
+                <Modal.Body >   
                     <StyleRoot style={{ overflow: 'auto', height: '600px' }}>
                         {
                             tacheRetard.map(tacheR => {

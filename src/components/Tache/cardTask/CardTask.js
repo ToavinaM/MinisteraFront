@@ -40,7 +40,7 @@ const setProgressColor = (values) => {
 
 {/* <ProgressBar now={(((new Date() - tache.debut) * 100) / (tache.fin - tache.debbut)) / 100} label={(((new Date() - tache.debut) * 100) / (tache.fin - tache.debbut)) / 100} variant='info' /> */ }
 export default function CardTask({ tache, handleUpdate, handleDelete, retard }) { //ilay retard no migerer ny suppr sy ipdate
-
+    console.log('hahahahahhaha',tache);
     const [terminer, setterminer] = useState(0);
     const [avancement, setavancement] = useState(0);
     const [total, settotal] = useState(0);
@@ -112,9 +112,20 @@ export default function CardTask({ tache, handleUpdate, handleDelete, retard }) 
                                 <Col className='mt-1'>
                                     {terminer}/{total}
                                 </Col>
+                                <Col>
+                                    {
+                                       ( moment().isAfter(moment(tache.fin).format(formatDate)) && tache.StatutId ===2 )?
+                                            (
+                                                <img  style={{width:"50px", height:"50px"}} src='../retard.gif' />
+                                            ):(
+                                                <></>
+                                            ) 
+                                    }
+                                </Col>
                             </Row>
-
                             <ProgressBar now={avancement} label={avancement + '%'} variant={setProgressColor(avancement)} />
+                            <Row>
+                            </Row>
                         </Col>
                     </Row>
                 </div>

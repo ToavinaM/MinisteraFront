@@ -19,6 +19,9 @@ import GestionUser from './components/GestionUser/GestionUser';
 import Compte from './components/Compte/Compte';
 import Bac from './components/BacMap/bac';
 import { useEffect } from 'react';
+import Infra from './components/Infra/Infra';
+import InfraMap from './components/Infra/InfraMap';
+import Departement from './components/departement/departement';
 
 function App() {
  
@@ -41,7 +44,12 @@ function App() {
           <Route path="/parametre" element={<Parametre />} />
           <Route path="/profil" element={<Compte />} />
           {/* //carte suivi assaignisssement */}
+         
+          <Route path="/departement" element={<Departement />} />
+
           <Route path="/cartographie_meah" element={<Bac />} />
+          <Route path="/infra" element={<Infra />} />
+          <Route path="/carto_infra" element={<InfraMap />} />
         </Routes>
       </Router>
     </div>

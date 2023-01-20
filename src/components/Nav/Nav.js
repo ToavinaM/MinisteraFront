@@ -2,6 +2,7 @@ import React from 'react'
 import { Row, Col, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import './nav.css'
+
 export default function Nav() {
     const user = JSON.parse(localStorage.getItem('users'));
     const navigation = useNavigate();
@@ -31,7 +32,10 @@ export default function Nav() {
                     <div className="drop-box" >
                         {user ? (
                             <>
-                                <p className='lienNav' onClick={() => navigation('/projets')}  ><img onClick={() => navigation('/projets')} className='logoNav' src='./projet.png' />Projets</p>
+                             
+                                <p className='lienNav' onClick={() => navigation('/projets')}  >
+                                    <img onClick={() => navigation('/projets')} className='logoNav' src='./projet.png' />Projets
+                                </p>
                                 <p className='lienNav' onClick={() => navigation('/map')}><img onClick={() => navigation('/map')} className='logoNav' src='./Map.png' />Localisation</p>
                                 <p className='lienNav' onClick={() => navigation('/GestionUser')}><img onClick={() => navigation('/Dashboard')} className='logoNav' src='./roles.png' />Utilisateurs</p>
                                 <p className='lienNav' onClick={() => navigation('/parametre')}><img onClick={() => navigation('/parametre')} className='logoNav' src='./params.png' />Paramètre </p>
