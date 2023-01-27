@@ -4,11 +4,18 @@ import axios from "axios";
 import backUrl from '../config/config';
 export const TacheService = {
     /////////retard
+    getTacheByDept: (idDepartement) => {
+        // tableau de tache
+        // return axios.get(backUrl + `/api/taches/updateRetard`, tacheRetard);
+
+
+        return axios.get(backUrl + `/api/tache/byDept/${idDepartement}`)
+    },
+
     updateRetard: (tacheRetard) => {
         // tableau de tache
         return axios.put(backUrl + `/api/tache/updateRetard`, tacheRetard);
     },
-
     ///////////////tache
     save: (data) => {
         return axios.post(backUrl + `/api/tache/add`, data);

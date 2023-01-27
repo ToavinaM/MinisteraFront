@@ -400,6 +400,8 @@ export default function Taches(props) {
             </Row >
 
             {/* ////////////////////// */}
+
+
             < Row className='m-2 ' >
                 <Col style={overTodo ? styleOver : {}} className='Todo' droppable='true' onDragOver={e => draginOver(e)} onDrop={e => dragDropped(e, 'todo')}>
                     <Row>
@@ -444,18 +446,9 @@ export default function Taches(props) {
                     </div>
                 </Col>
 
-
                 <Col style={overDoing ? styleOver : {}} className='Doing' droppable onDragOver={e => draginOver(e)} onDrop={e => dragDropped(e, 'doing')}>
-                    {/* <center> */}
-                    {/* <Row> */}
-                    {/* <Col sm={2}> */}
                     <h5>Doing</h5>
-                    {/* </Col> */}
-                    {/* <Col sm={1}> */}
                     <Badge>{nombreDoing}</Badge>
-                    {/* </Col> */}
-                    {/* </Row> */}
-                    {/* </center> */}
                     {
                         doing ? (
                             doing.map(tache => {
@@ -468,7 +461,6 @@ export default function Taches(props) {
                         )
                     }
                 </Col>
-
 
             </Row >
         </div>

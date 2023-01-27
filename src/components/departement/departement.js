@@ -11,6 +11,7 @@ import { BeatLoader } from 'react-spinners';
 import Service from './service';
 // import UserService from '../../service/UserService.js'
 import { useNavigate } from 'react-router';
+import Chart from '../Chart/chart';
 let active = 1;
 let items = [];
 for (let number = 1; number <= 5; number++) {
@@ -23,31 +24,31 @@ for (let number = 1; number <= 5; number++) {
 
 export default function Departement() {
     const navigate = useNavigate();
-  const [dept, setdept] = useState([]);
+    const [dept, setdept] = useState([]);
 
     useEffect(() => {
-      Service.getAllDept().then(rep=>{
-        console.log(rep.data);
-        setdept(rep.data);
-      })
+        Service.getAllDept().then(rep => {
+            console.log(rep.data);
+            setdept(rep.data);
+        })
 
     }, []);
 
     //FUNCTION
-  function handleDept(iddept){
-  
-                    let storage = {
-                        // id: rep.data.id,
-                        DepartementId: iddept,
-                        // email: rep.data.email,
-                        // username: rep.data.username,
-                        // accessToken: rep.data.accessToken
-                    }
-                    console.log('storage',storage);
-                    localStorage.setItem('users', JSON.stringify(storage));
-                    navigate('/projets');
+    function handleDept(iddept) {
 
-  }
+        let storage = {
+            // id: rep.data.id,
+            DepartementId: iddept,
+            // email: rep.data.email,
+            // username: rep.data.username,
+            // accessToken: rep.data.accessToken
+        }
+        console.log('storage', storage);
+        localStorage.setItem('users', JSON.stringify(storage));
+        navigate('/projets');
+
+    }
 
     return (
         <Row className='container-fluid'>
@@ -72,39 +73,37 @@ export default function Departement() {
                             <Col md={3}>
                             </Col>
                             <Col md={1} className='mt-3'>
-                          </Col>
+                            </Col>
                         </Row>
                         <hr></hr>
                         <Row>
                             {/* <Col md={2} ></Col> */}
                             <Col md={12} >
-                                        <Table striped bordered hover>
-                                            <thead>
-                                                <tr>
-                                                    <th>Départerment</th>
-                                                    <th style={{width:"20%"}}><center>Action</center></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {
-                                                    dept && 
-                                                    dept.map(d=>{
-                                                        return <tr>
-                                                            <td>{d.intitule}</td>
-                                                            <td ><center><Button onClick={()=>handleDept(d.id)}>Voir détail</Button></center></td>
-                                                        </tr>
-                                                    })
-                                                }        
-                                            </tbody>
-                                        </Table>
-                                
+
+                                {
+                                    dept &&
+                                    dept.map(d => {
+                                        return <>
+                                            {/* <td>{d.intitule}</td>
+                                                    <td ><center><Button onClick={() => handleDept(d.id)}>Voir détail</Button></center></td> */}
+                                            <Chart departement={d}></Chart>
+                                            <br></br>
+                                            <hr></hr>
+                                            <hr></hr>
+                                            <hr></hr>
+                                            <br></br>
+
+                                        </>
+
+                                    })
+                                }
                             </Col>
                             {/* <Col md={2} ></Col> */}
                         </Row>
 
                     </Col>
                 </Row>
-            </Col>
+            </Col >
         </Row >
     )
 }

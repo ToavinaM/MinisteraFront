@@ -40,13 +40,13 @@ const setProgressColor = (values) => {
 
 {/* <ProgressBar now={(((new Date() - tache.debut) * 100) / (tache.fin - tache.debbut)) / 100} label={(((new Date() - tache.debut) * 100) / (tache.fin - tache.debbut)) / 100} variant='info' /> */ }
 export default function CardTask({ tache, handleUpdate, handleDelete, retard }) { //ilay retard no migerer ny suppr sy ipdate
-    console.log('hahahahahhaha',tache);
+    console.log('hahahahahhaha', tache);
     const [terminer, setterminer] = useState(0);
     const [avancement, setavancement] = useState(0);
     const [total, settotal] = useState(0);
     //FUNCTION
     const dragStarted = (e, tache) => {
-        console.log('drag are started', tache);
+        // console.log('drag are started', tache);
         e.dataTransfer.setData("tache", JSON.stringify(tache));
     }
 
@@ -114,12 +114,12 @@ export default function CardTask({ tache, handleUpdate, handleDelete, retard }) 
                                 </Col>
                                 <Col>
                                     {
-                                       ( moment().isAfter(moment(tache.fin).format(formatDate)) && tache.StatutId ===2 )?
+                                        (moment().isAfter(moment(tache.fin).format(formatDate)) && tache.StatutId === 2) ?
                                             (
-                                                <img  style={{width:"50px", height:"50px"}} src='../retard.gif' />
-                                            ):(
+                                                <img style={{ width: "50px", height: "50px" }} src='../retard.gif' />
+                                            ) : (
                                                 <></>
-                                            ) 
+                                            )
                                     }
                                 </Col>
                             </Row>
