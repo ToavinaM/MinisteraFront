@@ -3,6 +3,12 @@ import axios from "axios";
 // localhost: 8080 / api / auth / signin
 import backUrl from '../config/config';
 export const TacheService = {
+
+    getGantt: (idDepartement) => {
+        // let datas = { departementId: data }
+        // console.log('asd', datas);
+        return axios.get(backUrl + `/api/gantt/${idDepartement}`);
+    },
     /////////retard
     getTacheByDept: (idDepartement) => {
         // tableau de tache

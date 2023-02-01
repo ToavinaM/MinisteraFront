@@ -4,93 +4,28 @@ import React, { useEffect, useState } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsGantt from 'highcharts/modules/gantt';
 import { Col } from 'react-bootstrap';
-import ServiceProjet from '../Projet/Projet.service';
 import ServiceTache from '../Tache/Service';
 
-import moment from 'moment';
 HighchartsGantt(Highcharts);
 export default function Chart({ departement }) {
-    const [projet, setprojet] = useState([]);
-    // const [tache, settache] = useState([[]]);s
+
     const [dataGantt, setdataGantt] = useState([]);
 
 
 
-
-
-
-
-    ///function convert projet and tache to data in gantt chart
-    function convertToGantData(pj) {
-        let arrayModel = [];
-
-        for (const pro of pj) {
-            let modelDataGantt = {
-                name: pro.titre,
-                id: pro.id + pro.titre,
-                start: new Date(pro.debut).getTime(),
-                end: new Date(pro.fin).getTime(),
-                parent: '',
-            }
-            arrayModel.push(modelDataGantt);
-        }
-        console.log('bhbh', arrayModel)
-        return arrayModel;
-    }
-
-    async function affectTacheToProject(pj, tache) {
-        let arrayModel = [];
-        for (const p of pj) {
-            for (const t of tache) {
-                if (t.ProjetId === p.id) {
-                    let modelDataGantt = {
-                        name: t.tache,
-                        id: t.titre,
-                        start: new Date(t.debut).getTime(),
-                        end: new Date(t.fin).getTime(),
-                        parent: p.id + p.titre
-                    }
-                    arrayModel.push(modelDataGantt);
-                }
-            }
-        }
-        return await arrayModel;
-    }
-
-    ///get projet
     useEffect(() => {
-        document.title = `Suivi opérationnel`;
-        // console.log('huhu', departement);
-        ServiceProjet.getAllByDept(departement.id)
+        ServiceTache.getGantt(departement.id)
             .then(rep => {
-                setprojet(rep.data);
-                let reo = convertToGantData(rep.data)
-                // console.log('parent ', reo);
-                setdataGantt(reo);
+                console.log(rep.data);
+                setdataGantt(rep.data);
             })
             .catch(err => {
-                alert(err)
-                console.log(err);
+                console.log('effect use', err);
+                alert(err);
             })
-    }, [setprojet]);
+    }, []);
 
-
-    useEffect(() => {
-        ServiceTache.getTacheByDept(departement.id)
-            .then(rep => {
-                //  function () {
-                affectTacheToProject(projet, rep.data)
-                    .then(tacheSousProjet => {
-                        // console.log('child ', tacheSousProjet);
-                        setdataGantt([...dataGantt, ...tacheSousProjet]);
-                    })
-                // }
-            })
-            .catch(err => {
-                alert(err)
-                console.log(err);
-            })
-    }, [projet])
+    // console.log('jsjs', dataGantt);
     const dateInMilliseconds = 86400000;
     const now = new Date().getTime();
     // console.log('sasa', projet);
@@ -176,63 +111,6 @@ export default function Chart({ departement }) {
         series: [{
             name: 'Project 1',
             data: dataGantt,
-            // [
-
-            //     {
-            //         name: ' Préalables et préparatifs de lancement',
-            //         id: 'parent1',
-            //         start: projet,
-            //         end: today.getTime() + (10 * day),
-            //         code: "11111afsf1111",
-            //         completed: 0.25,
-            //         // fontSymbol: 'exclamation',
-            //         // accessibility: {
-            //         //     description: 'Exclamation symbol.'
-            //         // }
-            //     },
-            // {
-            //     name: 'Sessions de formation théorique et pratique',
-            //     id: 'planning',
-            //     parent: 'parent1',
-            //     start: today.getTime(),
-            //     end: today.getTime() + (20 * day),
-            //     code: "11111afsfs1111",
-            //     nbudget: 1,
-            //     completed: {
-            //         amount: 0.12,
-            //         fill: '#fa0'
-            //     }
-            // },
-
-            // {
-            //     name: 'Renforcement des compétences techniques de producteurs de plantes aromatiques certifiées biologiques et équitables ',
-            //     id: 'renfonrcement',
-            //     parent: 'parent1',
-            //     start: today.getTime(),
-            //     end: today.getTime() + (20 * day),
-            //     code: "111111111",
-            //     nbudget: 1,
-            //     dependency: 'planning',
-            // },
-            // {
-            //     name: 'Préparation des TDR',
-            //     id: 'requirements',
-            //     parent: 'planning',
-            //     start: today.getTime(),
-            //     end: today.getTime() + (5 * day),
-            //     code: "11afafaf11",
-            //     nbudget: 1
-            // },
-            // {
-            //     name: 'Avis d\'appel d\'offres pour la formation (insertion dans les journaux, dépouillement, octroi du marché, …)',
-            //     id: 'avis',
-            //     parent: 'planning',
-            //     start: today.getTime(),
-            //     end: today.getTime() + (5 * day),
-            //     code: "afdafaf1",
-            //     nbudget: 1
-            // },
-            // ]
         }]
     };
 
