@@ -111,6 +111,62 @@ export default function Chart({ departement }) {
         series: [{
             name: 'Project 1',
             data: dataGantt,
+            // [
+
+            //     {
+            //         name: ' Préalables et préparatifs de lancement',
+            //         id: 'parent1',
+            //         start: today.getTime() + (10 * day),
+            //         end: today.getTime() + (30 * day),
+            //         // code: "11111afsf1111",
+            //         completed: 0.25,
+            //         // fontSymbol: 'exclamation',
+            //         // accessibility: {
+            //         //     description: 'Exclamation symbol.'
+            //         // }
+            //     },
+            //     {
+            //         name: 'Sessions de formation théorique et pratique',
+            //         id: 'planning',
+            //         parent: 'parent1',
+            //         start: today.getTime(),
+            //         end: today.getTime() + (20 * day),
+            //         // code: "11111afsfs1111",
+            //         // nbudget: 1,
+            //         // completed: {
+            //         //     amount: 0.12,
+            //         //     fill: '#fa0'
+            //         // }
+            //     },
+            //     {
+            //         name: 'Renforcement des compétences techniques de producteurs de plantes aromatiques certifiées biologiques et équitables ',
+            //         id: 'renfonrcement',
+            //         parent: 'parent1',
+            //         start: today.getTime(),
+            //         end: today.getTime() + (20 * day),
+            //         // code: "111111111",
+            //         // nbudget: 1,
+            //         // dependency: 'planning',
+            //     },
+            //     {
+            //         name: 'Préparation des TDR',
+            //         id: 'requirements',
+            //         parent: 'planning',
+            //         start: today.getTime(),
+            //         end: today.getTime() + (5 * day),
+            //         // code: "11afafaf11",
+            //         // nbudget: 1
+            //     },
+            //     {
+            //         name: 'Avis d\'appel d\'offres pour la formation (insertion dans les journaux, dépouillement, octroi du marché, …)',
+            //         id: 'avis',
+            //         parent: 'planning',
+            //         start: today.getTime(),
+            //         end: today.getTime() + (5 * day),
+            //         // code: "afdafaf1",
+            //         // nbudget: 1
+            //     },
+            // ]
         }]
     };
 
