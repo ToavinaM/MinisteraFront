@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Row, Col, Pagination } from 'react-bootstrap';
+import { Row, Col, Pagination, Button } from 'react-bootstrap';
 
 import './Projet.css';
 import Nav from '../Nav/Nav';
@@ -10,7 +10,9 @@ import CardProjet from './CardProjet';
 //service
 import ServiceProjet from './Projet.service';
 import { BeatLoader } from 'react-spinners';
+import Chart from '../Chart/chart';
 
+// import { useNavigate } from 'react-router';
 let active = 1;
 let items = [];
 for (let number = 1; number <= 5; number++) {
@@ -22,9 +24,15 @@ for (let number = 1; number <= 5; number++) {
 }
 
 export default function Projet() {
+    // const navigate = useNavigate();
+
     const user = JSON.parse(localStorage.getItem('users'));
-    console.log('user dept',user);
+    let dept = {
+        id: user.DepartementId
+    }
+    console.log('user dept', user);
     const [projet, setProjet] = useState(null);
+    const [showGantt, setshowGantt] = useState(false);
 
     let initiation = localStorage.getItem('users');
 
@@ -53,13 +61,12 @@ export default function Projet() {
                 // console.log(err)
             })
     }
+    const handleGantt = () => {
 
+    }
     return (
         <Row className='container-fluid'>
-
-
             {/* ///////////////////Modification password */}
-
             <Col md={2}>
                 <Nav></Nav>
             </Col>
@@ -71,13 +78,20 @@ export default function Projet() {
                     <Col md={12} className="ListProjet">
                         <Row className='p-3'>
                             <Col>
-                                <h5>Liste des Projets DSI</h5>
+                                <h5>Projets</h5>
                                 <Pagination size="sm">{items}</Pagination>
-
-                            </Col>
-                            <Col md={3}>
                             </Col>
                             <Col md={1} className='mt-3'>
+                                <Button variant="success" onClick={() => setshowGantt(true)}>
+                                    Gantt
+                                </Button>
+                            </Col>
+                            <Col md={1} className='mt-3'>
+                                <Button variant="success" onClick={() => setshowGantt(false)}>
+                                    Card
+                                </Button>
+                            </Col>
+                            <Col md={2} className='mt-3'>
                                 <AddProject handleSave={handleSave} user={user}></AddProject>
                             </Col>
                         </Row>
@@ -85,19 +99,26 @@ export default function Projet() {
                         <Row>
                             <Col md={12} className="containerListProjet">
                                 {
-                                    projet ? (
-                                        projet.map(projet => {
-                                            // // console.log('kokokoko boucle projet',projet)
-                                            return <CardProjet projet={projet}></CardProjet>
-                                        }))
-                                        : (
-                                            <div className='boxSpinner'>
-                                                <center>
-                                                    <BeatLoader className='p-5' color="#36d7b7" />
-                                                </center>
-                                                <h3>veuillez patienter😃</h3>
-                                            </div>
-                                        )
+                                    // let sad = {sdf};
+                                    showGantt ? (
+                                        <Chart departement={dept}></Chart>
+                                    ) : (
+                                        projet ? (
+                                            projet.map(projet => {
+                                                // // console.log('kokokoko boucle projet',projet)
+                                                return <CardProjet projet={projet}></CardProjet>
+                                            }))
+                                            : (
+                                                <div className='boxSpinner'>
+                                                    <center>
+                                                        <BeatLoader className='p-5' color="#36d7b7" />
+                                                    </center>
+                                                    <h3>veuillez patienter😃</h3>
+                                                </div>
+                                            )
+                                    )
+
+
                                 }
                             </Col>
                         </Row>

@@ -25,7 +25,7 @@ export default function Chart({ departement }) {
             })
     }, []);
 
-    // console.log('jsjs', dataGantt);
+    console.log('jsjs', dataGantt);
     const dateInMilliseconds = 86400000;
     const now = new Date().getTime();
     // console.log('sasa', projet);
@@ -111,20 +111,21 @@ export default function Chart({ departement }) {
         series: [{
             name: 'Project 1',
             data: dataGantt,
-            // [
+            // data:
+            //     [
+            //         {
+            //             name: ' Préalables et préparatifs de lancement',
+            //             id: 'parent1',
+            //             start: today.getTime() + (10 * day),
+            //             end: today.getTime() + (30 * day),
+            //             // code: "11111afsf1111",
+            //             completed: 0.25,
+            //             fontSymbol: 'exclamation',
+            //             accessibility: {
+            //                 description: 'Exclamation symbol.'
+            //             }
+            //         }]
 
-            //     {
-            //         name: ' Préalables et préparatifs de lancement',
-            //         id: 'parent1',
-            //         start: today.getTime() + (10 * day),
-            //         end: today.getTime() + (30 * day),
-            //         // code: "11111afsf1111",
-            //         completed: 0.25,
-            //         // fontSymbol: 'exclamation',
-            //         // accessibility: {
-            //         //     description: 'Exclamation symbol.'
-            //         // }
-            //     },
             //     {
             //         name: 'Sessions de formation théorique et pratique',
             //         id: 'planning',
